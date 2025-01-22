@@ -375,9 +375,9 @@ type CreateTeamParams = {
 };
 
 export async function createTeam(supabase: Client, params: CreateTeamParams) {
-  const { data } = await supabase.rpc("create_team_v2", {
-    name: params.name,
-    currency: params.currency,
+  const { data } = await supabase.rpc("create_team", {
+    name: "sd",
+    // currency: params.currency,
   });
 
   return data;
