@@ -8,7 +8,9 @@ applications:
             - bun install
         build:
           commands:
-            - bun run build:dashboard
+            - cd apps/dashboard
+            - bun install
+            - bun run build
       artifacts:
         baseDirectory: apps/dashboard/.next
         files:
