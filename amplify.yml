@@ -1,0 +1,20 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install -g bun
+            - bun install
+        build:
+          commands:
+            - bun run build:dashboard
+      artifacts:
+        baseDirectory: apps/dashboard/.next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - apps/dashboard/node_modules/**/*
+    appRoot: /
