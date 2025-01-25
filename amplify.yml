@@ -12,11 +12,11 @@ applications:
             - bun install
             - bun run build
       artifacts:
-        baseDirectory: apps/dashboard/.next
+        baseDirectory: /apps/dashboard/.next
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
           - apps/dashboard/node_modules/**/*
-    appRoot: /
+    appRoot: apps/dashboard
