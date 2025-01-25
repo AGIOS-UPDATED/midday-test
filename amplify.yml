@@ -5,18 +5,22 @@ applications:
         preBuild:
           commands:
             - npm install -g bun
+            - pwd
+            - ls -la
             - bun install
         build:
           commands:
-            - cd apps/dashboard
+            - pwd
+            - ls -la
+            - cd $CODEBUILD_SRC_DIR/apps/dashboard
             - bun install
             - bun run build
       artifacts:
-        baseDirectory: /apps/dashboard/.next
+        baseDirectory: apps/dashboard/.next
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
           - apps/dashboard/node_modules/**/*
-    appRoot: apps/dashboard
+    appRoot: .
