@@ -1,26 +1,19 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: apps/dashboard
+    frontend:
       phases:
         preBuild:
           commands:
             - npm install -g bun
-            - pwd
-            - ls -la
             - bun install
         build:
           commands:
-            - pwd
-            - ls -la
-            - cd $CODEBUILD_SRC_DIR/apps/dashboard
-            - bun install
             - bun run build
       artifacts:
-        baseDirectory: apps/dashboard/.next
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
-          - apps/dashboard/node_modules/**/*
-    appRoot: .
