@@ -183,11 +183,11 @@ export default async function Page(params) {
             <p className="text-xs text-[#878787]">
               By clicking continue, you acknowledge that you have read and agree
               to Updated.com{" "}
-              <a href="https://midday.ai/terms" className="underline">
+              <a href="/terms" className="underline">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="https://midday.ai/policy" className="underline">
+              <a href="/policy" className="underline">
                 Privacy Policy
               </a>
               .
