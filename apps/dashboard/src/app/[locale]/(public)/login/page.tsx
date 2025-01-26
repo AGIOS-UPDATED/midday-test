@@ -38,7 +38,7 @@ export default async function Page(params) {
   let preferredSignInOption =
     device?.vendor === "Apple" ? (
       <div className="flex flex-col space-y-2">
-       <OTPSignIn className="border-t-[1px] border-border pt-8" />
+       <OTPSignIn className=" pt-8" />
         {/* <GoogleSignIn />
         <AppleSignIn /> */}
 
