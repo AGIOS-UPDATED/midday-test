@@ -39,14 +39,14 @@ export default async function Page(params) {
     device?.vendor === "Apple" ? (
       <div className="flex flex-col space-y-2">
        <OTPSignIn className="border-t-[1px] border-border pt-8" />
-        <GoogleSignIn />
-        <AppleSignIn />
+        {/* <GoogleSignIn />
+        <AppleSignIn /> */}
 
       </div>
     ) : (
       <div className="flex flex-col space-y-2">
       <OTPSignIn className="border-t-[1px] border-border pt-8" />
-      <GoogleSignIn />
+      {/* <GoogleSignIn /> */}
       </div>
     );
 
@@ -115,19 +115,19 @@ export default async function Page(params) {
       if (device?.vendor === "Apple") {
         moreSignInOptions = (
           <>
-           <OTPSignIn className="border-t-[1px] border-border pt-8" />
-            <SlackSignIn />
-            <GithubSignIn /> 
+          <GoogleSignIn />
+          <AppleSignIn />
+          <GithubSignIn />
+          <SlackSignIn />
           </>
         );
       } else {
         moreSignInOptions = (
           <>
-            <OTPSignIn className="border-t-[1px] border-border pt-8" />
-            <AppleSignIn />
-            <SlackSignIn />
-            <GithubSignIn />
-            <OTPSignIn className="border-t-[1px] border-border pt-8" />
+          <GoogleSignIn />
+          <AppleSignIn />
+          <GithubSignIn />
+          <SlackSignIn />
           </>
         );
       }
