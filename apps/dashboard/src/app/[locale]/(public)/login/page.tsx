@@ -3,7 +3,9 @@ import { ConsentBanner } from "@/components/consent-banner";
 import { DesktopCommandMenuSignIn } from "@/components/desktop-command-menu-sign-in";
 import { GithubSignIn } from "@/components/github-sign-in";
 import { GoogleSignIn } from "@/components/google-sign-in";
+import { Hedrea } from "@/components/hedrea-wallet-sign-in";
 import { OTPSignIn } from "@/components/otp-sign-in";
+import { Privy } from "@/components/privy-wallet";
 import { SlackSignIn } from "@/components/slack-sign-in";
 import { Cookies } from "@/utils/constants";
 import { isEU } from "@midday/location";
@@ -119,6 +121,8 @@ export default async function Page(params) {
           <AppleSignIn />
           <GithubSignIn />
           <SlackSignIn />
+          <Hedrea/>
+          <Privy/>
           </>
         );
       } else {
@@ -128,6 +132,8 @@ export default async function Page(params) {
           <AppleSignIn />
           <GithubSignIn />
           <SlackSignIn />
+          <Hedrea/>
+          <Privy/>
           </>
         );
       }
