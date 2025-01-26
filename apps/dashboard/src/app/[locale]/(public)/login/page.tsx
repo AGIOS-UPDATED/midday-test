@@ -119,8 +119,8 @@ export default async function Page(params) {
           <>
           <GoogleSignIn />
           <AppleSignIn />
-          <GithubSignIn />
-          <SlackSignIn />
+          {/* <GithubSignIn />
+          <SlackSignIn /> */}
           <Hedrea/>
           <Privy/>
           </>
@@ -130,8 +130,8 @@ export default async function Page(params) {
           <>
           <GoogleSignIn />
           <AppleSignIn />
-          <GithubSignIn />
-          <SlackSignIn />
+          {/* <GithubSignIn />
+          <SlackSignIn /> */}
           <Hedrea/>
           <Privy/>
           </>
