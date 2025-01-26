@@ -132,7 +132,9 @@ export default async function Page(params) {
       <header className="w-full fixed left-0 right-0">
         <div className="ml-5 mt-4 md:ml-10 md:mt-10">
           <Link href="https://midday.ai">
-            <Icons.Logo />
+            {/* <Icons.Logo /> */}
+            <img src="/updated-light.png" alt="logo" className="w-[120px] inline-block dark:hidden" />
+            <img src="/updated-dark.png" alt="logo" className="w-[120px] inline-block hidden dark:block" />
           </Link>
         </div>
       </header>
@@ -141,7 +143,7 @@ export default async function Page(params) {
         <div className="relative z-20 m-auto flex w-full max-w-[380px] flex-col py-8">
           <div className="flex w-full flex-col relative">
             <div className="pb-4 bg-gradient-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
-              <h1 className="font-medium pb-1 text-3xl">Login to midday.</h1>
+              <h1 className="font-medium pb-1 text-3xl">Login to updated.</h1>
             </div>
 
             <p className="font-medium pb-1 text-2xl text-[#878787]">
