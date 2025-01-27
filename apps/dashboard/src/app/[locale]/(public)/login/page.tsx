@@ -121,7 +121,7 @@ export default async function Page(params) {
           <AppleSignIn />
           {/* <GithubSignIn />
           <SlackSignIn /> */}
-          <Hedrea/>
+          {/* <Hedrea/> */}
           <Privy/>
           </>
         );
