@@ -104,7 +104,7 @@ export async function POST(req: Request) {
 
       if (!isForwarded) {
         const { error } = await resend.emails.send({
-          from: `${FromFull?.Name} <${FORWARD_FROM_EMAIL}>`,
+          from: 'Acme <onboarding@resend.dev>',
           to: [forwardEmail],
           subject: fallbackName,
           text: TextBody,
@@ -134,7 +134,7 @@ export async function POST(req: Request) {
 
       if (!isForwarded) {
         const { error } = await resend.emails.send({
-          from: `${FromFull?.Name} <${FORWARD_FROM_EMAIL}>`,
+          from: 'Acme <onboarding@resend.dev>',
           to: [forwardEmail],
           subject: fallbackName,
           text: TextBody,
