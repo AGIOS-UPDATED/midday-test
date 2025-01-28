@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function IndexPage() {
   return (
     <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
-      <Header  />
+      <Header/>
       <Chat />
     </div>
   );
