@@ -21,7 +21,7 @@ import Cookies from 'js-cookie';
 import { debounce } from '@/utils/chat-assistant/debounce';
 import { useSettings } from '@/lib/hooks/useSettings';
 import type { ProviderInfo } from '@/types/model';
-import { useSearchParams } from '@remix-run/react';
+import { useSearchParams } from 'next/navigation'; 
 import { createSampler } from '@/utils/chat-assistant/sampler';
 import { getTemplates, selectStarterTemplate } from '@/utils/chat-assistant/selectStarterTemplate';
 
@@ -117,7 +117,7 @@ export const ChatImpl = memo(
     const [chatStarted, setChatStarted] = useState(initialMessages.length > 0);
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]); // Move here
     const [imageDataList, setImageDataList] = useState<string[]>([]); // Move here
-    const [searchParams, setSearchParams] = useSearchParams();
+    const searchParams = useSearchParams();
     const [fakeLoading, setFakeLoading] = useState(false);
     const files = useStore(workbenchStore.files);
     const actionAlert = useStore(workbenchStore.alert);
@@ -173,7 +173,7 @@ export const ChatImpl = memo(
       // console.log(prompt, searchParams, model, provider);
 
       if (prompt) {
-        setSearchParams({});
+     
         runAnimation();
         append({
           role: 'user',

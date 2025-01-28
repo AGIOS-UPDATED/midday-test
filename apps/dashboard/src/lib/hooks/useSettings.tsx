@@ -20,9 +20,12 @@ interface CommitData {
   version?: string;
 }
 
+declare const __COMMIT_HASH: string;
+declare const __APP_VERSION: string;
+
 const versionData: CommitData = {
-  commit: __COMMIT_HASH,
-  version: __APP_VERSION,
+  commit: "__COMMIT_HASH",
+  version: "__APP_VERSION",
 };
 
 export function useSettings() {

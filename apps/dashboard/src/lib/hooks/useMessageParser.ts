@@ -2,7 +2,7 @@ import type { Message } from 'ai';
 import { useCallback, useState } from 'react';
 import { StreamingMessageParser } from '@/lib/runtime/message-parser';
 import { workbenchStore } from '@/lib/stores/workbench';
-import { createScopedLogger } from '@/utils/logger';
+import { createScopedLogger } from '@/utils/chat-assistant/logger';
 
 const logger = createScopedLogger('useMessageParser');
 
@@ -49,7 +49,7 @@ export function useMessageParser() {
   const parseMessages = useCallback((messages: Message[], isLoading: boolean) => {
     let reset = false;
 
-    if (import.meta.env.DEV && !isLoading) {
+    if (process.env.DEV && !isLoading) {
       reset = true;
       messageParser.reset();
     }

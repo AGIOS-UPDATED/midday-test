@@ -4,7 +4,7 @@ export interface DateBin {
 }
 
 export function binByDate(items: any[], getDate: (item: any) => Date): DateBin[] {
-  if (items.length === 0) return [];
+  if (items?.length === 0) return [];
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -23,7 +23,7 @@ export function binByDate(items: any[], getDate: (item: any) => Date): DateBin[]
     Older: [],
   };
 
-  items.forEach((item) => {
+  items?.forEach((item) => {
     const date = getDate(item);
     const startOfDay = new Date(
       date.getFullYear(),
