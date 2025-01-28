@@ -26,11 +26,11 @@ export function Header() {
       {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
         <>
           <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
-            <ChatDescription />
+            {/* <ChatDescription /> */}
           </span>
        
               <div className="mr-1">
-                <HeaderActionButtons />
+                {/* <HeaderActionButtons /> */}
               </div>
         
         </>
