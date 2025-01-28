@@ -29,6 +29,7 @@ const icons = {
   "/settings": () => <Icons.Settings size={22} />,
   "/apps": () => <Icons.Apps size={22} />,
   "/inbox": () => <Icons.Inbox2 size={22} />,
+  "/chatassistant": () => <Icons.Apps size={22} />,
 };
 
 const defaultItems = [
@@ -43,6 +44,10 @@ const defaultItems = [
   {
     path: "/transactions",
     name: "Transactions",
+  },
+  {
+    path: "/chatassistant",
+    name: "Chat Assistant",
   },
   {
     path: "/invoices",
