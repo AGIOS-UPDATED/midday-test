@@ -1,4 +1,4 @@
-// app/page.tsx
+"use client"
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { BaseChat } from '@/components/chat-assistant/chat/BaseChat';
@@ -8,10 +8,7 @@ const Chat = dynamic(() => import('@/components/chat-assistant/chat/Chat.client'
   loading: () => <BaseChat />, // Fallback component
 });
 
-export const metadata: Metadata = {
-  title: 'Updated',
-  description: 'Talk with Bolt, an AI assistant from StackBlitz',
-};
+
 
 export default function IndexPage() {
   return (
