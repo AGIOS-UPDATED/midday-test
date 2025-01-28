@@ -1,0 +1,209 @@
+.editor-container {
+  @apply h-full flex flex-col;
+  
+  .editor-toolbar {
+    @apply flex items-center justify-between px-4 py-2 border-b border-gray-200;
+    
+    .toolbar-left {
+      @apply flex items-center space-x-4;
+    }
+    
+    .toolbar-right {
+      @apply flex items-center space-x-2;
+    }
+    
+    .toolbar-button {
+      @apply p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500;
+    }
+  }
+  
+  .editor-content {
+    @apply flex-1 overflow-hidden;
+    
+    .cm-editor {
+      @apply h-full;
+      font-family: var(--font-mono);
+      font-size: var(--editor-font-size);
+      line-height: var(--editor-line-height);
+      
+      .cm-scroller {
+        @apply overflow-auto;
+        
+        &::-webkit-scrollbar {
+          @apply w-2;
+        }
+        
+        &::-webkit-scrollbar-track {
+          @apply bg-transparent;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          @apply bg-gray-300 rounded hover:bg-gray-400;
+        }
+      }
+      
+      .cm-content {
+        @apply p-4;
+      }
+      
+      .cm-line {
+        @apply px-4;
+      }
+      
+      .cm-lineNumbers {
+        @apply pr-4 text-gray-400 select-none;
+      }
+      
+      .cm-activeLineGutter {
+        @apply bg-gray-50;
+      }
+      
+      .cm-activeLine {
+        @apply bg-gray-50;
+      }
+      
+      .cm-selectionBackground {
+        @apply bg-blue-100;
+      }
+      
+      .cm-cursor {
+        @apply border-l-2 border-blue-500;
+      }
+      
+      // Syntax highlighting
+      .cm-keyword {
+        color: var(--syntax-keyword);
+      }
+      
+      .cm-comment {
+        color: var(--syntax-comment);
+      }
+      
+      .cm-string {
+        color: var(--syntax-string);
+      }
+      
+      .cm-number {
+        color: var(--syntax-number);
+      }
+      
+      .cm-variable {
+        color: var(--syntax-variable);
+      }
+      
+      .cm-function {
+        color: var(--syntax-function);
+      }
+      
+      .cm-operator {
+        color: var(--syntax-operator);
+      }
+      
+      .cm-className {
+        color: var(--syntax-class);
+      }
+      
+      .cm-tag {
+        color: var(--syntax-tag);
+      }
+      
+      .cm-attributeName {
+        color: var(--syntax-attr-name);
+      }
+      
+      .cm-attributeValue {
+        color: var(--syntax-attr-value);
+      }
+      
+      .cm-punctuation {
+        color: var(--syntax-punctuation);
+      }
+    }
+  }
+  
+  .editor-statusbar {
+    @apply flex items-center justify-between px-4 py-1 border-t border-gray-200 text-xs text-gray-500;
+    
+    .statusbar-left {
+      @apply flex items-center space-x-4;
+    }
+    
+    .statusbar-right {
+      @apply flex items-center space-x-2;
+    }
+    
+    .status-item {
+      @apply flex items-center space-x-1;
+      
+      svg {
+        @apply w-3 h-3;
+      }
+    }
+  }
+}
+
+// Editor themes
+.editor-theme-light {
+  --editor-bg: theme('colors.white');
+  --editor-text: theme('colors.gray.900');
+  --editor-cursor: theme('colors.blue.500');
+  --editor-selection-bg: theme('colors.blue.100');
+  --editor-selection-text: theme('colors.gray.900');
+  --editor-line-numbers: theme('colors.gray.400');
+  --editor-line-highlight: theme('colors.gray.50');
+}
+
+.editor-theme-dark {
+  --editor-bg: theme('colors.gray.900');
+  --editor-text: theme('colors.gray.100');
+  --editor-cursor: theme('colors.blue.400');
+  --editor-selection-bg: theme('colors.blue.900');
+  --editor-selection-text: theme('colors.gray.100');
+  --editor-line-numbers: theme('colors.gray.600');
+  --editor-line-highlight: theme('colors.gray.800');
+}
+
+// Editor sizes
+.editor-size-sm {
+  --editor-font-size: theme('fontSize.sm');
+  --editor-line-height: theme('lineHeight.relaxed');
+}
+
+.editor-size-md {
+  --editor-font-size: theme('fontSize.base');
+  --editor-line-height: theme('lineHeight.relaxed');
+}
+
+.editor-size-lg {
+  --editor-font-size: theme('fontSize.lg');
+  --editor-line-height: theme('lineHeight.relaxed');
+}
+
+// Editor extensions
+.editor-with-minimap {
+  .cm-editor {
+    @apply flex;
+    
+    .cm-scroller {
+      @apply flex-1;
+    }
+    
+    .cm-minimap {
+      @apply w-20 border-l border-gray-200;
+    }
+  }
+}
+
+.editor-with-diff {
+  .cm-diff-added {
+    @apply bg-green-50;
+  }
+  
+  .cm-diff-removed {
+    @apply bg-red-50;
+  }
+  
+  .cm-diff-modified {
+    @apply bg-yellow-50;
+  }
+}

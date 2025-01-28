@@ -1,0 +1,23 @@
+.terminal {
+  @apply font-mono text-sm bg-gray-900 text-gray-100 p-4 overflow-auto;
+  
+  .terminal-line {
+    @apply whitespace-pre-wrap break-all;
+  }
+  
+  .terminal-prompt {
+    @apply text-green-400;
+  }
+  
+  .terminal-input {
+    @apply text-white;
+  }
+  
+  .terminal-output {
+    @apply text-gray-300;
+  }
+  
+  .terminal-error {
+    @apply text-red-400;
+  }
+}

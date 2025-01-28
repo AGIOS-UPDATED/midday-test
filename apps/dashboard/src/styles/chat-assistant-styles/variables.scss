@@ -1,0 +1,164 @@
+:root {
+  // Colors
+  --color-primary: theme('colors.blue.600');
+  --color-primary-dark: theme('colors.blue.700');
+  --color-primary-light: theme('colors.blue.500');
+  
+  --color-secondary: theme('colors.gray.600');
+  --color-secondary-dark: theme('colors.gray.700');
+  --color-secondary-light: theme('colors.gray.500');
+  
+  --color-success: theme('colors.green.600');
+  --color-success-dark: theme('colors.green.700');
+  --color-success-light: theme('colors.green.500');
+  
+  --color-warning: theme('colors.yellow.600');
+  --color-warning-dark: theme('colors.yellow.700');
+  --color-warning-light: theme('colors.yellow.500');
+  
+  --color-error: theme('colors.red.600');
+  --color-error-dark: theme('colors.red.700');
+  --color-error-light: theme('colors.red.500');
+  
+  --color-info: theme('colors.blue.600');
+  --color-info-dark: theme('colors.blue.700');
+  --color-info-light: theme('colors.blue.500');
+  
+  // Background colors
+  --bg-primary: theme('colors.white');
+  --bg-secondary: theme('colors.gray.50');
+  --bg-tertiary: theme('colors.gray.100');
+  
+  // Text colors
+  --text-primary: theme('colors.gray.900');
+  --text-secondary: theme('colors.gray.600');
+  --text-tertiary: theme('colors.gray.400');
+  
+  // Border colors
+  --border-primary: theme('colors.gray.200');
+  --border-secondary: theme('colors.gray.300');
+  
+  // Shadow colors
+  --shadow-sm: theme('boxShadow.sm');
+  --shadow-md: theme('boxShadow.md');
+  --shadow-lg: theme('boxShadow.lg');
+  --shadow-xl: theme('boxShadow.xl');
+  
+  // Font families
+  --font-sans: theme('fontFamily.sans');
+  --font-mono: theme('fontFamily.mono');
+  
+  // Font sizes
+  --text-xs: theme('fontSize.xs');
+  --text-sm: theme('fontSize.sm');
+  --text-base: theme('fontSize.base');
+  --text-lg: theme('fontSize.lg');
+  --text-xl: theme('fontSize.xl');
+  --text-2xl: theme('fontSize.2xl');
+  --text-3xl: theme('fontSize.3xl');
+  
+  // Font weights
+  --font-thin: theme('fontWeight.thin');
+  --font-light: theme('fontWeight.light');
+  --font-normal: theme('fontWeight.normal');
+  --font-medium: theme('fontWeight.medium');
+  --font-semibold: theme('fontWeight.semibold');
+  --font-bold: theme('fontWeight.bold');
+  
+  // Line heights
+  --leading-none: theme('lineHeight.none');
+  --leading-tight: theme('lineHeight.tight');
+  --leading-snug: theme('lineHeight.snug');
+  --leading-normal: theme('lineHeight.normal');
+  --leading-relaxed: theme('lineHeight.relaxed');
+  --leading-loose: theme('lineHeight.loose');
+  
+  // Spacing
+  --spacing-0: theme('spacing.0');
+  --spacing-1: theme('spacing.1');
+  --spacing-2: theme('spacing.2');
+  --spacing-3: theme('spacing.3');
+  --spacing-4: theme('spacing.4');
+  --spacing-5: theme('spacing.5');
+  --spacing-6: theme('spacing.6');
+  --spacing-8: theme('spacing.8');
+  --spacing-10: theme('spacing.10');
+  --spacing-12: theme('spacing.12');
+  --spacing-16: theme('spacing.16');
+  --spacing-20: theme('spacing.20');
+  --spacing-24: theme('spacing.24');
+  --spacing-32: theme('spacing.32');
+  
+  // Border radius
+  --radius-none: theme('borderRadius.none');
+  --radius-sm: theme('borderRadius.sm');
+  --radius-md: theme('borderRadius.md');
+  --radius-lg: theme('borderRadius.lg');
+  --radius-xl: theme('borderRadius.xl');
+  --radius-full: theme('borderRadius.full');
+  
+  // Transitions
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 350ms;
+  
+  // Z-index
+  --z-negative: -1;
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-auto: auto;
+  
+  // Component specific variables
+  --header-height: 4rem;
+  --sidebar-width: 16rem;
+  --chat-max-width: 48rem;
+  --modal-max-width: 32rem;
+  
+  // Editor specific variables
+  --editor-font-size: var(--text-sm);
+  --editor-line-height: var(--leading-relaxed);
+  --editor-tab-size: 2;
+  --editor-bg: var(--bg-primary);
+  --editor-text: var(--text-primary);
+  --editor-cursor: var(--color-primary);
+  --editor-selection-bg: theme('colors.blue.100');
+  --editor-selection-text: var(--text-primary);
+  --editor-line-numbers: var(--text-tertiary);
+  --editor-line-highlight: theme('colors.gray.50');
+  --editor-scrollbar-width: 0.5rem;
+  
+  // Syntax highlighting
+  --syntax-plain: var(--text-primary);
+  --syntax-comment: theme('colors.gray.400');
+  --syntax-keyword: theme('colors.purple.600');
+  --syntax-string: theme('colors.green.600');
+  --syntax-number: theme('colors.orange.600');
+  --syntax-variable: theme('colors.blue.600');
+  --syntax-function: theme('colors.yellow.600');
+  --syntax-operator: theme('colors.pink.600');
+  --syntax-class: theme('colors.indigo.600');
+  --syntax-tag: theme('colors.red.600');
+  --syntax-attr-name: theme('colors.yellow.600');
+  --syntax-attr-value: theme('colors.green.600');
+  --syntax-punctuation: theme('colors.gray.500');
+  
+  // Animation durations
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+  
+  // Animation timing functions
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}

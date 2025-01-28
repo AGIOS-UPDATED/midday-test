@@ -1,0 +1,30 @@
+.resize-handle {
+  @apply absolute bg-transparent cursor-col-resize;
+  
+  &.vertical {
+    @apply w-1 h-full top-0 -right-0.5;
+    
+    &:hover,
+    &.active {
+      @apply bg-blue-500;
+    }
+  }
+  
+  &.horizontal {
+    @apply h-1 w-full left-0 -bottom-0.5;
+    
+    &:hover,
+    &.active {
+      @apply bg-blue-500;
+    }
+  }
+  
+  &.corner {
+    @apply w-4 h-4 bottom-0 right-0 cursor-se-resize;
+    
+    &:hover,
+    &.active {
+      @apply bg-blue-500;
+    }
+  }
+}

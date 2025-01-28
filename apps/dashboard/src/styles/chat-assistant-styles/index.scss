@@ -1,0 +1,58 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './variables';
+@import './animations';
+@import './z-index';
+
+// Component styles
+@import './components/chat';
+@import './components/editor';
+@import './components/header';
+@import './components/settings';
+@import './components/sidebar';
+
+// Global styles
+html,
+body {
+  @apply h-full m-0 p-0;
+  font-family: var(--font-sans);
+}
+
+#root {
+  @apply h-full;
+}
+
+// Scrollbar styles
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded;
+  
+  &:hover {
+    @apply bg-gray-400;
+  }
+}
+
+// Focus styles
+:focus {
+  @apply outline-none ring-2 ring-blue-500;
+}
+
+// Selection styles
+::selection {
+  @apply bg-blue-500 text-white;
+}
+
+// Disable user selection on interactive elements
+button,
+a {
+  @apply select-none;
+}
