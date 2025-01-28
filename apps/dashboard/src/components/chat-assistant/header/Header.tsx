@@ -1,3 +1,4 @@
+"use client"
 import { useStore } from '@nanostores/react';
 import { chatStore } from '@/lib/stores/chat';
 import { classNames } from '@/utils/chat-assistant/classNames';

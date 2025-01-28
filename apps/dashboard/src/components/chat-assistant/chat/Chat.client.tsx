@@ -32,7 +32,7 @@ const toastAnimation = cssTransition({
 
 const logger = createScopedLogger('Chat');
 
-export function Chat() {
+const ChatComponent = () => {
   renderLogger.trace('Chat');
 
   const { ready, initialMessages, storeMessageHistory, importChat, exportChat } = useChatHistory();
@@ -81,7 +81,9 @@ export function Chat() {
       />
     </>
   );
-}
+};
+
+export default ChatComponent;
 
 const processSampledMessages = createSampler(
   (options: {
