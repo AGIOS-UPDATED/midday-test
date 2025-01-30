@@ -16,7 +16,7 @@ import { workbenchStore } from '@/lib/stores/workbench';
 import { DEFAULT_MODEL, DEFAULT_PROVIDER, PROMPT_COOKIE_KEY, PROVIDER_LIST } from '@/utils/chat-assistant/constants';
 import { cubicEasingFn } from '@/utils/chat-assistant/easings';
 import { createScopedLogger, renderLogger } from '@/utils/chat-assistant/logger';
-import { BaseChat } from './BaseChat';
+import  BaseChat  from './BaseChat';
 import Cookies from 'js-cookie';
 import { debounce } from '@/utils/chat-assistant/debounce';
 import { useSettings } from '@/lib/hooks/useSettings';

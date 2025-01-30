@@ -62,7 +62,14 @@ interface BaseChatProps {
   clearAlert?: () => void;
 }
 
-export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
+declare global {
+  interface Window {
+    SpeechRecognition: typeof SpeechRecognition;
+    webkitSpeechRecognition: typeof SpeechRecognition;
+  }
+}
+
+const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
   (
     {
       textareaRef,
@@ -611,3 +618,9 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     return <Tooltip.Provider delayDuration={200}>{baseChat}</Tooltip.Provider>;
   },
 );
+
+// Add display name
+BaseChat.displayName = 'BaseChat';
+
+// Export the component
+export default BaseChat;

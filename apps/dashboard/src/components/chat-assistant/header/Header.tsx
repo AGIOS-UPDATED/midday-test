@@ -5,7 +5,7 @@ import { classNames } from '@/utils/chat-assistant/classNames';
 import { HeaderActionButtons } from './HeaderActionButtons';
 import { ChatDescription } from '@/lib/persistence/ChatDescription.client';
 
-export function Header() {
+const  Header = () => {
   const chat = useStore(chatStore);
 
   return (
@@ -38,3 +38,6 @@ export function Header() {
     </header>
   );
 }
+
+Header.displayname='Header'
+export default Header ;
