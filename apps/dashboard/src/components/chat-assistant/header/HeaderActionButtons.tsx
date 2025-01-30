@@ -1,42 +1,43 @@
 import { useStore } from '@nanostores/react';
 import useViewport from '@/lib/hooks';
-import { chatStore } from '@/lib/stores/chat';
-import { workbenchStore } from '@/lib/stores/workbench';
+// import { chatStore } from '@/lib/stores/chat';
+// import { workbenchStore } from '@/lib/stores/workbench';
 import { classNames } from '@/utils/chat-assistant/classNames';
 
 interface HeaderActionButtonsProps {}
 
 export function HeaderActionButtons({}: HeaderActionButtonsProps) {
-  const showWorkbench = useStore(workbenchStore.showWorkbench);
-  const { showChat } = useStore(chatStore);
+  // const showWorkbench = useStore(workbenchStore.showWorkbench);
+  // const { showChat } = useStore(chatStore);
 
-  const isSmallViewport = useViewport(1024);
+  // const isSmallViewport = useViewport(1024);
 
-  const canHideChat = showWorkbench || !showChat;
+  // const canHideChat =  !showChat;
 
   return (
     <div className="flex">
       <div className="flex border border-bolt-elements-borderColor rounded-md overflow-hidden">
         <Button
-          active={showChat}
-          disabled={!canHideChat || isSmallViewport} // expand button is disabled on mobile as it's not needed
-          onClick={() => {
-            if (canHideChat) {
-              chatStore.setKey('showChat', !showChat);
-            }
-          }}
+          // active={showChat}
+          // disabled={!canHideChat || isSmallViewport} // expand button is disabled on mobile as it's not needed
+          // onClick={() => {
+          //   if (canHideChat) {
+          //     chatStore.setKey('showChat', !showChat);
+          //   }
+          // }}
         >
           <div className="i-ph:monitor-light" />
-        </Button>
+       
+        </Button> 
         <div className="w-[1px] bg-bolt-elements-borderColor" />
         <Button
-          active={showWorkbench}
+          // active={showWorkbench}
           onClick={() => {
-            if (showWorkbench && !showChat) {
-              chatStore.setKey('showChat', true);
-            }
+            // if (!showChat) {
+            //   chatStore.setKey('showChat', true);
+            // }
 
-            workbenchStore.showWorkbench.set(!showWorkbench);
+            // workbenchStore.showWorkbench.set(!showWorkbench);
           }}
         >
           <div className="i-ph:chart-line-fill" />
