@@ -1,7 +1,7 @@
 import "./src/env.mjs";
-
 import bundleAnalyzer from "@next/bundle-analyzer";
 import { withSentryConfig } from "@sentry/nextjs";
+import UnoCSS from "@unocss/webpack";
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -36,6 +36,10 @@ const config = {
   experimental: {
     instrumentationHook: process.env.NODE_ENV === "production",
     serverComponentsExternalPackages: ["@trigger.dev/sdk"],
+  },
+  webpack(config) {
+    config.plugins.push(UnoCSS()); // Add UnoCSS plugin
+    return config;
   },
   async headers() {
     return [

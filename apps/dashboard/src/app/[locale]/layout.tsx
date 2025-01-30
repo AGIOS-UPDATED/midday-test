@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import 'uno.css'
 import { cn } from "@midday/ui/cn";
 import "@midday/ui/globals.css";
 import { Provider as Analytics } from "@midday/events/client";
