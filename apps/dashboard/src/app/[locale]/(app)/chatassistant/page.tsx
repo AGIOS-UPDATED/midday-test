@@ -13,9 +13,11 @@ const ChatComponent = dynamic(
 
 export default function Page() {
   return (
-    <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
+    <div className="flex flex-col h-full  w-full bg-bolt-elements-background-depth-1">
       <Header/>
+      <div className='w-full items-center justify-center flex'>
       <ChatComponent />
+      </div>
     </div>
   );
 }
