@@ -1,9 +1,11 @@
+'use client';
+
 import type { Message } from 'ai';
 import React, { Fragment } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { classNames } from '@/utils/chat-assistant/classNames';
 import { AssistantMessage } from './AssistantMessage';
 import { UserMessage } from './UserMessage';
-import { useLocation } from '@remix-run/react';
 import { db, chatId } from '@/lib/persistence/useChatHistory';
 import { forkChat } from '@/lib/persistence/db';
 import { toast } from 'react-toastify';
@@ -18,12 +20,13 @@ interface MessagesProps {
 
 export const Messages = React.forwardRef<HTMLDivElement, MessagesProps>((props: MessagesProps, ref) => {
   const { id, isStreaming = false, messages = [] } = props;
-  const location = useLocation();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleRewind = (messageId: string) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set('rewindTo', messageId);
-    window.location.search = searchParams.toString();
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('rewindTo', messageId);
+    router.replace(`?${params.toString()}`);
   };
 
   const handleFork = async (messageId: string) => {
@@ -32,9 +35,8 @@ export const Messages = React.forwardRef<HTMLDivElement, MessagesProps>((props: 
         toast.error('Chat persistence is not available');
         return;
       }
-
       const urlId = await forkChat(db, chatId.get()!, messageId);
-      window.location.href = `/chat/${urlId}`;
+      router.push(`/chat/${urlId}`);
     } catch (error) {
       toast.error('Failed to fork chat: ' + (error as Error).message);
     }
@@ -78,27 +80,19 @@ export const Messages = React.forwardRef<HTMLDivElement, MessagesProps>((props: 
                 </div>
                 {!isUserMessage && (
                   <div className="flex gap-2 flex-col lg:flex-row">
+                    {/* Uncomment to enable buttons */}
                     {/* {messageId && (
                       <WithTooltip tooltip="Revert to this message">
                         <button
                           onClick={() => handleRewind(messageId)}
-                          key="i-ph:arrow-u-up-left"
-                          className={classNames(
-                            'i-ph:arrow-u-up-left',
-                            'text-xl text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary transition-colors',
-                          )}
+                          className="i-ph:arrow-u-up-left text-xl text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary transition-colors"
                         />
                       </WithTooltip>
                     )} */}
-
                     {/* <WithTooltip tooltip="Fork chat from this message">
                       <button
                         onClick={() => handleFork(messageId)}
-                        key="i-ph:git-fork"
-                        className={classNames(
-                          'i-ph:git-fork',
-                          'text-xl text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary transition-colors',
-                        )}
+                        className="i-ph:git-fork text-xl text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary transition-colors"
                       />
                     </WithTooltip> */}
                   </div>

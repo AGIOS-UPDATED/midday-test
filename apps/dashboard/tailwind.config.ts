@@ -1,4 +1,5 @@
 import baseConfig from "@midday/ui/tailwind.config";
+import iconifyPlugin from '@iconify/tailwind';
 import type { Config } from "tailwindcss";
 
 export default {
@@ -8,5 +9,8 @@ export default {
     "../../packages/invoice/src/**/*.{ts,tsx}",
   ],
   presets: [baseConfig],
-  plugins: [require("@todesktop/tailwind-variants")],
+  plugins: [
+    require("@todesktop/tailwind-variants"),
+    iconifyPlugin,
+  ],
 } satisfies Config;

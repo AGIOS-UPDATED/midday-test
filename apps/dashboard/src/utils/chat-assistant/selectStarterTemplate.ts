@@ -1,6 +1,6 @@
 import ignore from 'ignore';
-import type { ProviderInfo } from '~/types/model';
-import type { Template } from '~/types/template';
+import type { ProviderInfo } from '@/types/model';
+import type { Template } from '@/types/template';
 import { STARTER_TEMPLATES } from './constants';
 import Cookies from 'js-cookie';
 

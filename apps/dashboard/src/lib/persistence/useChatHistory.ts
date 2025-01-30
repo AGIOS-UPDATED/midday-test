@@ -168,7 +168,7 @@ export function useChatHistory() {
 
     try {
       const newId = await duplicateChat(db, mixedId || listItemId);
-      router.push(`/chat/${newId}`);
+      router.push(`/chatassistant/${newId}`);
       toast.success('Chat duplicated successfully');
     } catch (error) {
       toast.error('Failed to duplicate chat');
@@ -191,7 +191,7 @@ export function useChatHistory() {
         messages
       );
       // You can do `router.push` here as well; using window.href is also fine:
-      window.location.href = `/chat/${newId}`;
+      window.location.href = `/chatassistant/${newId}`;
       toast.success('Chat imported successfully');
     } catch (error) {
       if (error instanceof Error) {
@@ -239,7 +239,7 @@ export function useChatHistory() {
     // The original comment explained a bug with Remix’s useNavigate, so
     // we replicate the "manual" history replacement here if needed:
     const url = new URL(window.location.href);
-    url.pathname = `/chat/${nextId}`;
+    url.pathname = `/chatassistant/${nextId}`;
 
     window.history.replaceState({}, '', url);
   }

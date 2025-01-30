@@ -264,7 +264,7 @@ export const ChatImpl = memo(
        * happy case to be no unsaved files and I would expect users to save their changes
        * before they send another message.
        */
-      await workbenchStore.saveAllFiles();
+      // await workbenchStore.saveAllFiles();
 
       const fileModifications = workbenchStore.getFileModifcations();
 
