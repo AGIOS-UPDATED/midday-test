@@ -2,7 +2,7 @@
 import { useStore } from '@nanostores/react';
 import { chatStore } from '@/lib/stores/chat';
 import { classNames } from '@/utils/chat-assistant/classNames';
-import { HeaderActionButtons } from './HeaderActionButtons';
+import  HeaderActionButtons  from './HeaderActionButtons';
 import { ChatDescription } from '@/lib/persistence/ChatDescription.client';
 
 const  Header = () => {

@@ -4,8 +4,8 @@ import WithTooltip from '@/components/chat-assistant/ui/Tooltip';
 import { useEditChatDescription } from '@/lib/hooks';
 import { description as descriptionStore } from '@/lib/persistence';
 
-export function ChatDescription() {
-  const initialDescription = useStore(descriptionStore)!;
+const  ChatDescription = () => {
+  const initialDescription = useStore(descriptionStore);
 
   const { editing, handleChange, handleBlur, handleSubmit, handleKeyDown, currentDescription, toggleEditMode } =
     useEditChatDescription({
@@ -66,3 +66,7 @@ export function ChatDescription() {
     </div>
   );
 }
+
+ChatDescription.displayName='ChatDescription';
+
+export default ChatDescription
