@@ -1,7 +1,6 @@
 import baseConfig from "@midday/ui/tailwind.config";
-import iconifyPlugin from '@iconify/tailwind';
 import type { Config } from "tailwindcss";
-
+import { addDynamicIconSelectors } from '@iconify/tailwind'
 export default {
   content: [
     "./src/**/*.{ts,tsx}",
@@ -11,6 +10,6 @@ export default {
   presets: [baseConfig],
   plugins: [
     require("@todesktop/tailwind-variants"),
-    iconifyPlugin,
+    addDynamicIconSelectors(),
   ],
 } satisfies Config;

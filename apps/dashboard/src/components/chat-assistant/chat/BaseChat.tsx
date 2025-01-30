@@ -616,7 +616,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     );
 
     return <Tooltip.Provider delayDuration={200}>
-      {/* {baseChat} */} hh
+      {baseChat} 
     </Tooltip.Provider>;
   },
 );
