@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { providerBaseUrlEnvKeys } from '@/utils/constants';
+import { providerBaseUrlEnvKeys } from '@/utils/chat-assistant/constants';
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);

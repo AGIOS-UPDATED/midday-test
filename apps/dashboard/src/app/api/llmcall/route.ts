@@ -1,14 +1,14 @@
 // app/api/llm/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { streamText } from '~/lib/llm/stream-text';
-import type { IProviderSetting, ProviderInfo } from '~/types/model';
+import { streamText } from '@/lib/llm/stream-text';
+import type { IProviderSetting, ProviderInfo } from '@/types/model';
 import { generateText } from 'ai';
-import { PROVIDER_LIST } from '~/utils/constants';
-import { MAX_TOKENS } from '~/lib/llm/constants';
-import { LLMManager } from '~/lib/modules/llm/manager';
-import type { ModelInfo } from '~/lib/modules/llm/types';
-import { getApiKeysFromCookie, getProviderSettingsFromCookie } from '~/lib/api/cookies';
-import { createScopedLogger } from '~/utils/logger';
+import { PROVIDER_LIST } from '@/utils/chat-assistant/constants';
+import { MAX_TOKENS } from '@/lib/llm/contants';
+import { LLMManager } from '@/lib/modules/llm/manager';
+import type { ModelInfo } from '@/lib/modules/llm/types';
+import { getApiKeysFromCookie, getProviderSettingsFromCookie } from '@/lib/api/cookies';
+import { createScopedLogger } from '@/utils/chat-assistant/logger';
 
 async function getModelList(options: {
   apiKeys?: Record<string, string>;
