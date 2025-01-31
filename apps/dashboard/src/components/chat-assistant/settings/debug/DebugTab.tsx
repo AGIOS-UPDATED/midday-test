@@ -38,16 +38,22 @@ interface IProviderConfig {
   };
 }
 
+declare const __COMMIT_HASH: string | undefined;
+declare const __APP_VERSION: string | undefined;
+
+const COMMIT_HASH = typeof __COMMIT_HASH !== "undefined" ? __COMMIT_HASH : "unknown";
+const APP_VERSION = typeof __APP_VERSION !== "undefined" ? __APP_VERSION : "1.0.0";
+
+
 interface CommitData {
   commit: string;
   version?: string;
 }
 
 const connitJson: CommitData = {
-  commit: __COMMIT_HASH,
-  version: __APP_VERSION,
+  commit: COMMIT_HASH,
+  version: APP_VERSION,
 };
-
 const LOCAL_PROVIDERS = ['Ollama', 'LMStudio', 'OpenAILike'];
 
 const versionHash = connitJson.commit;

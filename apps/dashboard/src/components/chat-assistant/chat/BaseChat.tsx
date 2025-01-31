@@ -302,7 +302,7 @@ interface BaseChatProps {
         data-chat-visible={showChat}
       >
         {/* <ClientOnly>{() =>  */}
-          {/* <Menu /> */}
+          <Menu />
           
         {/* </ClientOnly> */}
         <div ref={scrollRef} className="flex flex-col lg:flex-row overflow-y-auto w-full h-full">
