@@ -3,7 +3,7 @@ import { useStore } from '@nanostores/react';
 import { chatStore } from '@/lib/stores/chat';
 import { classNames } from '@/utils/chat-assistant/classNames';
 import  HeaderActionButtons  from './HeaderActionButtons';
-import { ChatDescription } from '@/lib/persistence/ChatDescription.client';
+import ChatDescription  from '@/lib/persistence/ChatDescription.client';
 
 const  Header = () => {
   const chat = useStore(chatStore);
@@ -26,7 +26,7 @@ const  Header = () => {
       {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
         <>
           <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
-            {/* <ChatDescription /> */}
+            <ChatDescription />
           </span>
        
               <div className="mr-1">
