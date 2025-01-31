@@ -1,7 +1,7 @@
 import { motion, type Variants } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Dialog, DialogButton, DialogDescription, DialogRoot, DialogTitle } from '@/components/ui/Dialog';
+import { Dialog, DialogButton, DialogDescription, DialogRoot, DialogTitle } from '@/components/chat-assistant/ui/Dialog';
 import { ThemeSwitch } from '@/components/chat-assistant/ui/ThemeSwitch';
 import { SettingsWindow } from '@/components/chat-assistant/settings/SettingsWindow';
 import { SettingsButton } from '@/components/chat-assistant/ui/SettingsButton';
