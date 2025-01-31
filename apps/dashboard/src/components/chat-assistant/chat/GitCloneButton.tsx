@@ -1,5 +1,5 @@
 import ignore from 'ignore';
-import { useGit } from '@/lib/hooks/useGit';
+// import { useGit } from '@/lib/hooks/useGit';
 import type { Message } from 'ai';
 import { detectProjectCommands, createCommandsMessage } from '@/utils/chat-assistant/projectCommands';
 import { generateId } from '@/utils/chat-assistant/fileUtils';
@@ -39,13 +39,13 @@ interface GitCloneButtonProps {
 }
 
 export default function GitCloneButton({ importChat }: GitCloneButtonProps) {
-  const { ready, gitClone } = useGit();
+  // const { ready, gitClone } = useGit();
   const [loading, setLoading] = useState(false);
 
   const onClick = async (_e: any) => {
-    if (!ready) {
-      return;
-    }
+    // if (!ready) {
+    //   return;
+    // }
 
     const repoUrl = prompt('Enter the Git url');
 
@@ -53,7 +53,7 @@ export default function GitCloneButton({ importChat }: GitCloneButtonProps) {
       setLoading(true);
 
       try {
-        const { workdir, data } = await gitClone(repoUrl);
+        // const { workdir, data } = await gitClone(repoUrl);
 
         if (importChat) {
           const filePaths = Object.keys(data).filter((filePath) => !ig.ignores(filePath));
