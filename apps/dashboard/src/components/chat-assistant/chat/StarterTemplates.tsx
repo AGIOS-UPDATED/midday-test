@@ -25,7 +25,7 @@ const StarterTemplates: React.FC = () => {
       <span className="text-sm text-gray-500">or start a trade with your favorite platform</span>
       <div className="flex justify-center">
         <div className="flex w-70 flex-wrap items-center justify-center gap-4">
-          {STARTER_EXCHANGE.map((template) => (
+          {STARTER_EXCHANGE?.map((template:any) => (
             <FrameworkLink key={template.name} template={template} />
           ))}
         </div>

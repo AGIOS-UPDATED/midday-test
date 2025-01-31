@@ -114,3 +114,39 @@ export const STARTER_TEMPLATES: Template[] = [
     icon: 'i-bolt:angular',
   },
 ];
+
+export const STARTER_EXCHANGE: Template[] = [
+  {
+    name: 'Binance',
+    label: 'Binance',
+    description: 'Lightweight Astro starter template for building fast static websites',
+    githubRepo: 'thecodacus/bolt-astro-basic-template',
+    tags: ['astro', 'blog', 'performance'],
+    icon: 'i-bolt:astro',
+  },
+  {
+    name: 'BingX',
+    label: 'BingX',
+    description: 'Lightweight Astro starter template for building fast static websites',
+    githubRepo: 'thecodacus/bolt-astro-basic-template',
+    tags: ['astro', 'blog', 'performance'],
+    icon: 'i-bolt:astro',
+  },
+  {
+    name: 'UniSwap',
+    label: 'UniSwap',
+    description: 'Lightweight Astro starter template for building fast static websites',
+    githubRepo: 'thecodacus/bolt-astro-basic-template',
+    tags: ['astro', 'blog', 'performance'],
+    icon: 'i-bolt:astro',
+  },
+
+  {
+    name: 'ByBit',
+    label: 'ByBit',
+    description: 'Lightweight Astro starter template for building fast static websites',
+    githubRepo: 'thecodacus/bolt-astro-basic-template',
+    tags: ['astro', 'blog', 'performance'],
+    icon: 'i-bolt:astro',
+  },
+];
