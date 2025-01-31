@@ -68,7 +68,7 @@ interface BaseChatProps {
   data?: JSONValue[] | undefined;
 }
 
-export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
+ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
   (
     {
       textareaRef,
@@ -612,3 +612,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     return <Tooltip.Provider delayDuration={200}>{baseChat}</Tooltip.Provider>;
   },
 );
+
+BaseChat.displayName='BaseChat'
+
+export default BaseChat
