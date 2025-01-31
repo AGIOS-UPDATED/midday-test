@@ -1,203 +1,232 @@
-'use client';
-
-import { type FC, useState, useEffect } from 'react';
-import {
-  FiPlus,
-  FiMenu,
-  FiX,
-  FiChevronDown,
-  FiChevronRight,
-  FiSettings,
-  FiHelpCircle,
-} from 'react-icons/fi';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { clsx } from 'clsx';
+import { motion, type Variants } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Dialog, DialogButton, DialogDescription, DialogRoot, DialogTitle } from '@/components/ui/Dialog';
+import { ThemeSwitch } from '@/components/chat-assistant/ui/ThemeSwitch';
+import { SettingsWindow } from '@/components/chat-assistant/settings/SettingsWindow';
+import { SettingsButton } from '@/components/chat-assistant/ui/SettingsButton';
+import { db, deleteById, getAll, chatId, type ChatHistoryItem, useChatHistory } from '@/lib/persistence';
+import { cubicEasingFn } from '@/utils/chat-assistant/easings';
+import { logger } from '@/utils/chat-assistant/logger';
 import { HistoryItem } from './HistoryItem';
-import { binByDate, type DateBin } from './date-binning';
+import { binDates } from './date-binning';
+import { useSearchFilter } from '@/lib/hooks/useSearchFilter';
 
-interface ChatHistory {
-  id: string;
-  title: string;
-  timestamp: Date;
-}
+const menuVariants = {
+  closed: {
+    opacity: 0,
+    visibility: 'hidden',
+    left: '-150px',
+    transition: {
+      duration: 0.2,
+      ease: cubicEasingFn,
+    },
+  },
+  open: {
+    opacity: 1,
+    visibility: 'initial',
+    left: 0,
+    transition: {
+      duration: 0.2,
+      ease: cubicEasingFn,
+    },
+  },
+} satisfies Variants;
 
-interface MenuProps {
-  history: ChatHistory[];
-  onNewChat: () => void;
-  onDeleteChat: (id: string) => void;
-  onEditChatTitle: (id: string, newTitle: string) => void;
-  onSettingsClick: () => void;
-  onHelpClick: () => void;
-}
+type DialogContent = { type: 'delete'; item: ChatHistoryItem } | null;
 
-export const Menu: FC<MenuProps> = ({
-  history,
-  onNewChat,
-  onDeleteChat,
-  onEditChatTitle,
-  onSettingsClick,
-  onHelpClick,
-}) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editingTitle, setEditingTitle] = useState('');
-  const [expandedBins, setExpandedBins] = useState<Set<string>>(new Set());
-  const pathname = usePathname();
-
-  const currentChatId = pathname?.split('/').pop();
+function CurrentDateTime() {
+  const [dateTime, setDateTime] = useState(new Date());
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(true);
-      }
-    };
+    const timer = setInterval(() => {
+      setDateTime(new Date());
+    }, 60000); // Update every minute
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => clearInterval(timer);
   }, []);
 
-  const toggleBin = (label: string) => {
-    setExpandedBins((prev) => {
-      const next = new Set(prev);
-      if (next.has(label)) {
-        next.delete(label);
-      } else {
-        next.add(label);
-      }
-      return next;
-    });
-  };
+  return (
+    <div className="flex items-center gap-2 px-4 py-3 font-bold text-gray-700 dark:text-gray-300 border-b border-bolt-elements-borderColor">
+      <div className="h-4 w-4 i-ph:clock-thin" />
+      {dateTime.toLocaleDateString()} {dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    </div>
+  );
+}
 
-  const startEditing = (chat: ChatHistory) => {
-    setEditingId(chat.id);
-    setEditingTitle(chat.title);
-  };
+export const Menu = () => {
+  const { duplicateCurrentChat, exportChat } = useChatHistory();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [list, setList] = useState<ChatHistoryItem[]>([]);
+  const [open, setOpen] = useState(false);
+  const [dialogContent, setDialogContent] = useState<DialogContent>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const submitEdit = () => {
-    if (editingId && editingTitle.trim()) {
-      onEditChatTitle(editingId, editingTitle.trim());
-      setEditingId(null);
-      setEditingTitle('');
+  const { filteredItems: filteredList, handleSearchChange } = useSearchFilter({
+    items: list,
+    searchFields: ['description'],
+  });
+
+  const loadEntries = useCallback(() => {
+    if (db) {
+      getAll(db)
+        .then((list) => list.filter((item) => item.urlId && item.description))
+        .then(setList)
+        .catch((error) => toast.error(error.message));
     }
+  }, []);
+
+  const deleteItem = useCallback((event: React.UIEvent, item: ChatHistoryItem) => {
+    event.preventDefault();
+
+    if (db) {
+      deleteById(db, item.id)
+        .then(() => {
+          loadEntries();
+
+          if (chatId.get() === item.id) {
+            // hard page navigation to clear the stores
+            window.location.pathname = '/';
+          }
+        })
+        .catch((error) => {
+          toast.error('Failed to delete conversation');
+          logger.error(error);
+        });
+    }
+  }, []);
+
+  const closeDialog = () => {
+    setDialogContent(null);
   };
 
-  const dateBins: DateBin[] = binByDate(history, (item) => item.timestamp);
+  useEffect(() => {
+    if (open) {
+      loadEntries();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    const enterThreshold = 40;
+    const exitThreshold = 40;
+
+    function onMouseMove(event: MouseEvent) {
+      if (event.pageX < enterThreshold) {
+        setOpen(true);
+      }
+
+      if (menuRef.current && event.clientX > menuRef.current.getBoundingClientRect().right + exitThreshold) {
+        setOpen(false);
+      }
+    }
+
+    window.addEventListener('mousemove', onMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+    };
+  }, []);
+
+  const handleDeleteClick = (event: React.UIEvent, item: ChatHistoryItem) => {
+    event.preventDefault();
+    setDialogContent({ type: 'delete', item });
+  };
+
+  const handleDuplicate = async (id: string) => {
+    await duplicateCurrentChat(id);
+    loadEntries(); // Reload the list after duplication
+  };
 
   return (
-    <>
-      {/* Mobile backdrop */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-600 bg-opacity-75 md:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      {/* Toggle button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 md:hidden z-40 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-      >
-        {isOpen ? (
-          <FiX className="h-6 w-6" />
-        ) : (
-          <FiMenu className="h-6 w-6" />
-        )}
-      </button>
-
-      {/* Sidebar */}
-      <div
-        className={clsx(
-          'fixed inset-y-0 left-0 z-30 w-64 bg-white transform transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-full',
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        )}
-      >
-        <div className="h-full flex flex-col">
-          {/* Header */}
-          <div className="flex-shrink-0 px-4 py-4 flex items-center justify-between border-b border-gray-200">
-            <Link href="/" className="flex items-center space-x-2">
-              <img
-                src="/logo.svg"
-                alt="Cascade Logo"
-                className="h-8 w-8"
-              />
-              <span className="text-xl font-semibold text-gray-900">
-                Cascade
-              </span>
-            </Link>
-          </div>
-
-          {/* New Chat Button */}
-          <div className="flex-shrink-0 px-4 py-4">
-            <button
-              onClick={onNewChat}
-              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <FiPlus className="mr-2 -ml-1 h-5 w-5" />
-              New Chat
-            </button>
-          </div>
-
-          {/* Chat History */}
-          <div className="flex-1 overflow-y-auto">
-            {dateBins.map(({ label, items }) => (
-              <div key={label}>
-                <button
-                  onClick={() => toggleBin(label)}
-                  className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
-                >
-                  <span>{label}</span>
-                  {expandedBins.has(label) ? (
-                    <FiChevronDown className="h-4 w-4" />
-                  ) : (
-                    <FiChevronRight className="h-4 w-4" />
-                  )}
-                </button>
-                {expandedBins.has(label) && (
-                  <div className="space-y-1">
-                    {(items as ChatHistory[]).map((chat) => (
-                      <HistoryItem
-                        key={chat.id}
-                        id={chat.id}
-                        title={chat.title}
-                        timestamp={chat.timestamp}
-                        isSelected={chat.id === currentChatId}
-                        isEditing={chat.id === editingId}
-                        onEdit={() => startEditing(chat)}
-                        onDelete={() => onDeleteChat(chat.id)}
-                        onTitleChange={setEditingTitle}
-                        onTitleSubmit={submitEdit}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="flex-shrink-0 border-t border-gray-200">
-            <div className="px-4 py-4 space-y-3">
-              <button
-                onClick={onSettingsClick}
-                className="w-full flex items-center px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-md"
-              >
-                <FiSettings className="mr-3 h-4 w-4" />
-                Settings
-              </button>
-              <button
-                onClick={onHelpClick}
-                className="w-full flex items-center px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-md"
-              >
-                <FiHelpCircle className="mr-3 h-4 w-4" />
-                Help & FAQ
-              </button>
-            </div>
+    <motion.div
+      ref={menuRef}
+      initial="closed"
+      animate={open ? 'open' : 'closed'}
+      variants={menuVariants}
+      className="flex selection-accent flex-col side-menu fixed top-0 w-[350px] h-full bg-bolt-elements-background-depth-2 border-r rounded-r-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
+    >
+      <div className="h-[60px]" /> {/* Spacer for top margin */}
+      <CurrentDateTime />
+      <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
+        <div className="p-4 select-none">
+          <a
+            href="/"
+            className="flex gap-2 items-center bg-bolt-elements-sidebar-buttonBackgroundDefault text-bolt-elements-sidebar-buttonText hover:bg-bolt-elements-sidebar-buttonBackgroundHover rounded-md p-2 transition-theme mb-4"
+          >
+            <span className="inline-block i-bolt:chat scale-110" />
+            Start new chat
+          </a>
+          <div className="relative w-full">
+            <input
+              className="w-full bg-white dark:bg-bolt-elements-background-depth-4 relative px-2 py-1.5 rounded-md focus:outline-none placeholder-bolt-elements-textTertiary text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary border border-bolt-elements-borderColor"
+              type="search"
+              placeholder="Search"
+              onChange={handleSearchChange}
+              aria-label="Search chats"
+            />
           </div>
         </div>
+        <div className="text-bolt-elements-textPrimary font-medium pl-6 pr-5 my-2">Your Chats</div>
+        <div className="flex-1 overflow-auto pl-4 pr-5 pb-5">
+          {filteredList.length === 0 && (
+            <div className="pl-2 text-bolt-elements-textTertiary">
+              {list.length === 0 ? 'No previous conversations' : 'No matches found'}
+            </div>
+          )}
+          <DialogRoot open={dialogContent !== null}>
+            {binDates(filteredList).map(({ category, items }) => (
+              <div key={category} className="mt-4 first:mt-0 space-y-1">
+                <div className="text-bolt-elements-textTertiary sticky top-0 z-1 bg-bolt-elements-background-depth-2 pl-2 pt-2 pb-1">
+                  {category}
+                </div>
+                {items.map((item) => (
+                  <HistoryItem
+                    key={item.id}
+                    item={item}
+                    exportChat={exportChat}
+                    onDelete={(event) => handleDeleteClick(event, item)}
+                    onDuplicate={() => handleDuplicate(item.id)}
+                  />
+                ))}
+              </div>
+            ))}
+            <Dialog onBackdrop={closeDialog} onClose={closeDialog}>
+              {dialogContent?.type === 'delete' && (
+                <>
+                  <DialogTitle>Delete Chat?</DialogTitle>
+                  <DialogDescription asChild>
+                    <div>
+                      <p>
+                        You are about to delete <strong>{dialogContent.item.description}</strong>.
+                      </p>
+                      <p className="mt-1">Are you sure you want to delete this chat?</p>
+                    </div>
+                  </DialogDescription>
+                  <div className="px-5 pb-4 bg-bolt-elements-background-depth-2 flex gap-2 justify-end">
+                    <DialogButton type="secondary" onClick={closeDialog}>
+                      Cancel
+                    </DialogButton>
+                    <DialogButton
+                      type="danger"
+                      onClick={(event) => {
+                        deleteItem(event, dialogContent.item);
+                        closeDialog();
+                      }}
+                    >
+                      Delete
+                    </DialogButton>
+                  </div>
+                </>
+              )}
+            </Dialog>
+          </DialogRoot>
+        </div>
+        <div className="flex items-center justify-between border-t border-bolt-elements-borderColor p-4">
+          <SettingsButton onClick={() => setIsSettingsOpen(true)} />
+          <ThemeSwitch />
+        </div>
       </div>
-    </>
+      <SettingsWindow open={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+    </motion.div>
   );
 };
