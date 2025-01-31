@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { streamText } from '@/lib/.server/llm/stream-text';
-import { stripIndents } from '@/utils/stripIndent';
+import { streamText } from '@/lib/llm/stream-text';
+import { stripIndents } from '@/utils/chat-assistant/stripIndent';
 import type { ProviderInfo } from '@/types/model';
 import { getApiKeysFromCookie, getProviderSettingsFromCookie } from '@/lib/api/cookies';
 
@@ -96,6 +96,5 @@ async function enhancerAction(req: NextRequest) {
   }
 }
 
-export const config = {
-  matcher: '/api/enhance-prompt',
-};
+export const dynamic = 'force-dynamic';
+

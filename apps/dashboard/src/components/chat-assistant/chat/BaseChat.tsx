@@ -202,7 +202,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       setApiKeys(newApiKeys);
       Cookies.set('apiKeys', JSON.stringify(newApiKeys));
 
-      const provider = LLMManager.getInstance( process.env || {}).getProvider(providerName);
+      const provider = LLMManager.getInstance( process.env. || {}).getProvider(providerName);
 
       if (provider && provider.getDynamicModels) {
         setIsModelLoading(providerName);

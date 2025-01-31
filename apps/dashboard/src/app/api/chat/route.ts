@@ -1,14 +1,14 @@
 import { type NextRequest } from 'next/server';
 import { createDataStream, generateId } from 'ai';
-import { MAX_RESPONSE_SEGMENTS, MAX_TOKENS, type FileMap } from '@/lib/llm/constants';
-import { CONTINUE_PROMPT } from '@/lib/common/prompts';
+import { MAX_RESPONSE_SEGMENTS, MAX_TOKENS, type FileMap } from '@/lib/llm/contants';
+import { CONTINUE_PROMPT } from '@/lib/common/prompt';
 import { streamText, type Messages, type StreamingOptions } from '@/lib/llm/stream-text';
-import SwitchableStream from '@/lib/llm/switchable-stream';
+import {SwitchableStream } from '@/lib/llm/switchable-stream';
 import type { IProviderSetting } from '@/types/model';
-import { createScopedLogger } from '@/utils/logger';
+import { createScopedLogger } from '@/utils/chat-assistant/logger';
 import { getFilePaths, selectContext } from '@/lib/llm/select-context';
 import type { ContextAnnotation, ProgressAnnotation } from '@/types/context';
-import { WORK_DIR } from '@/utils/constants';
+import { WORK_DIR } from '@/utils/chat-assistant/constants';
 import { createSummary } from '@/lib/llm/create-summary';
 import { extractPropertiesFromMessage } from '@/lib/llm/utils';
 

@@ -1,89 +1,156 @@
-import { createParser } from 'eventsource-parser';
-import type { Messages, StreamingOptions } from '@/types/chat';
+import { convertToCoreMessages, streamText as _streamText, type Message } from 'ai';
+import { MAX_TOKENS, type FileMap } from './contants';
+import { getSystemPrompt } from '@/lib/common/prompt';
+import { DEFAULT_MODEL, DEFAULT_PROVIDER, MODIFICATIONS_TAG_NAME, PROVIDER_LIST, WORK_DIR } from '@/utils/chat-assistant/constants';
+import type { IProviderSetting } from '@/types/model';
+import { PromptLibrary } from '@/lib/common/prompt-library';
+import { allowedHTMLElements } from '@/utils/chat-assistant/markdown';
+import { LLMManager } from '@/lib/modules/llm/manager';
 import { createScopedLogger } from '@/utils/chat-assistant/logger';
+import { createFilesContext, extractPropertiesFromMessage } from './utils';
+import { getFilePaths } from './select-context';
+
+export type Messages = Message[];
+
+export type StreamingOptions = Omit<Parameters<typeof _streamText>[0], 'model'>;
 
 const logger = createScopedLogger('stream-text');
 
-export async function streamText(
-  messages: Messages,
-  options: StreamingOptions
-): Promise<ReadableStream> {
-  const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
+export async function streamText(props: {
+  messages: Omit<Message, 'id'>[];
+  env?: Env;
+  options?: StreamingOptions;
+  apiKeys?: Record<string, string>;
+  files?: FileMap;
+  providerSettings?: Record<string, IProviderSetting>;
+  promptId?: string;
+  contextOptimization?: boolean;
+  contextFiles?: FileMap;
+  summary?: string;
+  messageSliceId?: number;
+}) {
+  const {
+    messages,
+    env: serverEnv,
+    options,
+    apiKeys,
+    files,
+    providerSettings,
+    promptId,
+    contextOptimization,
+    contextFiles,
+    summary,
+  } = props;
+  let currentModel = DEFAULT_MODEL;
+  let currentProvider = DEFAULT_PROVIDER.name;
+  let processedMessages = messages.map((message) => {
+    if (message.role === 'user') {
+      const { model, provider, content } = extractPropertiesFromMessage(message);
+      currentModel = model;
+      currentProvider = provider;
 
-  const { maxTokens, apiKeys, providerSettings, model, provider } = options;
+      return { ...message, content };
+    } else if (message.role == 'assistant') {
+      let content = message.content;
+      content = content.replace(/<div class=\\"__boltThought__\\">.*?<\/div>/s, '');
+      content = content.replace(/<think>.*?<\/think>/s, '');
 
-  let counter = 0;
-  
-  async function* makeGenerator() {
-    try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKeys?.[provider.name]}`,
-        },
-        body: JSON.stringify({
-          model,
-          messages,
-          max_tokens: maxTokens,
-          temperature: 0.7,
-          stream: true,
-        }),
-      });
+      return { ...message, content };
+    }
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error?.message || 'Failed to generate text');
-      }
+    return message;
+  });
 
-      if (!response.body) {
-        throw new Error('No response body');
-      }
+  const provider = PROVIDER_LIST.find((p) => p.name === currentProvider) || DEFAULT_PROVIDER;
+  const staticModels = LLMManager.getInstance().getStaticModelListFromProvider(provider);
+  let modelDetails = staticModels.find((m) => m.name === currentModel);
 
-      const parser = createParser((event) => {
-        if (event.type === 'event') {
-          try {
-            const data = JSON.parse(event.data);
-            const text = data.choices[0]?.delta?.content || '';
-            if (text) {
-              options.onToken?.();
-              return encoder.encode(text);
-            }
-          } catch (error) {
-            logger.error('Error parsing SSE message:', error);
-          }
-        }
-      });
+  if (!modelDetails) {
+    const modelsList = [
+      ...(provider.staticModels || []),
+      ...(await LLMManager.getInstance().getModelListFromProvider(provider, {
+        apiKeys,
+        providerSettings,
+        serverEnv: serverEnv as any,
+      })),
+    ];
 
-      const reader = response.body.getReader();
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          
-          const chunk = decoder.decode(value);
-          parser.feed(chunk);
-          
-          if (options.maxResponseSegments && counter++ >= options.maxResponseSegments) {
-            break;
-          }
-        }
-      } finally {
-        reader.releaseLock();
-      }
-    } catch (error) {
-      logger.error('Error in streamText:', error);
-      yield encoder.encode(`Error: ${error.message}`);
+    if (!modelsList.length) {
+      throw new Error(`No models found for provider ${provider.name}`);
+    }
+
+    modelDetails = modelsList.find((m) => m.name === currentModel);
+
+    if (!modelDetails) {
+      // Fallback to first model
+      logger.warn(
+        `MODEL [${currentModel}] not found in provider [${provider.name}]. Falling back to first model. ${modelsList[0].name}`,
+      );
+      modelDetails = modelsList[0];
     }
   }
 
-  return new ReadableStream({
-    async start(controller) {
-      for await (const chunk of makeGenerator()) {
-        controller.enqueue(chunk);
+  const dynamicMaxTokens = modelDetails && modelDetails.maxTokenAllowed ? modelDetails.maxTokenAllowed : MAX_TOKENS;
+
+  let systemPrompt =
+    PromptLibrary.getPropmtFromLibrary(promptId || 'default', {
+      cwd: WORK_DIR,
+      allowedHtmlElements: allowedHTMLElements,
+      modificationTagName: MODIFICATIONS_TAG_NAME,
+    }) ?? getSystemPrompt();
+
+  if (files && contextFiles && contextOptimization) {
+    const codeContext = createFilesContext(contextFiles, true);
+    const filePaths = getFilePaths(files);
+
+    systemPrompt = `${systemPrompt}
+Below are all the files present in the project:
+---
+${filePaths.join('\n')}
+---
+
+Below is the artifact containing the context loaded into context buffer for you to have knowledge of and might need changes to fullfill current user request.
+CONTEXT BUFFER:
+---
+${codeContext}
+---
+`;
+
+    if (summary) {
+      systemPrompt = `${systemPrompt}
+      below is the chat history till now
+CHAT SUMMARY:
+---
+${props.summary}
+---
+`;
+
+      if (props.messageSliceId) {
+        processedMessages = processedMessages.slice(props.messageSliceId);
+      } else {
+        const lastMessage = processedMessages.pop();
+
+        if (lastMessage) {
+          processedMessages = [lastMessage];
+        }
       }
-      controller.close();
-    },
+    }
+  }
+
+  logger.info(`Sending llm call to ${provider.name} with model ${modelDetails.name}`);
+
+  // console.log(systemPrompt,processedMessages);
+
+  return await _streamText({
+    model: provider.getModelInstance({
+      model: modelDetails.name,
+      serverEnv,
+      apiKeys,
+      providerSettings,
+    }),
+    system: systemPrompt,
+    maxTokens: dynamicMaxTokens,
+    messages: convertToCoreMessages(processedMessages as any),
+    ...options,
   });
 }
