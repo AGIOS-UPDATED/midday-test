@@ -2,13 +2,13 @@
  * @ts-nocheck
  * Preventing TS checks with files presented in the video for a better presentation.
  */
-"use client"
-import type { Message } from 'ai';
-import React, { type RefCallback, useCallback, useEffect, useState } from 'react';
+import type { JSONValue, Message } from 'ai';
+import React, { type RefCallback, useEffect, useState } from 'react';
 import { Menu } from '@/components/chat-assistant/sidebar/Menu';
 import { IconButton } from '@/components/chat-assistant/ui/IconButton';
+// import { Workbench } from '@/components/workbench/Workbench.client';
 import { classNames } from '@/utils/chat-assistant/classNames';
-import { MODEL_LIST, PROVIDER_LIST, initializeModelList } from '@/utils/chat-assistant/constants';
+import { PROVIDER_LIST } from '@/utils/chat-assistant/constants';
 import { Messages } from './MessagesClient';
 import { SendButton } from './SendButton.client';
 import { APIKeyManager, getApiKeysFromCookies } from './APIKeyManager';
@@ -17,17 +17,22 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 
 import styles from './BaseChat.module.scss';
 import { ExportChatButton } from '@/components/chat-assistant/chat/chatExportAndImport/ExportChatButton';
+import { ImportButtons } from '@/components/chat-assistant/chat/chatExportAndImport/ImportButtons';
 import { ExamplePrompts } from '@/components/chat-assistant/chat/ExamplePrompts';
+import GitCloneButton from './GitCloneButton';
+
 import FilePreview from './FilePreview';
 import { ModelSelector } from '@/components/chat-assistant/chat/ModelSelector';
 import { SpeechRecognitionButton } from '@/components/chat-assistant/chat/SpeechRecognition';
-import type { IProviderSetting, ProviderInfo } from '@/types/model';
+import type { ProviderInfo } from '@/types/model';
 import { ScreenshotStateManager } from './ScreenshotStateManager';
 import { toast } from 'react-toastify';
 import StarterTemplates from './StarterTemplates';
 import type { ActionAlert } from '@/types/actions';
 import ChatAlert from './ChatAlert';
-import { LLMManager } from '@/lib/modules/llm/manager';
+import type { ModelInfo } from '@/lib/modules/llm/types';
+import ProgressCompilation from './ProgressCompilation';
+import type { ProgressAnnotation } from '@/types/context';
 
 const TEXTAREA_MIN_HEIGHT = 76;
 
@@ -60,16 +65,10 @@ interface BaseChatProps {
   setImageDataList?: (dataList: string[]) => void;
   actionAlert?: ActionAlert;
   clearAlert?: () => void;
+  data?: JSONValue[] | undefined;
 }
 
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
-  }
-}
-
-const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
+export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
   (
     {
       textareaRef,
@@ -91,6 +90,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       enhancePrompt,
       sendMessage,
       handleStop,
+      importChat,
       exportChat,
       uploadedFiles = [],
       setUploadedFiles,
@@ -99,40 +99,27 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       messages,
       actionAlert,
       clearAlert,
+      data,
     },
     ref,
   ) => {
     const TEXTAREA_MAX_HEIGHT = chatStarted ? 400 : 200;
     const [apiKeys, setApiKeys] = useState<Record<string, string>>(getApiKeysFromCookies());
-    const [modelList, setModelList] = useState(MODEL_LIST);
+    const [modelList, setModelList] = useState<ModelInfo[]>([]);
     const [isModelSettingsCollapsed, setIsModelSettingsCollapsed] = useState(false);
     const [isListening, setIsListening] = useState(false);
     const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
     const [transcript, setTranscript] = useState('');
     const [isModelLoading, setIsModelLoading] = useState<string | undefined>('all');
-
-    const getProviderSettings = useCallback(() => {
-      let providerSettings: Record<string, IProviderSetting> | undefined = undefined;
-
-      try {
-        const savedProviderSettings = Cookies.get('providers');
-
-        if (savedProviderSettings) {
-          const parsedProviderSettings = JSON.parse(savedProviderSettings);
-
-          if (typeof parsedProviderSettings === 'object' && parsedProviderSettings !== null) {
-            providerSettings = parsedProviderSettings;
-          }
-        }
-      } catch (error) {
-        console.error('Error loading Provider Settings from cookies:', error);
-
-        // Clear invalid cookie data
-        Cookies.remove('providers');
+    const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
+    useEffect(() => {
+      if (data) {
+        const progressList = data.filter(
+          (x) => typeof x === 'object' && (x as any).type === 'progress',
+        ) as ProgressAnnotation[];
+        setProgressAnnotations(progressList);
       }
-
-      return providerSettings;
-    }, []);
+    }, [data]);
     useEffect(() => {
       console.log(transcript);
     }, [transcript]);
@@ -171,7 +158,6 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 
     useEffect(() => {
       if (typeof window !== 'undefined') {
-        const providerSettings = getProviderSettings();
         let parsedApiKeys: Record<string, string> | undefined = {};
 
         try {
@@ -179,17 +165,18 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
           setApiKeys(parsedApiKeys);
         } catch (error) {
           console.error('Error loading API keys from cookies:', error);
-
-          // Clear invalid cookie data
           Cookies.remove('apiKeys');
         }
+
         setIsModelLoading('all');
-        initializeModelList({ apiKeys: parsedApiKeys, providerSettings })
-          .then((modelList) => {
-            setModelList(modelList);
+        fetch('/api/models')
+          .then((response) => response.json())
+          .then((data) => {
+            const typedData = data as { modelList: ModelInfo[] };
+            setModelList(typedData.modelList);
           })
           .catch((error) => {
-            console.error('Error initializing model list:', error);
+            console.error('Error fetching model list:', error);
           })
           .finally(() => {
             setIsModelLoading(undefined);
@@ -202,29 +189,24 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       setApiKeys(newApiKeys);
       Cookies.set('apiKeys', JSON.stringify(newApiKeys));
 
-      const provider = LLMManager.getInstance( process.env. || {}).getProvider(providerName);
+      setIsModelLoading(providerName);
 
-      if (provider && provider.getDynamicModels) {
-        setIsModelLoading(providerName);
+      let providerModels: ModelInfo[] = [];
 
-        try {
-          const providerSettings = getProviderSettings();
-          const staticModels = provider.staticModels;
-          const dynamicModels = await provider.getDynamicModels(
-            newApiKeys,
-            providerSettings,
-            process.env || {},
-          );
-
-          setModelList((preModels) => {
-            const filteredOutPreModels = preModels.filter((x) => x.provider !== providerName);
-            return [...filteredOutPreModels, ...staticModels, ...dynamicModels];
-          });
-        } catch (error) {
-          console.error('Error loading dynamic models:', error);
-        }
-        setIsModelLoading(undefined);
+      try {
+        const response = await fetch(`/api/models/${encodeURIComponent(providerName)}`);
+        const data = await response.json();
+        providerModels = (data as { modelList: ModelInfo[] }).modelList;
+      } catch (error) {
+        console.error('Error loading dynamic models for:', providerName, error);
       }
+
+      // Only update models for the specific provider
+      setModelList((prevModels) => {
+        const otherModels = prevModels.filter((model) => model.provider !== providerName);
+        return [...otherModels, ...providerModels];
+      });
+      setIsModelLoading(undefined);
     };
 
     const startListening = () => {
@@ -319,7 +301,10 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
         className={classNames(styles.BaseChat, 'relative flex h-full w-full overflow-hidden')}
         data-chat-visible={showChat}
       >
-      {/* <Menu /> */}
+        {/* <ClientOnly>{() =>  */}
+          <Menu />
+          
+        {/* </ClientOnly> */}
         <div ref={scrollRef} className="flex flex-col lg:flex-row overflow-y-auto w-full h-full">
           <div className={classNames(styles.Chat, 'flex flex-col flex-grow lg:min-w-[var(--chat-min-width)] h-full')}>
             {!chatStarted && (
@@ -336,19 +321,20 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
               className={classNames('pt-6 px-2 sm:px-6', {
                 'h-full flex flex-col': chatStarted,
               })}
+              ref={scrollRef}
             >
-           
-                {
-                  chatStarted ? (
+              {/* <ClientOnly> */}
+                {/* {() => { */}
+                  return chatStarted ? (
                     <Messages
                       ref={messageRef}
                       className="flex flex-col w-full flex-1 max-w-chat pb-6 mx-auto z-1"
                       messages={messages}
                       isStreaming={isStreaming}
                     />
-                  ) : null
-                }
-            
+                  ) : null;
+                {/* }} */}
+              {/* </ClientOnly>  */}
               <div
                 className={classNames('flex flex-col gap-4 w-full max-w-chat mx-auto z-prompt mb-6', {
                   'sticky bottom-2': chatStarted,
@@ -366,6 +352,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                     />
                   )}
                 </div>
+                {progressAnnotations && <ProgressCompilation data={progressAnnotations} />}
                 <div
                   className={classNames(
                     'bg-bolt-elements-background-depth-2 p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
@@ -404,8 +391,8 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                     <rect className={classNames(styles.PromptShine)} x="48" y="24" width="70" height="1"></rect>
                   </svg>
                   <div>
-                 
-                     
+                    {/* <ClientOnly>
+                      {() => ( */}
                         <div className={isModelSettingsCollapsed ? 'hidden' : ''}>
                           <ModelSelector
                             key={provider?.name + ':' + modelList.length}
@@ -428,8 +415,8 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                             />
                           )}
                         </div>
-                   
-            
+                      {/* )}
+                    </ClientOnly> */}
                   </div>
                   <FilePreview
                     files={uploadedFiles}
@@ -439,14 +426,16 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                       setImageDataList?.(imageDataList.filter((_, i) => i !== index));
                     }}
                   />
-                 
+                  {/* <ClientOnly>
+                    {() => ( */}
                       <ScreenshotStateManager
                         setUploadedFiles={setUploadedFiles}
                         setImageDataList={setImageDataList}
                         uploadedFiles={uploadedFiles}
                         imageDataList={imageDataList}
                       />
-                
+                    {/* )}
+                  </ClientOnly> */}
                   <div
                     className={classNames(
                       'relative shadow-xs border border-bolt-elements-borderColor backdrop-blur rounded-lg',
@@ -519,10 +508,11 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                         minHeight: TEXTAREA_MIN_HEIGHT,
                         maxHeight: TEXTAREA_MAX_HEIGHT,
                       }}
-                      placeholder="How can Updated help you today?"
+                      placeholder="How can Bolt help you today?"
                       translate="no"
                     />
-                  
+                    {/* <ClientOnly> */}
+                      {/* {() => ( */}
                         <SendButton
                           show={input.length > 0 || isStreaming || uploadedFiles.length > 0}
                           isStreaming={isStreaming}
@@ -538,7 +528,8 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                             }
                           }}
                         />
-                 
+                      {/* )} */}
+                    {/* </ClientOnly> */}
                     <div className="flex justify-between items-center text-sm p-4 pt-2">
                       <div className="flex gap-1 items-center">
                         <IconButton title="Upload file" className="transition-all" onClick={() => handleFileUpload()}>
@@ -566,7 +557,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                           onStop={stopListening}
                           disabled={isStreaming}
                         />
-                        {chatStarted && <ExportChatButton exportChat={exportChat} />}
+                        {chatStarted && <ClientOnly>{() => <ExportChatButton exportChat={exportChat} />}</ClientOnly>}
                         <IconButton
                           title="Model Settings"
                           className={classNames('transition-all flex items-center gap-1', {
@@ -595,9 +586,12 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
               </div>
             </div>
             <div className="flex flex-col justify-center gap-5">
-              {/* {!chatStarted && (
-                <div className="flex justify-center gap-2">{ImportButtons(importChat)}</div>
-              )} */}
+              {!chatStarted && (
+                <div className="flex justify-center gap-2">
+                  {ImportButtons(importChat)}
+                  <GitCloneButton importChat={importChat} />
+                </div>
+              )}
               {!chatStarted &&
                 ExamplePrompts((event, messageInput) => {
                   if (isStreaming) {
@@ -610,19 +604,11 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
               {!chatStarted && <StarterTemplates />}
             </div>
           </div>
-          {/* <ClientOnly>{() => <AxisGraph/>}</ClientOnly> */}
+          {/* <ClientOnly>{() => <Workbench chatStarted={chatStarted} isStreaming={isStreaming} />}</ClientOnly> */}
         </div>
       </div>
     );
 
-    return <Tooltip.Provider delayDuration={200}>
-      {baseChat} 
-    </Tooltip.Provider>;
+    return <Tooltip.Provider delayDuration={200}>{baseChat}</Tooltip.Provider>;
   },
 );
-
-// Add display name
-BaseChat.displayName = 'BaseChat';
-
-// Export the component
-export default BaseChat;
