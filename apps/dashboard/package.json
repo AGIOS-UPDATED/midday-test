@@ -76,7 +76,7 @@
     "@xterm/xterm": "^5.5.0",
     "@zip.js/zip.js": "2.7.52",
     "ag-charts-react": "^11.0.3",
-    "ai": "3.4.9",
+    "ai": "^4.1.2",
     "apexcharts": "^4.3.0",
     "canvasjs-react-charts": "^1.0.5",
     "chalk": "^5.4.1",
