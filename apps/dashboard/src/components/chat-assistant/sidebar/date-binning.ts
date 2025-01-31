@@ -1,50 +1,59 @@
-export interface DateBin {
-  label: string;
-  items: any[];
-}
+import { format, isAfter, isThisWeek, isThisYear, isToday, isYesterday, subDays } from 'date-fns';
+import type { ChatHistoryItem } from '@/lib/persistence';
 
-export function binByDate(items: any[], getDate: (item: any) => Date): DateBin[] {
-  if (items?.length === 0) return [];
+type Bin = { category: string; items: ChatHistoryItem[] };
 
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const lastWeek = new Date(today);
-  lastWeek.setDate(lastWeek.getDate() - 7);
-  const lastMonth = new Date(today);
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
+export function binDates(_list: ChatHistoryItem[]) {
+  const list = _list.toSorted((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp));
 
-  const bins: { [key: string]: any[] } = {
-    Today: [],
-    Yesterday: [],
-    'Last 7 Days': [],
-    'Last 30 Days': [],
-    Older: [],
-  };
+  const binLookup: Record<string, Bin> = {};
+  const bins: Array<Bin> = [];
 
-  items?.forEach((item) => {
-    const date = getDate(item);
-    const startOfDay = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    );
+  list.forEach((item) => {
+    const category = dateCategory(new Date(item.timestamp));
 
-    if (startOfDay.getTime() === today.getTime()) {
-      bins['Today'].push(item);
-    } else if (startOfDay.getTime() === yesterday.getTime()) {
-      bins['Yesterday'].push(item);
-    } else if (date >= lastWeek) {
-      bins['Last 7 Days'].push(item);
-    } else if (date >= lastMonth) {
-      bins['Last 30 Days'].push(item);
+    if (!(category in binLookup)) {
+      const bin = {
+        category,
+        items: [item],
+      };
+
+      binLookup[category] = bin;
+
+      bins.push(bin);
     } else {
-      bins['Older'].push(item);
+      binLookup[category].items.push(item);
     }
   });
 
-  return Object.entries(bins)
-    .filter(([_, items]) => items.length > 0)
-    .map(([label, items]) => ({ label, items }));
+  return bins;
+}
+
+function dateCategory(date: Date) {
+  if (isToday(date)) {
+    return 'Today';
+  }
+
+  if (isYesterday(date)) {
+    return 'Yesterday';
+  }
+
+  if (isThisWeek(date)) {
+    // e.g., "Monday"
+    return format(date, 'eeee');
+  }
+
+  const thirtyDaysAgo = subDays(new Date(), 30);
+
+  if (isAfter(date, thirtyDaysAgo)) {
+    return 'Last 30 Days';
+  }
+
+  if (isThisYear(date)) {
+    // e.g., "July"
+    return format(date, 'MMMM');
+  }
+
+  // e.g., "July 2023"
+  return format(date, 'MMMM yyyy');
 }
