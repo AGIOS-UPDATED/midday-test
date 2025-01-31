@@ -19,7 +19,7 @@ import styles from './BaseChat.module.scss';
 import { ExportChatButton } from '@/components/chat-assistant/chat/chatExportAndImport/ExportChatButton';
 import { ImportButtons } from '@/components/chat-assistant/chat/chatExportAndImport/ImportButtons';
 import { ExamplePrompts } from '@/components/chat-assistant/chat/ExamplePrompts';
-import GitCloneButton from './GitCloneButton';
+// import GitCloneButton from './GitCloneButton';
 
 import FilePreview from './FilePreview';
 import { ModelSelector } from '@/components/chat-assistant/chat/ModelSelector';
@@ -325,14 +325,15 @@ interface BaseChatProps {
             >
               {/* <ClientOnly> */}
                 {/* {() => { */}
-                  return chatStarted ? (
+               
+               { chatStarted ? (
                     <Messages
                       ref={messageRef}
                       className="flex flex-col w-full flex-1 max-w-chat pb-6 mx-auto z-1"
                       messages={messages}
                       isStreaming={isStreaming}
                     />
-                  ) : null;
+                  ) : null }
                 {/* }} */}
               {/* </ClientOnly>  */}
               <div
@@ -557,7 +558,7 @@ interface BaseChatProps {
                           onStop={stopListening}
                           disabled={isStreaming}
                         />
-                        {chatStarted && <ClientOnly>{() => <ExportChatButton exportChat={exportChat} />}</ClientOnly>}
+                        {chatStarted &&  <ExportChatButton exportChat={exportChat} />}
                         <IconButton
                           title="Model Settings"
                           className={classNames('transition-all flex items-center gap-1', {
@@ -589,7 +590,7 @@ interface BaseChatProps {
               {!chatStarted && (
                 <div className="flex justify-center gap-2">
                   {ImportButtons(importChat)}
-                  <GitCloneButton importChat={importChat} />
+                  {/* <GitCloneButton importChat={importChat} /> */}
                 </div>
               )}
               {!chatStarted &&
