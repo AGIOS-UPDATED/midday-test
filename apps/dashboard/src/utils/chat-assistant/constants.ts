@@ -1,7 +1,4 @@
-import type { IProviderSetting } from '@/types/model';
-
 import { LLMManager } from '@/lib/modules/llm/manager';
-import type { ModelInfo } from '@/lib/modules/llm/types';
 import type { Template } from '@/types/template';
 
 export const WORK_DIR_NAME = 'project';
@@ -12,48 +9,18 @@ export const PROVIDER_REGEX = /\[Provider: (.*?)\]\n\n/;
 export const DEFAULT_MODEL = 'claude-3-5-sonnet-latest';
 export const PROMPT_COOKIE_KEY = 'cachedPrompt';
 
-const llmManager = LLMManager.getInstance(import.meta.env);
+const llmManager = LLMManager.getInstance({});
 
 export const PROVIDER_LIST = llmManager.getAllProviders();
 export const DEFAULT_PROVIDER = llmManager.getDefaultProvider();
 
-let MODEL_LIST = llmManager.getModelList();
-
-const providerBaseUrlEnvKeys: Record<string, { baseUrlKey?: string; apiTokenKey?: string }> = {};
+export const providerBaseUrlEnvKeys: Record<string, { baseUrlKey?: string; apiTokenKey?: string }> = {};
 PROVIDER_LIST.forEach((provider) => {
   providerBaseUrlEnvKeys[provider.name] = {
     baseUrlKey: provider.config.baseUrlKey,
     apiTokenKey: provider.config.apiTokenKey,
   };
 });
-
-// Export the getModelList function using the manager
-export async function getModelList(options: {
-  apiKeys?: Record<string, string>;
-  providerSettings?: Record<string, IProviderSetting>;
-  serverEnv?: Record<string, string>;
-}) {
-  return await llmManager.updateModelList(options);
-}
-
-async function initializeModelList(options: {
-  env?: Record<string, string>;
-  providerSettings?: Record<string, IProviderSetting>;
-  apiKeys?: Record<string, string>;
-}): Promise<ModelInfo[]> {
-  const { providerSettings, apiKeys, env } = options;
-  const list = await getModelList({
-    apiKeys,
-    providerSettings,
-    serverEnv: env,
-  });
-  MODEL_LIST = list || MODEL_LIST;
-
-  return list;
-}
-
-// initializeModelList({})
-export { initializeModelList, providerBaseUrlEnvKeys, MODEL_LIST };
 
 // starter Templates
 
@@ -145,41 +112,5 @@ export const STARTER_TEMPLATES: Template[] = [
     githubRepo: 'thecodacus/bolt-angular-template',
     tags: ['angular', 'typescript', 'frontend', 'spa'],
     icon: 'i-bolt:angular',
-  },
-];
-
-export const STARTER_EXCHANGE: Template[] = [
-  {
-    name: 'Binance',
-    label: 'Binance',
-    description: 'Lightweight Astro starter template for building fast static websites',
-    githubRepo: 'thecodacus/bolt-astro-basic-template',
-    tags: ['astro', 'blog', 'performance'],
-    icon: 'i-bolt:astro',
-  },
-  {
-    name: 'BingX',
-    label: 'BingX',
-    description: 'Lightweight Astro starter template for building fast static websites',
-    githubRepo: 'thecodacus/bolt-astro-basic-template',
-    tags: ['astro', 'blog', 'performance'],
-    icon: 'i-bolt:astro',
-  },
-  {
-    name: 'UniSwap',
-    label: 'UniSwap',
-    description: 'Lightweight Astro starter template for building fast static websites',
-    githubRepo: 'thecodacus/bolt-astro-basic-template',
-    tags: ['astro', 'blog', 'performance'],
-    icon: 'i-bolt:astro',
-  },
-
-  {
-    name: 'ByBit',
-    label: 'ByBit',
-    description: 'Lightweight Astro starter template for building fast static websites',
-    githubRepo: 'thecodacus/bolt-astro-basic-template',
-    tags: ['astro', 'blog', 'performance'],
-    icon: 'i-bolt:astro',
   },
 ];
