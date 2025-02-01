@@ -367,7 +367,7 @@ interface BaseChatProps {
                 >
                   <svg className={classNames(styles.PromptEffectContainer)}>
                     <defs>
-                      <linearGradient
+                      {/* <linearGradient
                         id="line-gradient"
                         x1="20%"
                         y1="0%"
@@ -386,7 +386,7 @@ interface BaseChatProps {
                         <stop offset="40%" stopColor="#ffffff" stopOpacity="80%"></stop>
                         <stop offset="50%" stopColor="#ffffff" stopOpacity="80%"></stop>
                         <stop offset="100%" stopColor="white" stopOpacity="0%"></stop>
-                      </linearGradient>
+                      </linearGradient> */}
                     </defs>
                     <rect className={classNames(styles.PromptEffectLine)} pathLength="100" strokeLinecap="round"></rect>
                     <rect className={classNames(styles.PromptShine)} x="48" y="24" width="70" height="1"></rect>
