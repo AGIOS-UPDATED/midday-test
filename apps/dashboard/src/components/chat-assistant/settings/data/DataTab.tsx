@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from '@remix-run/react';
+import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { db, deleteById, getAll, setMessages } from '@/lib/persistence';
@@ -31,7 +31,7 @@ interface ApiKeys {
 }
 
 export default function DataTab() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
   const downloadAsJson = (data: any, filename: string) => {
@@ -94,7 +94,7 @@ export default function DataTab() {
       await Promise.all(allChats.map((chat) => deleteById(db!, chat.id)));
       logStore.logSystem('All chats deleted successfully', { count: allChats.length });
       toast.success('All chats deleted successfully');
-      navigate('/', { replace: true });
+      router.replace('/');
     } catch (error) {
       logStore.logError('Failed to delete chats', error);
       toast.error('Failed to delete chats');
