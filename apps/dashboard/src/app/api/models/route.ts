@@ -1,5 +1,4 @@
-// app/api/models/[[...provider]]/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { LLMManager } from '@/lib/modules/llm/manager';
 import type { ModelInfo } from '@/lib/modules/llm/types';
 import type { ProviderInfo } from '@/types/model';
@@ -39,36 +38,28 @@ function getProviderInfo(llmManager: LLMManager) {
   return { providers: cachedProviders, defaultProvider: cachedDefaultProvider };
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { provider?: string[] } }
-): Promise<NextResponse<ModelsResponse>> {
-  // Initialize LLMManager with environment variables
+export async function getModelsHandler(req: NextApiRequest, res: NextApiResponse) {
+  const { provider } = req.query;
   const llmManager = LLMManager.getInstance(process.env);
 
-  // Get cookies from the request
-  const cookieStore = request.cookies;
-  const apiKeys = getApiKeysFromCookie(cookieStore);
-  const providerSettings = getProviderSettingsFromCookie(cookieStore);
+  const cookieHeader = req.headers.cookie;
+  const apiKeys = getApiKeysFromCookie(cookieHeader);
+  const providerSettings = getProviderSettingsFromCookie(cookieHeader);
 
   const { providers, defaultProvider } = getProviderInfo(llmManager);
 
   let modelList: ModelInfo[] = [];
-  const providerParam = params.provider?.[0];
 
-  if (providerParam) {
-    // Only update models for the specific provider
-    const provider = llmManager.getProvider(providerParam);
-
-    if (provider) {
-      modelList = await llmManager.getModelListFromProvider(provider, {
+  if (typeof provider === 'string') {
+    const providerInstance = llmManager.getProvider(provider);
+    if (providerInstance) {
+      modelList = await llmManager.getModelListFromProvider(providerInstance, {
         apiKeys,
         providerSettings,
         serverEnv: process.env,
       });
     }
   } else {
-    // Update all models
     modelList = await llmManager.updateModelList({
       apiKeys,
       providerSettings,
@@ -76,7 +67,7 @@ export async function GET(
     });
   }
 
-  return NextResponse.json({
+  res.status(200).json({
     modelList,
     providers,
     defaultProvider,
