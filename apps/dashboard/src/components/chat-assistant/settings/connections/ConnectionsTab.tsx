@@ -120,7 +120,7 @@ export default function ConnectionsTab() {
           <button
             onClick={handleSaveConnection}
             disabled={isVerifying || !githubUsername || !githubToken}
-            className="bg-bolt-elements-button-primary-background rounded-lg px-4 py-2 mr-2 transition-colors duration-200 hover:bg-bolt-elements-button-primary-backgroundHover text-bolt-elements-button-primary-text disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className=" bg-gray-400 bg-bolt-elements-button-primary-background rounded-lg px-4 py-2 mr-2 transition-colors duration-200 hover:bg-bolt-elements-button-primary-backgroundHover text-bolt-elements-button-primary-text disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
             {isVerifying ? (
               <>

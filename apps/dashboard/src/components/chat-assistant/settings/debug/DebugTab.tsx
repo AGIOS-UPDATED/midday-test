@@ -358,7 +358,7 @@ export default function DebugTab() {
               settingsUrl = undefined;
             }
 
-            const url = settingsUrl || import.meta.env[envVarName] || null; // Ensure baseUrl is used
+            const url = settingsUrl || process.env[envVarName] || null; // Ensure baseUrl is used
             console.log(`[Debug] Using URL for ${provider.name}:`, url, `(from ${envVarName})`);
 
             const status = await checkProviderStatus(url, provider.name);

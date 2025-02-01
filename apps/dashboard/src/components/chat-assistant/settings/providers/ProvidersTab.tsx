@@ -44,7 +44,7 @@ export default function ProvidersTab() {
 
   const renderProviderCard = (provider: IProviderConfig) => {
     const envBaseUrlKey = providerBaseUrlEnvKeys[provider.name].baseUrlKey;
-    const envBaseUrl = envBaseUrlKey ? import.meta.env[envBaseUrlKey] : undefined;
+    const envBaseUrl = envBaseUrlKey ? process.env[envBaseUrlKey] : undefined;
     const isUrlConfigurable = URL_CONFIGURABLE_PROVIDERS.includes(provider.name);
 
     return (
