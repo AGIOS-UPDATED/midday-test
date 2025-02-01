@@ -143,7 +143,7 @@ export const Menu = () => {
       initial="closed"
       animate={open ? 'open' : 'closed'}
       variants={menuVariants}
-      className="flex selection-accent flex-col side-menu fixed top-0 w-[350px] h-full bg-bolt-elements-background-depth-2 border-r rounded-r-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
+      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu fixed top-0 w-[350px] h-full   border-r rounded-r-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
     >
       <div className="h-[60px]" /> {/* Spacer for top margin */}
       <CurrentDateTime />
