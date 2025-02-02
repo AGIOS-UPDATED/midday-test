@@ -33,6 +33,7 @@ import ChatAlert from './ChatAlert';
 import type { ModelInfo } from '@/lib/modules/llm/types';
 import ProgressCompilation from './ProgressCompilation';
 import type { ProgressAnnotation } from '@/types/context';
+import { Workbench } from '../workbench/WorkbenchClient';
 
 const TEXTAREA_MIN_HEIGHT = 76;
 
@@ -605,7 +606,7 @@ interface BaseChatProps {
               {!chatStarted && <StarterTemplates />}
             </div>
           </div>
-          {/* <ClientOnly>{() => <Workbench chatStarted={chatStarted} isStreaming={isStreaming} />}</ClientOnly> */}
+      <Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
         </div>
       </div>
     );
