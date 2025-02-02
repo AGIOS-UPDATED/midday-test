@@ -3,6 +3,7 @@
 import React from 'react';
 import IndexRoute from '../page'
 import dynamic from 'next/dynamic';
+import  'react-toastify/dist/ReactToastify.css';
 const ChatComponent = dynamic(
   () => import('@/components/chat-assistant/chat/Chat.client'),
   {
