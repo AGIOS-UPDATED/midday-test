@@ -1,7 +1,7 @@
 'use client';
 
 import { atom, map, type MapStore, type ReadableAtom, type WritableAtom } from 'nanostores';
-import type { EditorDocument, ScrollPosition } from '@/components/chat-assistan/editor/codemirror/CodeMirrorEditor';
+import type { EditorDocument, ScrollPosition } from '@/components/chat-assistant/editor/codemirror/CodeMirrorEditor';
 import { ActionRunner } from '@/lib/runtime/action-runner';
 import type { ActionCallbackData, ArtifactCallbackData } from '@/lib/runtime/message-parser';
 import { webcontainer } from '@/lib/webcontainer';
