@@ -182,7 +182,7 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
               'left-[100%]': !showWorkbench,
             },
           )}> 
-          <AgCharts options={options} />
+          {/* <AgCharts options={options} /> */}
         </div>
       </motion.div>
     )

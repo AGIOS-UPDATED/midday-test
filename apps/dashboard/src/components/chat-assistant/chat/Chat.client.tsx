@@ -42,7 +42,7 @@ const ChatComponent = () => {
   }, [initialMessages]);
 
   return (
-    <div className='w-[60%]'>
+    <>
       {ready && (
         <ChatImpl
           description={title}
@@ -79,7 +79,7 @@ const ChatComponent = () => {
         pauseOnFocusLoss
         transition={toastAnimation}
       />
-    </div>
+    </>
   );
 };
 
