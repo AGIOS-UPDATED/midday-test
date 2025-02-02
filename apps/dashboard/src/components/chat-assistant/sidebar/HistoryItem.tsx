@@ -1,4 +1,4 @@
-import { useParams } from '@remix-run/react';
+import { useParams } from 'next/navigation';
 import { classNames } from '@/utils/chat-assistant/classNames';
 import * as Dialog from '@radix-ui/react-dialog';
 import { type ChatHistoryItem } from '@/lib/persistence';
@@ -14,7 +14,8 @@ interface HistoryItemProps {
 }
 
 export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: HistoryItemProps) {
-  const { id: urlId } = useParams();
+  const params = useParams();
+  const urlId = params?.id as string;
   const isActiveChat = urlId === item.urlId;
 
   const { editing, handleChange, handleBlur, handleSubmit, handleKeyDown, currentDescription, toggleEditMode } =
