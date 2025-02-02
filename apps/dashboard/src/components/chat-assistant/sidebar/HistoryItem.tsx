@@ -16,7 +16,7 @@ interface HistoryItemProps {
 export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: HistoryItemProps) {
   const params = useParams();
   const urlId = params?.id as string;
-  const isActiveChat = urlId === item.urlId;
+  const isActiveChat = urlId === item.id;
 
   const { editing, handleChange, handleBlur, handleSubmit, handleKeyDown, currentDescription, toggleEditMode } =
     useEditChatDescription({
