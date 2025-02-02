@@ -1,19 +1,33 @@
-// Z-index scale
-$z-indices: (
-  'negative': -1,
-  'base': 0,
-  'dropdown': 1000,
-  'sticky': 1020,
-  'fixed': 1030,
-  'modal-backdrop': 1040,
-  'modal': 1050,
-  'popover': 1060,
-  'tooltip': 1070,
-);
+$zIndexMax: 999;
 
-// Generate z-index utility classes
-@each $name, $value in $z-indices {
-  .z-#{$name} {
-    z-index: $value;
-  }
+.z-logo {
+  z-index: $zIndexMax - 1;
+}
+
+.z-sidebar {
+  z-index: $zIndexMax - 2;
+}
+
+.z-port-dropdown {
+  z-index: $zIndexMax - 3;
+}
+
+.z-iframe-overlay {
+  z-index: $zIndexMax - 4;
+}
+
+.z-prompt {
+  z-index: 2;
+}
+
+.z-workbench {
+  z-index: 3;
+}
+
+.z-file-tree-breadcrumb {
+  z-index: $zIndexMax - 1;
+}
+
+.z-max {
+  z-index: $zIndexMax;
 }

@@ -1,24 +1,3 @@
-// import { defineConfig, presetIcons, presetUno, presetAttributify } from "unocss";
-import type { IconifyJSON } from "@iconify/types";
-
-// export default defineConfig({
-//   presets: [
-//     presetUno(),
-//     presetAttributify(),
-//     presetIcons({
-//       scale: 1.2,
-//       warn: true,
-//       collections: {
-//         ph: async () => {
-//           const data = await import("@iconify-json/ph/icons.json", { assert: { type: "json" } });
-//           return data.default as IconifyJSON;
-//         }
-//       },
-//     }),
-//   ],
-// });
-
-
 import { globSync } from 'fast-glob';
 import fs from 'node:fs/promises';
 import { basename } from 'node:path';
@@ -264,10 +243,6 @@ export default defineConfig({
       warn: true,
       collections: {
         ...customIconCollection,
-        ph: async () => {
-                      const data = await import("@iconify-json/ph/icons.json", { assert: { type: "json" } });
-                      return data.default as IconifyJSON;
-                    }
       },
       unit: 'em',
     }),
@@ -304,4 +279,3 @@ function generateAlphaPalette(hex: string) {
     {} as Record<number, string>,
   );
 }
-

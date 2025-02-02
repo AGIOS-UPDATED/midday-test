@@ -10,10 +10,10 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Providers } from "./providers";
 // import  'react-toastify/dist/ReactToastify.css?url';
-import './styles/index.scss?url';
-import  '@xterm/xterm/css/xterm.css?url';
-import  '@unocss/reset/tailwind-compat.css?url';
-import 'virtual:uno.css';
+import  '@xterm/xterm/css/xterm.css';
+import  '@unocss/reset/tailwind-compat.css';
+
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.midday.ai"),
   title: "Midday | Run your business smarter",

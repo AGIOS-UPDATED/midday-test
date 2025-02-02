@@ -1,31 +1,17 @@
-.toast-container {
-  @apply fixed bottom-4 right-4 z-50 flex flex-col gap-2;
+.Toastify__toast {
+  --at-apply: shadow-md;
+
+  background-color: var(--bolt-elements-bg-depth-2);
+  color: var(--bolt-elements-textPrimary);
+  border: 1px solid var(--bolt-elements-borderColor);
 }
 
-.toast {
-  @apply flex items-center p-4 rounded-lg shadow-lg min-w-[300px] max-w-md;
-  
-  &.toast-success {
-    @apply bg-green-500 text-white;
-  }
-  
-  &.toast-error {
-    @apply bg-red-500 text-white;
-  }
-  
-  &.toast-warning {
-    @apply bg-yellow-500 text-white;
-  }
-  
-  &.toast-info {
-    @apply bg-blue-500 text-white;
-  }
-  
-  .toast-content {
-    @apply flex-1;
-  }
-  
-  .toast-close {
-    @apply ml-4 text-white opacity-75 hover:opacity-100 focus:outline-none;
+.Toastify__close-button {
+  color: var(--bolt-elements-item-contentDefault);
+  opacity: 1;
+  transition: none;
+
+  &:hover {
+    color: var(--bolt-elements-item-contentActive);
   }
 }

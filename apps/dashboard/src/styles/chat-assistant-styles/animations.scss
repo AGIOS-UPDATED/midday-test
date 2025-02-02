@@ -1,80 +1,49 @@
-@keyframes fadeIn {
+.animated {
+  animation-fill-mode: both;
+  animation-duration: var(--animate-duration, 0.2s);
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+
+  &.fadeInRight {
+    animation-name: fadeInRight;
+  }
+
+  &.fadeOutRight {
+    animation-name: fadeOutRight;
+  }
+}
+
+@keyframes fadeInRight {
   from {
     opacity: 0;
+    transform: translate3d(100%, 0, 0);
   }
+
   to {
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes fadeOut {
+@keyframes fadeOutRight {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
+    transform: translate3d(100%, 0, 0);
   }
 }
 
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutToRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes slideInFromLeft {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutToLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.fade-enter {
+.dropdown-animation {
   opacity: 0;
+  animation: fadeMoveDown 0.15s forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 200ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit-active {
-  opacity: 0;
-  transition: opacity 200ms ease-out;
+@keyframes fadeMoveDown {
+  to {
+    opacity: 1;
+    transform: translateY(6px);
+  }
 }

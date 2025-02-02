@@ -1,209 +1,135 @@
-.editor-container {
-  @apply h-full flex flex-col;
-  
-  .editor-toolbar {
-    @apply flex items-center justify-between px-4 py-2 border-b border-gray-200;
-    
-    .toolbar-left {
-      @apply flex items-center space-x-4;
-    }
-    
-    .toolbar-right {
-      @apply flex items-center space-x-2;
-    }
-    
-    .toolbar-button {
-      @apply p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500;
-    }
-  }
-  
-  .editor-content {
-    @apply flex-1 overflow-hidden;
-    
-    .cm-editor {
-      @apply h-full;
-      font-family: var(--font-mono);
-      font-size: var(--editor-font-size);
-      line-height: var(--editor-line-height);
-      
-      .cm-scroller {
-        @apply overflow-auto;
-        
-        &::-webkit-scrollbar {
-          @apply w-2;
-        }
-        
-        &::-webkit-scrollbar-track {
-          @apply bg-transparent;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-          @apply bg-gray-300 rounded hover:bg-gray-400;
-        }
-      }
-      
-      .cm-content {
-        @apply p-4;
-      }
-      
-      .cm-line {
-        @apply px-4;
-      }
-      
-      .cm-lineNumbers {
-        @apply pr-4 text-gray-400 select-none;
-      }
-      
-      .cm-activeLineGutter {
-        @apply bg-gray-50;
-      }
-      
-      .cm-activeLine {
-        @apply bg-gray-50;
-      }
-      
-      .cm-selectionBackground {
-        @apply bg-blue-100;
-      }
-      
-      .cm-cursor {
-        @apply border-l-2 border-blue-500;
-      }
-      
-      // Syntax highlighting
-      .cm-keyword {
-        color: var(--syntax-keyword);
-      }
-      
-      .cm-comment {
-        color: var(--syntax-comment);
-      }
-      
-      .cm-string {
-        color: var(--syntax-string);
-      }
-      
-      .cm-number {
-        color: var(--syntax-number);
-      }
-      
-      .cm-variable {
-        color: var(--syntax-variable);
-      }
-      
-      .cm-function {
-        color: var(--syntax-function);
-      }
-      
-      .cm-operator {
-        color: var(--syntax-operator);
-      }
-      
-      .cm-className {
-        color: var(--syntax-class);
-      }
-      
-      .cm-tag {
-        color: var(--syntax-tag);
-      }
-      
-      .cm-attributeName {
-        color: var(--syntax-attr-name);
-      }
-      
-      .cm-attributeValue {
-        color: var(--syntax-attr-value);
-      }
-      
-      .cm-punctuation {
-        color: var(--syntax-punctuation);
-      }
-    }
-  }
-  
-  .editor-statusbar {
-    @apply flex items-center justify-between px-4 py-1 border-t border-gray-200 text-xs text-gray-500;
-    
-    .statusbar-left {
-      @apply flex items-center space-x-4;
-    }
-    
-    .statusbar-right {
-      @apply flex items-center space-x-2;
-    }
-    
-    .status-item {
-      @apply flex items-center space-x-1;
-      
-      svg {
-        @apply w-3 h-3;
-      }
-    }
-  }
+:root {
+  --cm-backgroundColor: var(--bolt-elements-editor-backgroundColor, var(--bolt-elements-bg-depth-1));
+  --cm-textColor: var(--bolt-elements-editor-textColor, var(--bolt-elements-textPrimary));
+
+  /* Gutter */
+
+  --cm-gutter-backgroundColor: var(--bolt-elements-editor-gutter-backgroundColor, var(--cm-backgroundColor));
+  --cm-gutter-textColor: var(--bolt-elements-editor-gutter-textColor, var(--bolt-elements-textSecondary));
+  --cm-gutter-activeLineTextColor: var(--bolt-elements-editor-gutter-activeLineTextColor, var(--cm-gutter-textColor));
+
+  /* Fold Gutter */
+
+  --cm-foldGutter-textColor: var(--bolt-elements-editor-foldGutter-textColor, var(--cm-gutter-textColor));
+  --cm-foldGutter-textColorHover: var(--bolt-elements-editor-foldGutter-textColorHover, var(--cm-gutter-textColor));
+
+  /* Active Line */
+
+  --cm-activeLineBackgroundColor: var(--bolt-elements-editor-activeLineBackgroundColor, rgb(224 231 235 / 30%));
+
+  /* Cursor */
+
+  --cm-cursor-width: 2px;
+  --cm-cursor-backgroundColor: var(--bolt-elements-editor-cursorColor, var(--bolt-elements-textSecondary));
+
+  /* Matching Brackets */
+
+  --cm-matching-bracket: var(--bolt-elements-editor-matchingBracketBackgroundColor, rgb(50 140 130 / 0.3));
+
+  /* Selection */
+
+  --cm-selection-backgroundColorFocused: var(--bolt-elements-editor-selection-backgroundColor, #42b4ff);
+  --cm-selection-backgroundOpacityFocused: var(--bolt-elements-editor-selection-backgroundOpacity, 0.3);
+  --cm-selection-backgroundColorBlured: var(--bolt-elements-editor-selection-inactiveBackgroundColor, #c9e9ff);
+  --cm-selection-backgroundOpacityBlured: var(--bolt-elements-editor-selection-inactiveBackgroundOpacity, 0.3);
+
+  /* Panels */
+
+  --cm-panels-borderColor: var(--bolt-elements-editor-panels-borderColor, var(--bolt-elements-borderColor));
+
+  /* Search */
+
+  --cm-search-backgroundColor: var(--bolt-elements-editor-search-backgroundColor, var(--cm-backgroundColor));
+  --cm-search-textColor: var(--bolt-elements-editor-search-textColor, var(--bolt-elements-textSecondary));
+  --cm-search-closeButton-backgroundColor: var(--bolt-elements-editor-search-closeButton-backgroundColor, transparent);
+
+  --cm-search-closeButton-backgroundColorHover: var(
+    --bolt-elements-editor-search-closeButton-backgroundColorHover,
+    var(--bolt-elements-item-backgroundActive)
+  );
+
+  --cm-search-closeButton-textColor: var(
+    --bolt-elements-editor-search-closeButton-textColor,
+    var(--bolt-elements-item-contentDefault)
+  );
+
+  --cm-search-closeButton-textColorHover: var(
+    --bolt-elements-editor-search-closeButton-textColorHover,
+    var(--bolt-elements-item-contentActive)
+  );
+
+  --cm-search-button-backgroundColor: var(
+    --bolt-elements-editor-search-button-backgroundColor,
+    var(--bolt-elements-item-backgroundDefault)
+  );
+
+  --cm-search-button-backgroundColorHover: var(
+    --bolt-elements-editor-search-button-backgroundColorHover,
+    var(--bolt-elements-item-backgroundActive)
+  );
+
+  --cm-search-button-textColor: var(--bolt-elements-editor-search-button-textColor, var(--bolt-elements-textSecondary));
+
+  --cm-search-button-textColorHover: var(
+    --bolt-elements-editor-search-button-textColorHover,
+    var(--bolt-elements-textPrimary)
+  );
+
+  --cm-search-button-borderColor: var(--bolt-elements-editor-search-button-borderColor, transparent);
+  --cm-search-button-borderColorHover: var(--bolt-elements-editor-search-button-borderColorHover, transparent);
+
+  --cm-search-button-borderColorFocused: var(
+    --bolt-elements-editor-search-button-borderColorFocused,
+    var(--bolt-elements-borderColorActive)
+  );
+
+  --cm-search-input-backgroundColor: var(--bolt-elements-editor-search-input-backgroundColor, transparent);
+  --cm-search-input-textColor: var(--bolt-elements-editor-search-input-textColor, var(--bolt-elements-textPrimary));
+  --cm-search-input-borderColor: var(--bolt-elements-editor-search-input-borderColor, var(--bolt-elements-borderColor));
+
+  --cm-search-input-borderColorFocused: var(
+    --bolt-elements-editor-search-input-borderColorFocused,
+    var(--bolt-elements-borderColorActive)
+  );
+
+  /* Tooltip */
+
+  --cm-tooltip-backgroundColor: var(--bolt-elements-editor-tooltip-backgroundColor, var(--cm-backgroundColor));
+  --cm-tooltip-textColor: var(--bolt-elements-editor-tooltip-textColor, var(--bolt-elements-textPrimary));
+
+  --cm-tooltip-backgroundColorSelected: var(
+    --bolt-elements-editor-tooltip-backgroundColorSelected,
+  rgba(255, 0, 255, 0.3)
+  );
+
+  --cm-tooltip-textColorSelected: var(
+    --bolt-elements-editor-tooltip-textColorSelected,
+    var(--bolt-elements-textPrimary)
+  );
+
+  --cm-tooltip-borderColor: var(--bolt-elements-editor-tooltip-borderColor, var(--bolt-elements-borderColor));
+
+  --cm-searchMatch-backgroundColor: var(--bolt-elements-editor-searchMatch-backgroundColor, rgba(234, 92, 0, 0.33));
 }
 
-// Editor themes
-.editor-theme-light {
-  --editor-bg: theme('colors.white');
-  --editor-text: theme('colors.gray.900');
-  --editor-cursor: theme('colors.blue.500');
-  --editor-selection-bg: theme('colors.blue.100');
-  --editor-selection-text: theme('colors.gray.900');
-  --editor-line-numbers: theme('colors.gray.400');
-  --editor-line-highlight: theme('colors.gray.50');
+html[data-theme='light'] {
+  --bolt-elements-editor-gutter-textColor: #237893;
+  --bolt-elements-editor-gutter-activeLineTextColor: var(--bolt-elements-textPrimary);
+  --bolt-elements-editor-foldGutter-textColorHover: var(--bolt-elements-textPrimary);
+  --bolt-elements-editor-activeLineBackgroundColor: rgb(50 53 63 / 5%);
+  --bolt-elements-editor-tooltip-backgroundColorSelected:  rgba(255, 0, 255, 0.2);
+  --bolt-elements-editor-search-button-backgroundColor: theme('colors.gray.100');
+  --bolt-elements-editor-search-button-backgroundColorHover:  rgba(245, 245, 245, 0.1);
 }
 
-.editor-theme-dark {
-  --editor-bg: theme('colors.gray.900');
-  --editor-text: theme('colors.gray.100');
-  --editor-cursor: theme('colors.blue.400');
-  --editor-selection-bg: theme('colors.blue.900');
-  --editor-selection-text: theme('colors.gray.100');
-  --editor-line-numbers: theme('colors.gray.600');
-  --editor-line-highlight: theme('colors.gray.800');
-}
-
-// Editor sizes
-.editor-size-sm {
-  --editor-font-size: theme('fontSize.sm');
-  --editor-line-height: theme('lineHeight.relaxed');
-}
-
-.editor-size-md {
-  --editor-font-size: theme('fontSize.base');
-  --editor-line-height: theme('lineHeight.relaxed');
-}
-
-.editor-size-lg {
-  --editor-font-size: theme('fontSize.lg');
-  --editor-line-height: theme('lineHeight.relaxed');
-}
-
-// Editor extensions
-.editor-with-minimap {
-  .cm-editor {
-    @apply flex;
-    
-    .cm-scroller {
-      @apply flex-1;
-    }
-    
-    .cm-minimap {
-      @apply w-20 border-l border-gray-200;
-    }
-  }
-}
-
-.editor-with-diff {
-  .cm-diff-added {
-    @apply bg-green-50;
-  }
-  
-  .cm-diff-removed {
-    @apply bg-red-50;
-  }
-  
-  .cm-diff-modified {
-    @apply bg-yellow-50;
-  }
+html[data-theme='dark'] {
+  --cm-backgroundColor: var(--bolt-elements-bg-depth-2);
+  --bolt-elements-editor-gutter-textColor: var(--bolt-elements-textTertiary);
+  --bolt-elements-editor-gutter-activeLineTextColor: var(--bolt-elements-textSecondary);
+  --bolt-elements-editor-selection-inactiveBackgroundOpacity: 0.3;
+  --bolt-elements-editor-activeLineBackgroundColor: rgb(50 53 63 / 50%);
+  --bolt-elements-editor-foldGutter-textColorHover: var(--bolt-elements-textPrimary);
+  --bolt-elements-editor-matchingBracketBackgroundColor: rgba(66, 180, 255, 0.3);
+  --bolt-elements-editor-search-button-backgroundColor: theme('colors.gray.800');
+  --bolt-elements-editor-search-button-backgroundColorHover:  rgba(245, 245, 245, 0.2) ;
 }

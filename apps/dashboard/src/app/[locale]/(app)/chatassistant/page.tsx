@@ -3,6 +3,9 @@ import dynamic from 'next/dynamic';
 import  BaseChat  from '@/components/chat-assistant/chat/BaseChat';
 import  Header  from '@/components/chat-assistant/header/Header';
 
+import '../../../../styles/chat-assistant-styles/index.scss';
+
+
 const ChatComponent = dynamic(
   () => import('@/components/chat-assistant/chat/Chat.client'),
   {
