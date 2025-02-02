@@ -16,7 +16,7 @@ interface HistoryItemProps {
 export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: HistoryItemProps) {
   const params = useParams();
   const urlId = params?.id as string;
-  const isActiveChat = urlId === item.id;
+  const isActiveChat = urlId === (item.urlId || item.id);
 
   const { editing, handleChange, handleBlur, handleSubmit, handleKeyDown, currentDescription, toggleEditMode } =
     useEditChatDescription({
@@ -54,7 +54,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
       {editing ? (
         renderDescriptionForm
       ) : (
-        <a href={`/chatassitant/${item.urlId}`} className="flex w-full relative truncate block">
+        <a href={`/chatassistant/${item.urlId || item.id}`} className="flex w-full relative truncate block">
           {currentDescription}
           <div
             className={classNames(

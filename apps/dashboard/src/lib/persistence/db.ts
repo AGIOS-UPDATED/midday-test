@@ -66,7 +66,7 @@ export async function setMessages(
     const request = store.put({
       id,
       messages,
-      urlId,
+      urlId: urlId || id,
       description,
       timestamp: timestamp ?? new Date().toISOString(),
     });
