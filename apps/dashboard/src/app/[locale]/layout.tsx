@@ -12,7 +12,7 @@ import { Providers } from "./providers";
 // import  'react-toastify/dist/ReactToastify.css?url';
 import  '@xterm/xterm/css/xterm.css';
 import  '@unocss/reset/tailwind-compat.css';
-
+import  'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.midday.ai"),
