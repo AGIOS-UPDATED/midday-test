@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { LLMManager } from '@/lib/modules/llm/manager';
 import type { ModelInfo } from '@/lib/modules/llm/types';
 import type { ProviderInfo } from '@/types/model';
@@ -38,19 +38,20 @@ function getProviderInfo(llmManager: LLMManager) {
   return { providers: cachedProviders, defaultProvider: cachedDefaultProvider };
 }
 
-export async function getModelsHandler(req: NextApiRequest, res: NextApiResponse) {
-  const { provider } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const provider = searchParams.get('provider');
   const llmManager = LLMManager.getInstance(process.env);
 
-  const cookieHeader = req.headers.cookie;
-  const apiKeys = getApiKeysFromCookie(cookieHeader);
-  const providerSettings = getProviderSettingsFromCookie(cookieHeader);
+  const cookieHeader = request.headers.get('cookie');
+  const apiKeys = getApiKeysFromCookie(cookieHeader || '');
+  const providerSettings = getProviderSettingsFromCookie(cookieHeader || '');
 
   const { providers, defaultProvider } = getProviderInfo(llmManager);
 
   let modelList: ModelInfo[] = [];
 
-  if (typeof provider === 'string') {
+  if (provider) {
     const providerInstance = llmManager.getProvider(provider);
     if (providerInstance) {
       modelList = await llmManager.getModelListFromProvider(providerInstance, {
@@ -67,7 +68,7 @@ export async function getModelsHandler(req: NextApiRequest, res: NextApiResponse
     });
   }
 
-  res.status(200).json({
+  return NextResponse.json({
     modelList,
     providers,
     defaultProvider,
