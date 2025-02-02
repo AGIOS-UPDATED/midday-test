@@ -1,125 +1,134 @@
-'use client';
-
-import { type FC } from 'react';
-import { FiMessageSquare, FiTrash2, FiEdit2 } from 'react-icons/fi';
-import Link from 'next/link';
-import { clsx } from 'clsx';
+import { useParams } from '@remix-run/react';
+import { classNames } from '@/utils/chat-assistant/classNames';
+import * as Dialog from '@radix-ui/react-dialog';
+import { type ChatHistoryItem } from '@/lib/persistence';
+import WithTooltip from '@/components/chat-assistant/ui/Tooltip';
+import { useEditChatDescription } from '@/lib/hooks';
+import { forwardRef, type ForwardedRef } from 'react';
 
 interface HistoryItemProps {
-  id: string;
-  title: string;
-  timestamp: Date;
-  isSelected?: boolean;
-  isEditing?: boolean;
-  onEdit?: () => void;
-  onDelete?: () => void;
-  onTitleChange?: (newTitle: string) => void;
-  onTitleSubmit?: () => void;
+  item: ChatHistoryItem;
+  onDelete?: (event: React.UIEvent) => void;
+  onDuplicate?: (id: string) => void;
+  exportChat: (id?: string) => void;
 }
 
-export const HistoryItem: FC<HistoryItemProps> = ({
-  id,
-  title,
-  timestamp,
-  isSelected = false,
-  isEditing = false,
-  onEdit,
-  onDelete,
-  onTitleChange,
-  onTitleSubmit,
-}) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && onTitleSubmit) {
-      onTitleSubmit();
-    }
-  };
+export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: HistoryItemProps) {
+  const { id: urlId } = useParams();
+  const isActiveChat = urlId === item.urlId;
 
-  const formatTimestamp = (date: Date) => {
-    const now = new Date();
-    const diffInMinutes = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60)
-    );
+  const { editing, handleChange, handleBlur, handleSubmit, handleKeyDown, currentDescription, toggleEditMode } =
+    useEditChatDescription({
+      initialDescription: item.description,
+      customChatId: item.id,
+      syncWithGlobalStore: isActiveChat,
+    });
 
-    if (diffInMinutes < 1) {
-      return 'Just now';
-    } else if (diffInMinutes < 60) {
-      return `${diffInMinutes}m ago`;
-    } else if (diffInMinutes < 24 * 60) {
-      const hours = Math.floor(diffInMinutes / 60);
-      return `${hours}h ago`;
-    } else if (diffInMinutes < 7 * 24 * 60) {
-      const days = Math.floor(diffInMinutes / (24 * 60));
-      return `${days}d ago`;
-    } else {
-      return date.toLocaleDateString();
-    }
-  };
+  const renderDescriptionForm = (
+    <form onSubmit={handleSubmit} className="flex-1 flex items-center">
+      <input
+        type="text"
+        className="flex-1 bg-bolt-elements-background-depth-1 text-bolt-elements-textPrimary rounded px-2 mr-2"
+        autoFocus
+        value={currentDescription}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+      />
+      <button
+        type="submit"
+        className="i-ph:check scale-110 hover:text-bolt-elements-item-contentAccent"
+        onMouseDown={handleSubmit}
+      />
+    </form>
+  );
 
   return (
     <div
-      className={clsx(
-        'group flex items-center px-3 py-2 text-sm',
-        isSelected
-          ? 'bg-gray-100 text-gray-900'
-          : 'text-gray-600 hover:bg-gray-50'
+      className={classNames(
+        'group rounded-md text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary hover:bg-bolt-elements-background-depth-3 overflow-hidden flex justify-between items-center px-2 py-1',
+        { '[&&]:text-bolt-elements-textPrimary bg-bolt-elements-background-depth-3': isActiveChat },
       )}
     >
-      <FiMessageSquare
-        className={clsx(
-          'mr-3 h-4 w-4 flex-shrink-0',
-          isSelected ? 'text-gray-500' : 'text-gray-400'
-        )}
-      />
-
-      <div className="min-w-0 flex-1">
-        {isEditing ? (
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => onTitleChange?.(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-            autoFocus
-          />
-        ) : (
-          <Link
-            href={`/chat/${id}`}
-            className={clsx(
-              'block truncate',
-              isSelected ? 'font-medium' : 'font-normal'
+      {editing ? (
+        renderDescriptionForm
+      ) : (
+        <a href={`/chatassitant/${item.urlId}`} className="flex w-full relative truncate block">
+          {currentDescription}
+          <div
+            className={classNames(
+              'absolute right-0 z-1 top-0 bottom-0 bg-gradient-to-l from-bolt-elements-background-depth-2 group-hover:from-bolt-elements-background-depth-3 box-content pl-3 to-transparent w-10 flex justify-end group-hover:w-22 group-hover:from-99%',
+              { 'from-bolt-elements-background-depth-3 w-10 ': isActiveChat },
             )}
           >
-            {title}
-          </Link>
-        )}
-        <p
-          className={clsx(
-            'truncate text-xs',
-            isSelected ? 'text-gray-500' : 'text-gray-400'
-          )}
-        >
-          {formatTimestamp(timestamp)}
-        </p>
-      </div>
-
-      <div className="ml-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-        {onEdit && !isEditing && (
-          <button
-            onClick={onEdit}
-            className="mr-2 text-gray-400 hover:text-gray-500"
-          >
-            <FiEdit2 className="h-4 w-4" />
-          </button>
-        )}
-        {onDelete && (
-          <button
-            onClick={onDelete}
-            className="text-gray-400 hover:text-gray-500"
-          >
-            <FiTrash2 className="h-4 w-4" />
-          </button>
-        )}
-      </div>
+            <div className="flex items-center p-1 text-bolt-elements-textSecondary opacity-0 group-hover:opacity-100 transition-opacity">
+              <ChatActionButton
+                toolTipContent="Export chat"
+                icon="i-ph:download-simple"
+                onClick={(event) => {
+                  event.preventDefault();
+                  exportChat(item.id);
+                }}
+              />
+              {onDuplicate && (
+                <ChatActionButton
+                  toolTipContent="Duplicate chat"
+                  icon="i-ph:copy"
+                  onClick={() => onDuplicate?.(item.id)}
+                />
+              )}
+              <ChatActionButton
+                toolTipContent="Rename chat"
+                icon="i-ph:pencil-fill"
+                onClick={(event) => {
+                  event.preventDefault();
+                  toggleEditMode();
+                }}
+              />
+              <Dialog.Trigger asChild>
+                <ChatActionButton
+                  toolTipContent="Delete chat"
+                  icon="i-ph:trash"
+                  className="[&&]:hover:text-bolt-elements-button-danger-text"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onDelete?.(event);
+                  }}
+                />
+              </Dialog.Trigger>
+            </div>
+          </div>
+        </a>
+      )}
     </div>
   );
-};
+}
+
+const ChatActionButton = forwardRef(
+  (
+    {
+      toolTipContent,
+      icon,
+      className,
+      onClick,
+    }: {
+      toolTipContent: string;
+      icon: string;
+      className?: string;
+      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+      btnTitle?: string;
+    },
+    ref: ForwardedRef<HTMLButtonElement>,
+  ) => {
+    return (
+      <WithTooltip tooltip={toolTipContent}>
+        <button
+          ref={ref}
+          type="button"
+          className={`scale-110 mr-2 hover:text-bolt-elements-item-contentAccent ${icon} ${className ? className : ''}`}
+          onClick={onClick}
+        />
+      </WithTooltip>
+    );
+  },
+);
