@@ -13,7 +13,7 @@ import { logStore } from '@/lib/stores/logs';
 
 // Replace process.env.NEXT_PUBLIC_DISABLE_PERSISTENCE
 // with whatever environment variable or config you use in Next.js
-const persistenceEnabled = !process.env.NEXT_PUBLIC_DISABLE_PERSISTENCE;
+const persistenceEnabled = true;
 
 // These are the DB helper functions you provided.
 // Make sure they're imported from wherever you define them.
