@@ -9,11 +9,10 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Providers } from "./providers";
-import  'react-toastify/dist/ReactToastify.css?url';
+// import  'react-toastify/dist/ReactToastify.css?url';
 import './styles/index.scss?url';
 import  '@xterm/xterm/css/xterm.css?url';
 import  '@unocss/reset/tailwind-compat.css?url';
-
 import 'virtual:uno.css';
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.midday.ai"),
