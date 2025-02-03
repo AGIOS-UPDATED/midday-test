@@ -54,7 +54,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
       {editing ? (
         renderDescriptionForm
       ) : (
-        <a href={`/chatassistant/${item.urlId}`} className="flex w-full relative truncate block">
+        <a href={`/chatassistant/${item.id}`} className="flex w-full relative truncate block">
           {item.id}
           <div
             className={classNames(
