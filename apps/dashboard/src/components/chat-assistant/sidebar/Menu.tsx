@@ -103,6 +103,7 @@ export const Menu = () => {
   useEffect(() => {
     if (open) {
       loadEntries();
+      console.log('List',list);
     }
   }, [open]);
 
