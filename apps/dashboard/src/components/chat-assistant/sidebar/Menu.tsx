@@ -70,7 +70,7 @@ export const Menu = () => {
   const loadEntries = useCallback(() => {
     if (db) {
       getAll(db)
-        .then((list) => list.filter((item) => item.urlId ))
+        // .then((list) => list.filter((item) => item.id ))
         .then(setList)
         .catch((error) => toast.error(error.message));
     }
