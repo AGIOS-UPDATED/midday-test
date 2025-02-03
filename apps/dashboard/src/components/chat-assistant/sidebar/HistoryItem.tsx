@@ -55,7 +55,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
         renderDescriptionForm
       ) : (
         <a href={`/chatassistant/${item.urlId}`} className="flex w-full relative truncate block">
-          {currentDescription}
+          {item.id}
           <div
             className={classNames(
               'absolute right-0 z-1 top-0 bottom-0 bg-gradient-to-l from-bolt-elements-background-depth-2 group-hover:from-bolt-elements-background-depth-3 box-content pl-3 to-transparent w-10 flex justify-end group-hover:w-22 group-hover:from-99%',
