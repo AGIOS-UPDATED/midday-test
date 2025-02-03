@@ -36,7 +36,7 @@ export const Messages = React.forwardRef<HTMLDivElement, MessagesProps>((props: 
         return;
       }
       const urlId = await forkChat(db, chatId.get()!, messageId);
-      router.push(`/chat/${urlId}`);
+      router.push(`/chatassistant/${urlId}`);
     } catch (error) {
       toast.error('Failed to fork chat: ' + (error as Error).message);
     }
