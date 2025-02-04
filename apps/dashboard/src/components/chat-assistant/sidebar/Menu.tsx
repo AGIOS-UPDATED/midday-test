@@ -16,7 +16,7 @@ const menuVariants = {
   closed: {
     opacity: 0,
     visibility: 'hidden',
-    left: '-150px',
+    x: '-100%',
     transition: {
       duration: 0.2,
       ease: cubicEasingFn,
@@ -24,8 +24,8 @@ const menuVariants = {
   },
   open: {
     opacity: 1,
-    visibility: 'initial',
-    left: 0,
+    visibility: 'visible',
+    x: 0,
     transition: {
       duration: 0.2,
       ease: cubicEasingFn,
@@ -144,7 +144,7 @@ export const Menu = () => {
       initial="closed"
       animate={open ? 'open' : 'closed'}
       variants={menuVariants}
-      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu fixed top-0 w-[350px] h-full   border-r rounded-r-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
+      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu absolute left-0 top-0 w-[300px] h-[calc(100vh-var(--header-height))] border-r rounded-br-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
     >
       <div className="h-[60px]" /> {/* Spacer for top margin */}
       <CurrentDateTime />
