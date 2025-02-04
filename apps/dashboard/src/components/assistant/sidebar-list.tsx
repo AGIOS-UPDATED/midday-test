@@ -19,7 +19,6 @@ export function SidebarList({
   onNewChat,
 }: Props) {
   const ref = useClickAway((event) => {
-    // Only close if clicking outside the sidebar
     const target = event.target as HTMLElement;
     if (!target.closest('.assistant-toggle')) {
       setExpanded(false);
@@ -31,8 +30,8 @@ export function SidebarList({
       <div
         ref={ref}
         className={cn(
-          "w-[220px] h-screen md:h-[477px] bg-background dark:bg-[#131313] fixed left-0 top-0 bottom-[1px] duration-200 ease-out transition-all border-border border-r-[1px] z-[100] transform -translate-x-full",
-          isExpanded && "translate-x-0"
+          "w-[220px] h-screen md:h-[477px] bg-background dark:bg-[#131313] absolute -left-[220px] top-0 bottom-[1px] duration-200 ease-out transition-all border-border border-l-[1px] z-[100]",
+          isExpanded && "left-0"
         )}
       >
         <SidebarItems onSelect={onSelect} chatId={chatId} />
