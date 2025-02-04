@@ -18,8 +18,12 @@ export function SidebarList({
   onSelect,
   onNewChat,
 }: Props) {
-  const ref = useClickAway(() => {
-    setExpanded(false);
+  const ref = useClickAway((event) => {
+    // Only close if clicking outside the sidebar
+    const target = event.target as HTMLElement;
+    if (!target.closest('.assistant-toggle')) {
+      setExpanded(false);
+    }
   });
 
   return (
@@ -27,8 +31,8 @@ export function SidebarList({
       <div
         ref={ref}
         className={cn(
-          "w-[220px] h-screen md:h-[477px] bg-background dark:bg-[#131313] absolute -left-[220px] top-0 bottom-[1px] duration-200 ease-out transition-all border-border border-r-[1px] z-20 invisible",
-          isExpanded && "visible translate-x-full"
+          "w-[220px] h-screen md:h-[477px] bg-background dark:bg-[#131313] fixed left-0 top-0 bottom-[1px] duration-200 ease-out transition-all border-border border-r-[1px] z-[100] transform -translate-x-full",
+          isExpanded && "translate-x-0"
         )}
       >
         <SidebarItems onSelect={onSelect} chatId={chatId} />
@@ -36,12 +40,12 @@ export function SidebarList({
         <div className="absolute z-10 h-[477px] w-[45px] bg-gradient-to-r from-background/30 dark:from-[#131313]/30 to-background right-0 top-0 pointer-events-none" />
       </div>
 
-      <div
-        className={cn(
-          "duration-200 ease-out transition-all z-10 fixed left-[1px] right-[1px] top-[1px] bottom-[1px] invisible opacity-0 bg-background",
-          isExpanded && "visible opacity-80"
-        )}
-      />
+      {isExpanded && (
+        <div
+          className="fixed inset-0 bg-background/80 z-[99]"
+          onClick={() => setExpanded(false)}
+        />
+      )}
     </div>
   );
 }
