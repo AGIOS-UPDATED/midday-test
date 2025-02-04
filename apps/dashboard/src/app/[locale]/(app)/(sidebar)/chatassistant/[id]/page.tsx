@@ -19,7 +19,7 @@ type ChatIdPageProps = {
 
 export default function ChatIdPage({ params }: ChatIdPageProps) {
   return (
-    <div className="flex flex-col h-full  w-full bg-bolt-elements-background-depth-1">
+    <div className="flex flex-col h-full  w-full ">
     <Header/>
 
     <ChatComponent />
