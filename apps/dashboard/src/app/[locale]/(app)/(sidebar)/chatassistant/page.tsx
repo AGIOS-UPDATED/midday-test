@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import  BaseChat  from '@/components/chat-assistant/chat/BaseChat';
 import  Header  from '@/components/chat-assistant/header/Header';
 import  'react-toastify/dist/ReactToastify.css';
-import '../../../../styles/chat-assistant-styles/index.scss';
+import '../../../../../styles/chat-assistant-styles/index.scss';
 
 
 const ChatComponent = dynamic(
