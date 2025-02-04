@@ -15,7 +15,7 @@ const  Header = () => {
         'border-bolt-elements-borderColor': chat.started,
       })}
     >
-      <div className="flex z-[100000] items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
+      <div className="flex  items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
         <div className="i-ph:sidebar-simple-duotone text-xl" />
         <a href="/" className="text-2xl font-semibold text-accent flex items-center">
           {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
