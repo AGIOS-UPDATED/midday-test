@@ -7,6 +7,7 @@
     "packages/email/*"
   ],
   "scripts": {
+    "resolve-deps": "node scripts/resolve-workspace-deps.js",
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
