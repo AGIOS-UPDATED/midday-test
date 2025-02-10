@@ -1,6 +1,9 @@
 {
   "version": 2,
   "public": false,
+  "buildCommand": "cd ../.. && bun install && bun run build",
+  "installCommand": false,
+  "outputDirectory": ".next",
   "github": {
     "enabled": false
   },
