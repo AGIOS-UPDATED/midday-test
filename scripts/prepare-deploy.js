@@ -21,9 +21,27 @@ function resolveWorkspaceDeps(pkgPath) {
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
   if (!pkg.dependencies) return;
 
+  // Get all @midday package versions
+  const middayPackages = {};
+  const packagesDir = path.join(ROOT_DIR, 'packages');
+  fs.readdirSync(packagesDir).forEach(dir => {
+    const pkgJsonPath = path.join(packagesDir, dir, 'package.json');
+    if (fs.existsSync(pkgJsonPath)) {
+      const { name, version } = require(pkgJsonPath);
+      if (name && name.startsWith('@midday/')) {
+        middayPackages[name] = version || '1.0.0';
+      }
+    }
+  });
+
+  // Resolve dependencies
   Object.entries(pkg.dependencies).forEach(([name, version]) => {
     if (version === 'workspace:*') {
-      pkg.dependencies[name] = '*';
+      if (middayPackages[name]) {
+        pkg.dependencies[name] = middayPackages[name];
+      } else {
+        delete pkg.dependencies[name];
+      }
     }
   });
 
@@ -46,11 +64,6 @@ function processPackageJsonFiles(dir) {
   });
 }
 
-// Copy root package.json and other necessary files
-execSync(`cp ${ROOT_DIR}/package.json ${DEPLOY_DIR}/`);
-execSync(`cp ${ROOT_DIR}/bun.lockb ${DEPLOY_DIR}/`);
-execSync(`cp ${ROOT_DIR}/turbo.json ${DEPLOY_DIR}/`);
-
 // Create packages directory in deploy
 fs.mkdirSync(path.join(DEPLOY_DIR, 'packages'), { recursive: true });
 fs.mkdirSync(path.join(DEPLOY_DIR, 'apps'), { recursive: true });
@@ -72,14 +85,17 @@ const rootPkg = {
     "packages/*",
     "apps/*"
   ],
+  engines: {
+    "node": "20.x",
+    "npm": "10.x"
+  },
   scripts: {
     "build": "turbo build --filter=@midday/dashboard",
     "start": "cd apps/dashboard && npm start"
   },
   dependencies: {
     "turbo": "2.3.3"
-  },
-  packageManager: "npm@10.x"
+  }
 };
 
 // Write production package.json
@@ -90,6 +106,6 @@ fs.writeFileSync(
 
 // Create .npmrc file
 const npmrcPath = path.join(DEPLOY_DIR, '.npmrc');
-fs.writeFileSync(npmrcPath, 'legacy-peer-deps=true\nstrict-peer-deps=false\n');
+fs.writeFileSync(npmrcPath, 'legacy-peer-deps=true\nstrict-peer-deps=false\nworkspace-concurrency=1\n');
 
 console.log('Deploy directory prepared at:', DEPLOY_DIR);

@@ -5,12 +5,15 @@
     "packages/*",
     "apps/*"
   ],
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
   "scripts": {
     "build": "turbo build --filter=@midday/dashboard",
     "start": "cd apps/dashboard && npm start"
   },
   "dependencies": {
     "turbo": "2.3.3"
-  },
-  "packageManager": "npm@10.x"
+  }
 }
