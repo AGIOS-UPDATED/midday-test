@@ -5,17 +5,10 @@ services:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
     build_command: |
-      # First resolve workspace dependencies
-      node scripts/resolve-workspace-deps.js
-      # Copy workspace packages to node_modules
-      mkdir -p node_modules/@midday
-      cp -r packages/* node_modules/@midday/
-      # Install dependencies
-      npm install --legacy-peer-deps
-      # Build the dashboard
-      npm run build:dashboard
+      npm install --production --legacy-peer-deps
+      npm run build
     run_command: npm start
-    source_dir: apps/dashboard
+    source_dir: deploy
     environment_slug: node-js
     envs:
       - key: NODE_ENV
