@@ -14,69 +14,79 @@ if (fs.existsSync(DEPLOY_DIR)) {
 }
 fs.mkdirSync(DEPLOY_DIR);
 
-// Function to resolve workspace dependencies in a package.json
-function resolveWorkspaceDeps(pkgJson, relativePath = '') {
-  const deps = { ...pkgJson.dependencies };
+// Function to resolve workspace dependencies in package.json
+function resolveWorkspaceDeps(pkgPath) {
+  if (!fs.existsSync(pkgPath)) return;
   
-  for (const [name, version] of Object.entries(deps)) {
-    if (version === 'workspace:*' && name.startsWith('@midday/')) {
-      const packageName = name.replace('@midday/', '');
-      const pkgDir = path.join(PACKAGES_DIR, packageName);
-      const pkgJsonPath = path.join(pkgDir, 'package.json');
-      
-      if (fs.existsSync(pkgJsonPath)) {
-        const pkg = require(pkgJsonPath);
-        // Use the actual version from the package
-        deps[name] = pkg.version || '1.0.0';
-        
-        // Copy package to node_modules
-        const targetDir = path.join(DEPLOY_DIR, 'node_modules', '@midday', packageName);
-        fs.mkdirSync(targetDir, { recursive: true });
-        execSync(`cp -r ${pkgDir}/* ${targetDir}/`);
-        
-        // Resolve nested workspace dependencies
-        if (pkg.dependencies) {
-          const resolvedNestedDeps = resolveWorkspaceDeps(pkg, `@midday/${packageName}`);
-          // Update the copied package.json with resolved dependencies
-          const targetPkgJson = { ...pkg, dependencies: resolvedNestedDeps };
-          fs.writeFileSync(
-            path.join(targetDir, 'package.json'),
-            JSON.stringify(targetPkgJson, null, 2)
-          );
-        }
-      }
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+  if (!pkg.dependencies) return;
+
+  Object.entries(pkg.dependencies).forEach(([name, version]) => {
+    if (version === 'workspace:*') {
+      pkg.dependencies[name] = '*';
     }
-  }
-  
-  return deps;
+  });
+
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
 }
 
-// Copy dashboard files
-execSync(`cp -r ${DASHBOARD_DIR}/* ${DEPLOY_DIR}/`);
+// Function to process all package.json files in a directory
+function processPackageJsonFiles(dir) {
+  const items = fs.readdirSync(dir);
+  
+  items.forEach(item => {
+    const fullPath = path.join(dir, item);
+    const stat = fs.statSync(fullPath);
+    
+    if (stat.isDirectory()) {
+      processPackageJsonFiles(fullPath);
+    } else if (item === 'package.json') {
+      resolveWorkspaceDeps(fullPath);
+    }
+  });
+}
 
-// Create node_modules directory
-const nodeModulesDir = path.join(DEPLOY_DIR, 'node_modules');
-fs.mkdirSync(nodeModulesDir, { recursive: true });
+// Copy root package.json and other necessary files
+execSync(`cp ${ROOT_DIR}/package.json ${DEPLOY_DIR}/`);
+execSync(`cp ${ROOT_DIR}/bun.lockb ${DEPLOY_DIR}/`);
+execSync(`cp ${ROOT_DIR}/turbo.json ${DEPLOY_DIR}/`);
 
-// Read and update dashboard package.json
-const pkgPath = path.join(DEPLOY_DIR, 'package.json');
-const pkg = require(pkgPath);
+// Create packages directory in deploy
+fs.mkdirSync(path.join(DEPLOY_DIR, 'packages'), { recursive: true });
+fs.mkdirSync(path.join(DEPLOY_DIR, 'apps'), { recursive: true });
 
-// Create production package.json
-const prodPkg = {
-  name: pkg.name,
-  version: pkg.version,
+// Copy all packages
+execSync(`cp -r ${PACKAGES_DIR}/* ${path.join(DEPLOY_DIR, 'packages')}/`);
+
+// Copy dashboard app
+execSync(`cp -r ${DASHBOARD_DIR} ${path.join(DEPLOY_DIR, 'apps')}/`);
+
+// Process all package.json files
+processPackageJsonFiles(DEPLOY_DIR);
+
+// Create production package.json for the root
+const rootPkg = {
+  name: "midday-deploy",
   private: true,
-  engines: pkg.engines,
+  workspaces: [
+    "packages/*",
+    "apps/*"
+  ],
   scripts: {
-    start: pkg.scripts.start,
-    build: pkg.scripts.build
+    "build": "turbo build --filter=@midday/dashboard",
+    "start": "cd apps/dashboard && npm start"
   },
-  dependencies: resolveWorkspaceDeps(pkg)
+  dependencies: {
+    "turbo": "2.3.3"
+  },
+  packageManager: "npm@10.x"
 };
 
 // Write production package.json
-fs.writeFileSync(pkgPath, JSON.stringify(prodPkg, null, 2));
+fs.writeFileSync(
+  path.join(DEPLOY_DIR, 'package.json'),
+  JSON.stringify(rootPkg, null, 2)
+);
 
 // Create .npmrc file
 const npmrcPath = path.join(DEPLOY_DIR, '.npmrc');
