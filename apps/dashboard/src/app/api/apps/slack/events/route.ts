@@ -7,6 +7,8 @@ import { createClient } from "@midday/supabase/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
+const SLACK_SIGNING_SECRET = "your_signing_secret"; // Replace with actual signing secret
+
 export async function POST(req: Request) {
   const rawBody = await req.text();
 
@@ -18,7 +20,7 @@ export async function POST(req: Request) {
 
   try {
     verifySlackRequest({
-      signingSecret: process.env.SLACK_SIGNING_SECRET!,
+      signingSecret: SLACK_SIGNING_SECRET,
       body: rawBody,
       // @ts-expect-error - headers are not typed
       headers: Object.fromEntries(headers().entries()),
