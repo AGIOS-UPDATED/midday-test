@@ -6,8 +6,9 @@
     "apps/*",
     "packages/email/*"
   ],
+  "packageManager": "bun@1.0.25",
   "scripts": {
-    "build": "cd apps/dashboard && npm run build",
+    "build": "cd apps/dashboard && bun run build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
     "test": "turbo test --parallel",
@@ -35,7 +36,6 @@
     "turbo": "2.3.3",
     "typescript": "^5.7.2"
   },
-  "packageManager": "bun@1.1.38",
   "resolutions": {
     "jackspeak": "2.1.1"
   },

@@ -1,0 +1,6 @@
+[install]
+peer = true
+hoisted = true
+
+[install.scopes]
+"@midday" = { peer = true }

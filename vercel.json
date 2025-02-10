@@ -1,6 +1,8 @@
 {
   "version": 2,
   "public": false,
+  "installCommand": false,
+  "outputDirectory": "apps/dashboard/.next",
   "github": {
     "enabled": false
   },
