@@ -5,7 +5,7 @@ services:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
     build_command: |
-      npm install
+      npm install --omit=dev
       npm run build
     run_command: npm start
     source_dir: deploy
