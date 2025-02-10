@@ -1,0 +1,16 @@
+name: midday-dashboard
+services:
+  - name: dashboard
+    git:
+      branch: main
+      repo_clone_url: ${GITHUB_REPO_URL}
+    build_command: bun install && bun run build:dashboard
+    run_command: bun run start
+    source_dir: apps/dashboard
+    environment_slug: node-js
+    envs:
+      - key: NODE_ENV
+        scope: RUN_TIME
+        value: production
+    instance_count: 1
+    instance_size_slug: basic-xxs
