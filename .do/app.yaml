@@ -5,10 +5,10 @@ services:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
     build_command: |
+      cd deploy
       npm install --production --legacy-peer-deps
       npm run build
-    run_command: npm start
-    source_dir: deploy
+    run_command: cd deploy && npm start
     environment_slug: node-js
     envs:
       - key: NODE_ENV
