@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=18.x"
+    "node": "20.x",
+    "npm": "10.x"
   },
   "scripts": {
     "build": "NODE_OPTIONS='--max_old_space_size=4096' next build",

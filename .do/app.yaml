@@ -4,13 +4,24 @@ services:
     git:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
-    build_command: bun install && bun run build:dashboard
-    run_command: bun run start
+    build_command: |
+      curl -fsSL https://bun.sh/install | bash
+      export BUN_INSTALL="$HOME/.bun"
+      export PATH="$BUN_INSTALL/bin:$PATH"
+      bun install
+      bun run build:dashboard
+    run_command: |
+      export BUN_INSTALL="$HOME/.bun"
+      export PATH="$BUN_INSTALL/bin:$PATH"
+      bun run start
     source_dir: apps/dashboard
     environment_slug: node-js
     envs:
       - key: NODE_ENV
         scope: RUN_TIME
         value: production
+      - key: BUN_VERSION
+        scope: BUILD_TIME
+        value: "1.1.38"
     instance_count: 1
     instance_size_slug: basic-xxs
