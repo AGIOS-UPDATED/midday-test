@@ -66,10 +66,10 @@ export async function GET(request: NextRequest) {
   try {
     const slackOauthAccessUrl = [
       "https://slack.com/api/oauth.v2.access",
-      `?client_id=${process.env.NEXT_PUBLIC_SLACK_CLIENT_ID}`,
-      `&client_secret=${process.env.SLACK_CLIENT_SECRET}`,
+      `?client_id=2233445549680.830358276957`,
+      `&client_secret=463b8fe2c4af4eb16be8a44c94deb29c`,
       `&code=${parsedParams.data.code}`,
-      `&redirect_uri=${process.env.NEXT_PUBLIC_SLACK_OAUTH_REDIRECT_URL}`,
+      `&redirect_uri=https://ypynmbwkszeqklsfbwwu.supabase.co/auth/v1/callback`,
     ].join("");
 
     const response = await fetch(slackOauthAccessUrl);
