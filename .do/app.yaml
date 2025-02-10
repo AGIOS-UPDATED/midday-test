@@ -4,7 +4,9 @@ services:
     git:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
-    build_command: npm install --omit=dev && npm run build
+    build_command: |
+      npm install
+      npm run build
     run_command: npm start
     source_dir: deploy
     environment_slug: node-js
