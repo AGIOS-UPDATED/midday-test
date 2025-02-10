@@ -5,14 +5,17 @@ services:
       branch: main
       repo_clone_url: ${GITHUB_REPO_URL}
     build_command: |
-      cd deploy
-      npm install --production --legacy-peer-deps
+      npm install --omit=dev
       npm run build
-    run_command: cd deploy && npm start
+    run_command: npm start
+    source_dir: deploy
     environment_slug: node-js
     envs:
       - key: NODE_ENV
         scope: RUN_TIME
         value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        scope: RUN_TIME
+        value: "1"
     instance_count: 1
     instance_size_slug: basic-xxs

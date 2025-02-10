@@ -14,6 +14,43 @@ if (fs.existsSync(DEPLOY_DIR)) {
 }
 fs.mkdirSync(DEPLOY_DIR);
 
+// Function to resolve workspace dependencies in a package.json
+function resolveWorkspaceDeps(pkgJson, relativePath = '') {
+  const deps = { ...pkgJson.dependencies };
+  
+  for (const [name, version] of Object.entries(deps)) {
+    if (version === 'workspace:*' && name.startsWith('@midday/')) {
+      const packageName = name.replace('@midday/', '');
+      const pkgDir = path.join(PACKAGES_DIR, packageName);
+      const pkgJsonPath = path.join(pkgDir, 'package.json');
+      
+      if (fs.existsSync(pkgJsonPath)) {
+        const pkg = require(pkgJsonPath);
+        // Use the actual version from the package
+        deps[name] = pkg.version || '1.0.0';
+        
+        // Copy package to node_modules
+        const targetDir = path.join(DEPLOY_DIR, 'node_modules', '@midday', packageName);
+        fs.mkdirSync(targetDir, { recursive: true });
+        execSync(`cp -r ${pkgDir}/* ${targetDir}/`);
+        
+        // Resolve nested workspace dependencies
+        if (pkg.dependencies) {
+          const resolvedNestedDeps = resolveWorkspaceDeps(pkg, `@midday/${packageName}`);
+          // Update the copied package.json with resolved dependencies
+          const targetPkgJson = { ...pkg, dependencies: resolvedNestedDeps };
+          fs.writeFileSync(
+            path.join(targetDir, 'package.json'),
+            JSON.stringify(targetPkgJson, null, 2)
+          );
+        }
+      }
+    }
+  }
+  
+  return deps;
+}
+
 // Copy dashboard files
 execSync(`cp -r ${DASHBOARD_DIR}/* ${DEPLOY_DIR}/`);
 
@@ -21,50 +58,28 @@ execSync(`cp -r ${DASHBOARD_DIR}/* ${DEPLOY_DIR}/`);
 const nodeModulesDir = path.join(DEPLOY_DIR, 'node_modules');
 fs.mkdirSync(nodeModulesDir, { recursive: true });
 
-// Read dashboard package.json
+// Read and update dashboard package.json
 const pkgPath = path.join(DEPLOY_DIR, 'package.json');
 const pkg = require(pkgPath);
 
-// Copy and prepare workspace packages
-if (pkg.dependencies) {
-  Object.entries(pkg.dependencies).forEach(([name, version]) => {
-    if (version === 'workspace:*' && name.startsWith('@midday/')) {
-      const packageName = name.replace('@midday/', '');
-      const sourcePkgDir = path.join(PACKAGES_DIR, packageName);
-      const targetPkgDir = path.join(nodeModulesDir, '@midday', packageName);
-      
-      // Create package directory
-      fs.mkdirSync(path.join(nodeModulesDir, '@midday'), { recursive: true });
-      
-      // Copy package files
-      execSync(`cp -r ${sourcePkgDir} ${path.join(nodeModulesDir, '@midday')}/`);
-      
-      // Read package's package.json
-      const pkgJsonPath = path.join(sourcePkgDir, 'package.json');
-      const pkgJson = require(pkgJsonPath);
-      
-      // Update dependency version to use file path
-      pkg.dependencies[name] = `file:node_modules/${name}`;
-      
-      // Also handle nested workspace dependencies
-      if (pkgJson.dependencies) {
-        const nestedPkgPath = path.join(targetPkgDir, 'package.json');
-        Object.entries(pkgJson.dependencies).forEach(([nestedName, nestedVersion]) => {
-          if (nestedVersion === 'workspace:*' && nestedName.startsWith('@midday/')) {
-            pkgJson.dependencies[nestedName] = `file:../../${nestedName.replace('@midday/', '')}`;
-          }
-        });
-        fs.writeFileSync(nestedPkgPath, JSON.stringify(pkgJson, null, 2));
-      }
-    }
-  });
-}
+// Create production package.json
+const prodPkg = {
+  name: pkg.name,
+  version: pkg.version,
+  private: true,
+  engines: pkg.engines,
+  scripts: {
+    start: pkg.scripts.start,
+    build: pkg.scripts.build
+  },
+  dependencies: resolveWorkspaceDeps(pkg)
+};
 
-// Write updated package.json
-fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
+// Write production package.json
+fs.writeFileSync(pkgPath, JSON.stringify(prodPkg, null, 2));
 
 // Create .npmrc file
 const npmrcPath = path.join(DEPLOY_DIR, '.npmrc');
-fs.writeFileSync(npmrcPath, 'legacy-peer-deps=true\n');
+fs.writeFileSync(npmrcPath, 'legacy-peer-deps=true\nstrict-peer-deps=false\n');
 
 console.log('Deploy directory prepared at:', DEPLOY_DIR);
