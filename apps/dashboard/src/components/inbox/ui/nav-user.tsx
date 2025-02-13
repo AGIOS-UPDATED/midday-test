@@ -23,10 +23,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
   DropdownMenuSubContent,
-} from "@/components/ui/dropdown-menu";
-import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
+} from "@/components/inbox/ui/dropdown-menu";
+import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/inbox/ui/sidebar";
 import { signOut, useSession } from "@/lib/auth-client";
-import { Tabs, TabsList, TabsTrigger } from "./tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/inbox/ui/tabs";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Image from "next/image";

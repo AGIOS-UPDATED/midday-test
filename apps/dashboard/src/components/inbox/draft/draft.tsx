@@ -1,13 +1,13 @@
 "use client";
 
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/inbox/ui/resizable";
 import { AlignVerticalSpaceAround, Search, Trash2 } from "lucide-react";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
+import { TooltipProvider } from "@/components/inbox/ui/tooltip";
+import { Tabs, TabsContent } from "@/components/inbox/ui/tabs";
+import { Separator } from "@/components/inbox/ui/separator";
 import { SidebarToggle } from "../ui/sidebar-toggle";
 import { useDrafts } from "./draftHooks/useDrafts";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/inbox/ui/button";
 import { DraftType } from "@/store/draftStates";
 import { useState } from "react";
 import * as React from "react";

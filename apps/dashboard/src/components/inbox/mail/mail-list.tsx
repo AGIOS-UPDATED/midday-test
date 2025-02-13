@@ -1,9 +1,9 @@
 import { ComponentProps } from "react";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useMail } from "@/components/mail/use-mail";
-import { Mail } from "@/components/mail/data";
-import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/inbox/ui/scroll-area";
+import { useMail } from "@/components/inbox/mail/use-mail";
+import { Mail } from "@/components/inbox/mail/data";
+import { Badge } from "@/components/inbox/ui/badge";
 import { BellOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 

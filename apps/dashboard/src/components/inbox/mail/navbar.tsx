@@ -3,8 +3,8 @@
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { buttonVariants } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/inbox/ui/tooltip";
+import { buttonVariants } from "@/components/inbox/ui/button";
 import { cn } from "@/lib/utils";
 
 interface NavProps {

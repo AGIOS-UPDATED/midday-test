@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarToggle } from "@/components/ui/sidebar-toggle";
+import { SidebarToggle } from "@/components/inbox/ui/sidebar-toggle";
 import { Construction } from "lucide-react";
 import BackButton from "./back-button";
 import { use } from "react";

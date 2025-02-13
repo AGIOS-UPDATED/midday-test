@@ -1,15 +1,15 @@
 "use client";
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/inbox/ui/tooltip";
 import { SidebarProvider } from "../context/sidebar-context";
 import { VariantProps, cva } from "class-variance-authority";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/inbox/ui/sheet";
 import { useSidebar } from "../context/sidebar-context";
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/inbox/ui/separator";
+import { Skeleton } from "@/components/inbox/ui/skeleton";
+import { Button } from "@/components/inbox/ui/button";
+import { Input } from "@/components/inbox/ui/input";
 import { Slot } from "@radix-ui/react-slot";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";

@@ -15,7 +15,7 @@ import {
   Code,
   ChartLine,
 } from "lucide-react";
-import { Gmail, Outlook, Vercel } from "@/components/icons/icons";
+import { Gmail, Outlook, Vercel } from "@/components/inbox/icons/icons";
 import { SidebarData } from "@/types";
 import React from "react";
 

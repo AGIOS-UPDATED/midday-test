@@ -5,12 +5,12 @@ import { useState, useCallback, useMemo, useEffect } from "react";
 import * as React from "react";
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { MailDisplay } from "@/components/mail/mail-display";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { MailList } from "@/components/mail/mail-list";
-import { Separator } from "@/components/ui/separator";
-import { useMail } from "@/components/mail/use-mail";
-import { Button } from "@/components/ui/button";
+import { MailDisplay } from "@/components/inbox/mail/mail-display";
+import { TooltipProvider } from "@/components/inbox/ui/tooltip";
+import { MailList } from "@/components/inbox/mail/mail-list";
+import { Separator } from "@/components/inbox/ui/separator";
+import { useMail } from "@/components/inbox/mail/use-mail";
+import { Button } from "@/components/inbox/ui/button";
 
 // Filters imports
 import {
@@ -18,14 +18,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
+} from "@/components/inbox/ui/dropdown-menu";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/inbox/ui/drawer";
 import { useOpenComposeModal } from "@/hooks/use-open-compose-modal";
 import { useFilteredMails } from "@/hooks/use-filtered-mails";
-import { useMediaQuery } from "../../hooks/use-media-query";
-import { tagsAtom } from "@/components/mail/use-tags";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { tagsAtom } from "@/components/inbox/mail/use-tags";
 import { SidebarToggle } from "../ui/sidebar-toggle";
-import { type Mail } from "@/components/mail/data";
+import { type Mail } from "@/components/inbox/mail/data";
 import { SearchBar } from "./search-bar";
 import { useAtomValue } from "jotai";
 

@@ -1,4 +1,4 @@
-import { Draft } from "@/components/draft/draft";
+import { Draft } from "@/components/inbox/draft/draft";
 import React from "react";
 
 async function page() {

@@ -1,5 +1,5 @@
-import { Tag } from "@/components/mail/use-tags";
-import { Mail } from "@/components/mail/data";
+import { Tag } from "@/components/inbox/mail/use-tags";
+import { Mail } from "@/components/inbox/mail/data";
 import { useMemo } from "react";
 
 /**

@@ -4,14 +4,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+} from "@/components/inbox/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/inbox/ui/popover";
 import { Search, SlidersHorizontal, CalendarIcon } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { Calendar } from "@/components/ui/calendar";
+import { Separator } from "@/components/inbox/ui/separator";
+import { Calendar } from "@/components/inbox/ui/calendar";
 import { type DateRange } from "react-day-picker";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/inbox/ui/button";
+import { Input } from "@/components/inbox/ui/input";
 import { format, subDays } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
