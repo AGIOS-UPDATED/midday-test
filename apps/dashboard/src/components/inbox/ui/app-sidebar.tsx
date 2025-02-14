@@ -142,7 +142,7 @@ const data: SidebarData = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <>
-      {/* <Sidebar collapsible="icon" {...props}>
+      <Sidebar collapsible="icon" {...props}>
         <SidebarHeader className="mt-2 flex items-center justify-between gap-2">
           <NavUser />
         </SidebarHeader>
@@ -150,7 +150,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavMain items={data.navMain} />
         </SidebarContent>
         <SidebarRail />
-      </Sidebar> */}
+      </Sidebar>
     </>
   );
 }
