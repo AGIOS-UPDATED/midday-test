@@ -1,10 +1,10 @@
 "use client";
 
 import { Github, Book, Users, Terminal, Code2, Webhook, LucideIcon } from "lucide-react";
-import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { SidebarToggle } from "@/components/ui/sidebar-toggle";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { ResizablePanel, ResizablePanelGroup } from "@/components/inbox/ui/resizable";
+import { SidebarToggle } from "@/components/inbox/ui/sidebar-toggle";
+import { Separator } from "@/components/inbox/ui/separator";
+import { Button } from "@/components/inbox/ui/button";
 import Link from "next/link";
 
 interface DeveloperResource {

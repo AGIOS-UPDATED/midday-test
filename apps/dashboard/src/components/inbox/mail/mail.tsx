@@ -4,7 +4,7 @@ import { AlignVerticalSpaceAround, ListFilter, SquarePen } from "lucide-react";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import * as React from "react";
 
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/inbox/ui/resizable";
 import { MailDisplay } from "@/components/inbox/mail/mail-display";
 import { TooltipProvider } from "@/components/inbox/ui/tooltip";
 import { MailList } from "@/components/inbox/mail/mail-list";

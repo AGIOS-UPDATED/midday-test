@@ -19,7 +19,7 @@ import { Gmail, Outlook, Vercel } from "@/components/inbox/icons/icons";
 import { SidebarData } from "@/types";
 import React from "react";
 
-import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/components/inbox/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 

@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import { basename } from 'node:path';
 import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'unocss';
 
-const iconPaths = globSync('./icons/*.svg');
+const iconPaths = globSync('./public/icons/*.svg');
 
 const collectionName = 'bolt';
 
@@ -115,6 +115,10 @@ export default defineConfig({
     ['b', {}],
   ],
   theme: {
+    spacing: {
+      '4': '1rem',  // 16px
+      // Add other spacing values as needed
+    },
     colors: {
       ...COLOR_PRIMITIVES,
       bolt: {
