@@ -75,7 +75,7 @@ const defaultItems = [
     name: "Settings",
   },
   {
-    path: "/inboxmail",
+    path: "/inboxmail/mail",
     name: "Inbox Mail",
   },
 ];
