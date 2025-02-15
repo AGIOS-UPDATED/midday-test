@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
     <SidebarProvider>
     <div className="flex h-screen w-screen overflow-hidden">
-      <AppSidebar />
+      {/* <AppSidebar /> */}
       {children}
     </div>
     </SidebarProvider>
