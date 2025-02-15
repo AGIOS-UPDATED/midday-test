@@ -30,7 +30,7 @@ const icons = {
   "/apps": () => <Icons.Apps size={22} />,
   "/inbox": () => <Icons.Inbox2 size={22} />,
   "/chatassistant": () => <Icons.Apps size={22} />,
-  "/inboxmail": () => <Icons.Apps size={22} />,
+  "/inboxmail/mail": () => <Icons.Apps size={22} />,
 };
 
 const defaultItems = [
