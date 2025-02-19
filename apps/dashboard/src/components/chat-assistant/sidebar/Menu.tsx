@@ -144,7 +144,7 @@ export const Menu = () => {
       initial="closed"
       animate={open ? 'open' : 'closed'}
       variants={menuVariants}
-      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu absolute left-0 top-0 w-[300px] h-[calc(100vh-var(--header-height))] border-r rounded-br-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
+      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu absolute left-0 top-0 w-[300px] h-screen border-r rounded-br-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
     >
       <div className="h-[60px]" /> {/* Spacer for top margin */}
       <CurrentDateTime />
@@ -224,7 +224,7 @@ export const Menu = () => {
         </div>
         <div className="flex items-center justify-between border-t border-bolt-elements-borderColor p-4">
           <SettingsButton onClick={() => setIsSettingsOpen(true)} />
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
         </div>
       </div>
       <SettingsWindow open={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
