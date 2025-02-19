@@ -103,7 +103,7 @@ export const Menu = () => {
   useEffect(() => {
     if (open) {
       loadEntries();
-      console.log('List',list);
+      console.log('List', list);
     }
   }, [open]);
 
@@ -141,14 +141,13 @@ export const Menu = () => {
   return (
     <motion.div
       ref={menuRef}
+      variants={menuVariants}
       initial="closed"
       animate={open ? 'open' : 'closed'}
-      variants={menuVariants}
-      className="flex selection-accent z-[1000] bg-[#171717] flex-col side-menu absolute left-0 top-0 w-[300px] h-screen border-r rounded-br-3xl border-bolt-elements-borderColor z-sidebar shadow-xl shadow-bolt-elements-sidebar-dropdownShadow text-sm"
+      className="fixed inset-y-0 left-0 z-50 w-80 bg-bolt-elements-background-depth-2 border-r border-bolt-elements-borderColor"
     >
-      <div className="h-[60px]" /> {/* Spacer for top margin */}
       <CurrentDateTime />
-      <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
+      <div className="flex flex-col h-[calc(100vh-48px)]">
         <div className="p-4 select-none">
           <a
             href="/chatassistant"
@@ -168,7 +167,7 @@ export const Menu = () => {
           </div>
         </div>
         <div className="text-bolt-elements-textPrimary font-medium pl-6 pr-5 my-2">Your Chats</div>
-        <div className="flex-1 overflow-auto pl-4 pr-5 pb-5">
+        <div className="flex-1 overflow-y-auto pl-4 pr-5 pb-5">
           {filteredList.length === 0 && (
             <div className="pl-2 text-bolt-elements-textTertiary">
               {list.length === 0 ? 'No previous conversations' : 'No matches found'}
@@ -222,7 +221,7 @@ export const Menu = () => {
             </Dialog>
           </DialogRoot>
         </div>
-        <div className="flex items-center justify-between border-t border-bolt-elements-borderColor p-4">
+        <div className="flex items-center justify-between border-t border-bolt-elements-borderColor p-4 mt-auto">
           <SettingsButton onClick={() => setIsSettingsOpen(true)} />
           {/* <ThemeSwitch /> */}
         </div>
