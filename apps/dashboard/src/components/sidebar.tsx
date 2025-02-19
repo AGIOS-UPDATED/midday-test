@@ -17,7 +17,7 @@ export function Sidebar() {
         <div className="mt-6 todesktop:mt-[35px]">
           <Link href="/">
             {/* <Icons.LogoSmall /> */}
-           <h1 className="text-xl font-bold "> U
+           <h1 className="text-2xl font-bold "> U
            </h1>          </Link>
         </div>
         <MainMenu initialItems={initialItems} />
