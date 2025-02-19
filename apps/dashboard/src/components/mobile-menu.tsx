@@ -23,7 +23,10 @@ export function MobileMenu() {
       </div>
       <SheetContent side="left" className="border-none rounded-none -ml-2">
         <div className="ml-2 mb-8">
-          <Icons.Logo />
+       
+            {/* <Icons.LogoSmall /> */}
+           <h1 className="text-2xl font-bold "> U
+           </h1>        
         </div>
 
         <MainMenu onSelect={() => setOpen(false)} />
