@@ -16,11 +16,11 @@ import  'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.midday.ai"),
-  title: "Midday | Run your business smarter",
+  title: "Updated | Run your business smarter",
   description:
     "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
   twitter: {
-    title: "Midday | Run your business smarter",
+    title: "Updated | Run your business smarter",
     description:
       "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
     images: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Midday | Run your business smarter",
+    title: "Updated | Run your business smarter",
     description:
       "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
     url: "https://app.midday.ai",
