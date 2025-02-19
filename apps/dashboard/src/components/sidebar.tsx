@@ -16,8 +16,9 @@ export function Sidebar() {
       <div className="flex flex-col items-center justify-center">
         <div className="mt-6 todesktop:mt-[35px]">
           <Link href="/">
-            <Icons.LogoSmall />
-          </Link>
+            {/* <Icons.LogoSmall /> */}
+           <h1> U
+           </h1>          </Link>
         </div>
         <MainMenu initialItems={initialItems} />
       </div>
