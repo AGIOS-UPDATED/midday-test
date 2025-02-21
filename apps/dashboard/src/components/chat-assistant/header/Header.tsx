@@ -1,12 +1,17 @@
 "use client"
 import { useStore } from '@nanostores/react';
 import { chatStore } from '@/lib/stores/chat';
+import { menuOpenStore } from '@/lib/stores/menu';
 import { classNames } from '@/utils/chat-assistant/classNames';
-import  HeaderActionButtons  from './HeaderActionButtons';
-import ChatDescription  from '@/lib/persistence/ChatDescription.client';
+import HeaderActionButtons from './HeaderActionButtons';
+import ChatDescription from '@/lib/persistence/ChatDescription.client';
 
-const  Header = () => {
+const Header = () => {
   const chat = useStore(chatStore);
+
+  const toggleMenu = () => {
+    menuOpenStore.set(!menuOpenStore.get());
+  };
 
   return (
     <header
@@ -15,9 +20,15 @@ const  Header = () => {
         'border-bolt-elements-borderColor': chat.started,
       })}
     >
-      <div className="flex  items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
-        {/* <div className="i-ph:sidebar-simple-duotone text-xl" /> */}
-        <a href="/" className="text-2xl font-semibold text-accent flex items-center">
+      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary">
+        <button 
+          onClick={toggleMenu}
+          className="p-2 hover:bg-bolt-elements-sidebar-buttonBackgroundHover rounded-md transition-theme"
+          aria-label="Toggle Menu"
+        >
+          <div className="i-ph:sidebar-simple-duotone text-xl" />
+        </button>
+        <a href="/" className="text-2xl font-semibold text-accent flex items-center cursor-pointer">
           {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
           {/* <img src="/updated-light.png" alt="logo" className="w-[120px] inline-block dark:hidden" />
           <img src="/updated-dark.png" alt="logo" className="w-[120px] inline-block hidden dark:block" /> */}

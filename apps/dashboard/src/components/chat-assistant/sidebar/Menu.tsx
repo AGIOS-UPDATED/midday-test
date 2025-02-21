@@ -1,5 +1,6 @@
 import { motion, type Variants } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useStore } from '@nanostores/react';
 import { toast } from 'react-toastify';
 import { Dialog, DialogButton, DialogDescription, DialogRoot, DialogTitle } from '@/components/chat-assistant/ui/Dialog';
 import { ThemeSwitch } from '@/components/chat-assistant/ui/ThemeSwitch';
@@ -8,6 +9,7 @@ import { SettingsButton } from '@/components/chat-assistant/ui/SettingsButton';
 import { db, deleteById, getAll, chatId, type ChatHistoryItem, useChatHistory } from '@/lib/persistence';
 import { cubicEasingFn } from '@/utils/chat-assistant/easings';
 import { logger } from '@/utils/chat-assistant/logger';
+import { menuOpenStore } from '@/lib/stores/menu';
 import { HistoryItem } from './HistoryItem';
 import { binDates } from './date-binning';
 import { useSearchFilter } from '@/lib/hooks/useSearchFilter';
@@ -58,7 +60,7 @@ export const Menu = () => {
   const { duplicateCurrentChat, exportChat } = useChatHistory();
   const menuRef = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<ChatHistoryItem[]>([]);
-  const [open, setOpen] = useState(false);
+  const open = useStore(menuOpenStore);
   const [dialogContent, setDialogContent] = useState<DialogContent>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -70,13 +72,18 @@ export const Menu = () => {
   const loadEntries = useCallback(() => {
     if (db) {
       getAll(db)
-        // .then((list) => list.filter((item) => item.id ))
         .then(setList)
         .catch((error) => toast.error(error.message));
     }
   }, []);
 
-  const deleteItem = useCallback((event: React.UIEvent, item: ChatHistoryItem) => {
+  useEffect(() => {
+    if (open) {
+      loadEntries();
+    }
+  }, [open, loadEntries]);
+
+  const handleDeleteClick = (event: React.UIEvent, item: ChatHistoryItem) => {
     event.preventDefault();
 
     if (db) {
@@ -94,43 +101,14 @@ export const Menu = () => {
           logger.error(error);
         });
     }
-  }, []);
+  };
 
   const closeDialog = () => {
     setDialogContent(null);
   };
 
-  useEffect(() => {
-    if (open) {
-      loadEntries();
-      console.log('List', list);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const enterThreshold = 40;
-    const exitThreshold = 40;
-
-    function onMouseMove(event: MouseEvent) {
-      if (event.pageX < enterThreshold) {
-        setOpen(true);
-      }
-
-      if (menuRef.current && event.clientX > menuRef.current.getBoundingClientRect().right + exitThreshold) {
-        setOpen(false);
-      }
-    }
-
-    window.addEventListener('mousemove', onMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-    };
-  }, []);
-
-  const handleDeleteClick = (event: React.UIEvent, item: ChatHistoryItem) => {
-    event.preventDefault();
-    setDialogContent({ type: 'delete', item });
+  const toggleMenu = () => {
+    // Removed setOpen as it's no longer needed
   };
 
   const handleDuplicate = async (id: string) => {
@@ -209,7 +187,7 @@ export const Menu = () => {
                     <DialogButton
                       type="danger"
                       onClick={(event) => {
-                        deleteItem(event, dialogContent.item);
+                        handleDeleteClick(event, dialogContent.item);
                         closeDialog();
                       }}
                     >
