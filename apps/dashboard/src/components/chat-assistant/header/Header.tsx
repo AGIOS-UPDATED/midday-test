@@ -21,7 +21,7 @@ const Header = () => {
       })}
     >
       <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary">
-        <button 
+        <button
           onClick={toggleMenu}
           className="p-2 hover:bg-bolt-elements-sidebar-buttonBackgroundHover rounded-md transition-theme"
           aria-label="Toggle Menu"
@@ -39,16 +39,16 @@ const Header = () => {
           <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
             {/* <ChatDescription /> */}
           </span>
-       
-              <div className="mr-1">
-                {/* <HeaderActionButtons /> */}
-              </div>
-        
+
+          <div className="mr-1">
+            {/* <HeaderActionButtons /> */}
+          </div>
+
         </>
       )}
     </header>
   );
 }
 
-Header.displayname='Header'
-export default Header ;
+Header.displayname = 'Header'
+export default Header;

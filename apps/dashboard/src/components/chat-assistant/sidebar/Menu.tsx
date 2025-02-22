@@ -49,9 +49,18 @@ function CurrentDateTime() {
   }, []);
 
   return (
-    <div className="flex items-center gap-2 px-4 py-3 font-bold text-gray-700 dark:text-gray-300 border-b border-bolt-elements-borderColor">
-      <div className="h-4 w-4 i-ph:clock-thin" />
-      {dateTime.toLocaleDateString()} {dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    <div className="flex items-center justify-between px-4 py-3 font-bold text-gray-700 dark:text-gray-300 border-b border-bolt-elements-borderColor">
+      <div className="flex items-center gap-2">
+        <div className="h-4 w-4 i-ph:clock-thin" />
+        {dateTime.toLocaleDateString()} {dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+      </div>
+      <button
+        onClick={() => menuOpenStore.set(false)}
+        className="p-1 hover:bg-bolt-elements-sidebar-buttonBackgroundHover rounded-md transition-theme"
+        aria-label="Close Sidebar"
+      >
+        <div className="i-ph:x-bold text-xl" />
+      </button>
     </div>
   );
 }
