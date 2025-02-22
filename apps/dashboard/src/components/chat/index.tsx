@@ -8,13 +8,14 @@ import { ScrollArea } from "@midday/ui/scroll-area";
 import { Textarea } from "@midday/ui/textarea";
 import { useActions } from "ai/rsc";
 import { nanoid } from "nanoid";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChatEmpty } from "./chat-empty";
 import { ChatExamples } from "./chat-examples";
 import { ChatFooter } from "./chat-footer";
 import { ChatList } from "./chat-list";
 import { UserMessage } from "./messages";
-import { ImageIcon, PaperclipIcon, SearchIcon } from "lucide-react";
+import { ImageIcon, PaperclipIcon, SearchIcon, Mic } from "lucide-react";
+import { VoiceRecorderModal } from "../voice-recorder/voice-recorder-modal";
 
 export function Chat({
   messages,
@@ -155,6 +156,34 @@ export function Chat({
     }
   };
 
+  const [isVoiceRecorderOpen, setIsVoiceRecorderOpen] = useState(false);
+
+  const handleVoiceRecording = (audioBlob: Blob) => {
+    // Here you can handle the recorded audio blob
+    // For example, upload it to your server or process it
+    console.log('Recorded audio blob:', audioBlob);
+    
+    // Create a temporary URL for the audio
+    const audioUrl = URL.createObjectURL(audioBlob);
+    
+    // Add the voice message to the chat
+    submitMessage((message: ClientMessage[]) => [
+      ...message,
+      {
+        id: nanoid(),
+        role: "user",
+        display: (
+          <UserMessage>
+            <div>
+              <p>🎤 Voice Message</p>
+              <audio src={audioUrl} controls className="mt-2" />
+            </div>
+          </UserMessage>
+        ),
+      },
+    ]);
+  };
+
   return (
     <div className="relative">
       <ScrollArea className="todesktop:h-[335px] md:h-[335px]" ref={scrollRef}>
@@ -217,6 +246,13 @@ export function Chat({
               >
                 <SearchIcon className="h-5 w-5 text-muted-foreground" />
               </button>
+              <button
+                type="button"
+                onClick={() => setIsVoiceRecorderOpen(true)}
+                className="p-1 hover:bg-accent rounded-sm"
+              >
+                <Mic className="h-5 w-5 text-muted-foreground" />
+              </button>
             </div>
             <Textarea
               ref={inputRef}
@@ -237,6 +273,12 @@ export function Chat({
           showFeedback={showFeedback}
         />
       </div>
+
+      <VoiceRecorderModal
+        isOpen={isVoiceRecorderOpen}
+        onClose={() => setIsVoiceRecorderOpen(false)}
+        onSave={handleVoiceRecording}
+      />
     </div>
   );
 }
