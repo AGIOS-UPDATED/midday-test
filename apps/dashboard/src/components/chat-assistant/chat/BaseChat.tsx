@@ -14,6 +14,7 @@ import { SendButton } from './SendButton.client';
 import { APIKeyManager, getApiKeysFromCookies } from './APIKeyManager';
 import Cookies from 'js-cookie';
 import * as Tooltip from '@radix-ui/react-tooltip';
+import { VoiceRecorderModal } from '@/components/voice-recorder/voice-recorder-modal';
 
 import styles from './BaseChat.module.scss';
 import { ExportChatButton } from '@/components/chat-assistant/chat/chatExportAndImport/ExportChatButton';
@@ -113,6 +114,8 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const [transcript, setTranscript] = useState('');
     const [isModelLoading, setIsModelLoading] = useState<string | undefined>('all');
     const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
+    const [isVoiceRecorderOpen, setIsVoiceRecorderOpen] = useState(false);
+
     useEffect(() => {
       if (data) {
         const progressList = data.filter(
@@ -293,6 +296,17 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 
           break;
         }
+      }
+    };
+
+    const handleVoiceRecording = (audioBlob: Blob) => {
+      // Create a temporary URL for the audio
+      const audioUrl = URL.createObjectURL(audioBlob);
+      
+      // Create a new message with the audio
+      if (sendMessage) {
+        const audioMessage = `[Audio Message](${audioUrl})`;
+        sendMessage({} as React.UIEvent, audioMessage);
       }
     };
 
@@ -538,6 +552,13 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                           <div className="i-ph:paperclip text-xl"></div>
                         </IconButton>
                         <IconButton
+                          title="Voice Message"
+                          className="transition-all"
+                          onClick={() => setIsVoiceRecorderOpen(true)}
+                        >
+                          <div className="i-ph:microphone text-xl"></div>
+                        </IconButton>
+                        <IconButton
                           title="Enhance prompt"
                           disabled={input.length === 0 || enhancingPrompt}
                           className={classNames('transition-all', enhancingPrompt ? 'opacity-100' : '')}
@@ -611,7 +632,16 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       </div>
     );
 
-    return <Tooltip.Provider delayDuration={200}>{baseChat}</Tooltip.Provider>;
+    return (
+      <Tooltip.Provider delayDuration={200}>
+        {baseChat}
+        <VoiceRecorderModal
+          isOpen={isVoiceRecorderOpen}
+          onClose={() => setIsVoiceRecorderOpen(false)}
+          onSave={handleVoiceRecording}
+        />
+      </Tooltip.Provider>
+    );
   },
 );
 
