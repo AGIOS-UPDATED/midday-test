@@ -193,7 +193,7 @@ export function SectionFour() {
             Use your personalized email address for your invoices and receipts.
           </li>
           <li>
-            The invoice arrives in the inbox, Midday gives you a transaction
+            The invoice arrives in the inbox, Updated gives you a transaction
             suggestion to match it with.
           </li>
           <li>

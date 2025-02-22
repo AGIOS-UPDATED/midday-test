@@ -134,7 +134,7 @@ export const features = [
   //   id: "linear",
   //   name: "Linear",
   //   description:
-  //     "Midday and Linear enhancing collaboration and streamline workflows. Seamlessly link files managed in Midday to relevant tasks or projects in Linear, providing a more cohesive experience for teams managing financial data alongside project development.",
+  //     "Updated and Linear enhancing collaboration and streamline workflows. Seamlessly link files managed in Updated to relevant tasks or projects in Linear, providing a more cohesive experience for teams managing financial data alongside project development.",
   //   logo: (
   //     <svg
   //       xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ export const features = [
   //   id: "notion",
   //   name: "Notion",
   //   description:
-  //     "Integration with Visma offers a comprehensive solution for connecting Midday with Visma's suite of financial and administrative software. This integration facilitates the exchange of data and automates key financial processes, enhancing the efficiency of your operations and ensuring accurate financial management.",
+  //     "Integration with Visma offers a comprehensive solution for connecting Updated with Visma's suite of financial and administrative software. This integration facilitates the exchange of data and automates key financial processes, enhancing the efficiency of your operations and ensuring accurate financial management.",
   //   logo: (
   //     <svg
   //       xmlns="http://www.w3.org/2000/svg"

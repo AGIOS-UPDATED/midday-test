@@ -199,7 +199,7 @@ export function Header() {
         <ContextMenu>
           <ContextMenuTrigger>
             <Link href="/">
-              <span className="sr-only">Midday Logo</span>
+              <span className="sr-only">Updated Logo</span>
               <LogoIcon />
             </Link>
           </ContextMenuTrigger>
@@ -233,7 +233,7 @@ export function Header() {
                     </svg>
                     `,
                     );
-                  } catch {}
+                  } catch { }
                 }}
               >
                 <Icons.LogoIcon />
@@ -354,7 +354,7 @@ export function Header() {
         >
           <div className="mt-4 flex justify-between p-3 px-4 relative ml-[1px]">
             <button type="button" onClick={handleToggleMenu}>
-              <span className="sr-only">Midday Logo</span>
+              <span className="sr-only">Updated Logo</span>
               <LogoIcon />
             </button>
 

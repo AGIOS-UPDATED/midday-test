@@ -18,13 +18,13 @@ export default function Page() {
 
           <p className="leading-7 mt-8">
             These Terms and Conditions ("Terms", "Terms and Conditions") govern
-            your relationship with Midday application (the "Service") operated
-            by Midday Labs AB ("us", "we", or "our").
+            your relationship with Updated application (the "Service") operated
+            by Updated Labs AB ("us", "we", or "our").
           </p>
 
           <p className="leading-7 mt-8">
             Please read these Terms and Conditions carefully before using our
-            Midday application (the "Service").
+            Updated application (the "Service").
           </p>
 
           <p className="leading-7 mt-8">
@@ -51,24 +51,24 @@ export default function Page() {
           <p className="leading-7 mt-8">
             At the end of each Billing Cycle, your Subscription will
             automatically renew under the exact same conditions unless you
-            cancel it or Midday Labs AB cancels it. You may cancel your
+            cancel it or Updated Labs AB cancels it. You may cancel your
             Subscription renewal either through your online account management
-            page or by contacting Midday Labs AB customer support team.
+            page or by contacting Updated Labs AB customer support team.
           </p>
 
           <p className="leading-7 mt-8">
             A valid payment method, including credit card, is required to
-            process the payment for your Subscription. You shall provide Midday
+            process the payment for your Subscription. You shall provide Updated
             Labs AB with accurate and complete billing information including
             full name, address, state, zip code, telephone number, and a valid
             payment method information. By submitting such payment information,
-            you automatically authorize Midday Labs AB to charge all
+            you automatically authorize Updated Labs AB to charge all
             Subscription fees incurred through your account to any such payment
             instruments.
           </p>
 
           <p className="leading-7 mt-8">
-            Should automatic billing fail to occur for any reason, Midday Labs
+            Should automatic billing fail to occur for any reason, Updated Labs
             AB will issue an electronic invoice indicating that you must proceed
             manually, within a certain deadline date, with the full payment
             corresponding to the billing period as indicated on the invoice.
@@ -77,14 +77,14 @@ export default function Page() {
           <h2>Fee Changes</h2>
 
           <p className="leading-7 mt-8">
-            Midday Labs AB, in its sole discretion and at any time, may modify
+            Updated Labs AB, in its sole discretion and at any time, may modify
             the Subscription fees for the Subscriptions. Any Subscription fee
             change will become effective at the end of the then-current Billing
             Cycle.
           </p>
 
           <p className="leading-7 mt-8">
-            Midday Labs AB will provide you with a reasonable prior notice of
+            Updated Labs AB will provide you with a reasonable prior notice of
             any change in Subscription fees to give you an opportunity to
             terminate your Subscription before such change becomes effective.
           </p>
@@ -99,8 +99,8 @@ export default function Page() {
 
           <p className="leading-7 mt-8">
             Certain refund requests for Subscriptions may be considered by
-            Midday Labs AB on a case-by-case basis and granted in sole
-            discretion of Midday Labs AB.
+            Updated Labs AB on a case-by-case basis and granted in sole
+            discretion of Updated Labs AB.
           </p>
 
           <h2>Content</h2>
@@ -192,24 +192,24 @@ export default function Page() {
           <p className="leading-7 mt-8">
             The Service and its original content (excluding Content provided by
             users), features and functionality are and will remain the exclusive
-            property of Midday Labs AB and its licensors. The Service is
+            property of Updated Labs AB and its licensors. The Service is
             protected by copyright, trademark, and other laws of both the Sweden
             and foreign countries. Our trademarks and trade dress may not be
             used in connection with any product or service without the prior
-            written consent of Midday Labs AB.
+            written consent of Updated Labs AB.
           </p>
 
           <h2>Links To Other Web Sites</h2>
 
           <p className="leading-7 mt-8">
             Our Service may contain links to third-party web sites or services
-            that are not owned or controlled by Midday Labs AB.
+            that are not owned or controlled by Updated Labs AB.
           </p>
 
           <p className="leading-7 mt-8">
-            Midday Labs AB has no control over, and assumes no responsibility
+            Updated Labs AB has no control over, and assumes no responsibility
             for, the content, privacy policies, or practices of any third party
-            web sites or services. You further acknowledge and agree that Midday
+            web sites or services. You further acknowledge and agree that Updated
             Labs AB shall not be responsible or liable, directly or indirectly,
             for any damage or loss caused or alleged to be caused by or in
             connection with use of or reliance on any such content, goods or
@@ -238,7 +238,7 @@ export default function Page() {
           <h2>Limitation Of Liability</h2>
 
           <p className="leading-7 mt-8">
-            In no event shall Midday Labs AB, nor its directors, employees,
+            In no event shall Updated Labs AB, nor its directors, employees,
             partners, agents, suppliers, or affiliates, be liable for any
             indirect, incidental, special, consequential or punitive damages,
             including without limitation, loss of profits, data, use, goodwill,
@@ -265,7 +265,7 @@ export default function Page() {
           </p>
 
           <p className="leading-7 mt-8">
-            Midday Labs AB its subsidiaries, affiliates, and its licensors do
+            Updated Labs AB its subsidiaries, affiliates, and its licensors do
             not warrant that a) the Service will function uninterrupted, secure
             or available at any particular time or location; b) any errors or
             defects will be corrected; c) the Service is free of viruses or

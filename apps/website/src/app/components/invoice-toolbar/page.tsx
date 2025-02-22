@@ -3,7 +3,7 @@ import Image from "next/image";
 import invoiceToolbar from "../invoice-toolbar.png";
 
 export const metadata: Metadata = {
-  title: "Invoice Toolbar | Midday",
+  title: "Invoice Toolbar | Updated",
   description: "A Next.js Invoice Toolbar for invoices.",
 };
 

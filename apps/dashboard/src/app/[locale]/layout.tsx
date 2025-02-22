@@ -10,9 +10,9 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Providers } from "./providers";
 // import  'react-toastify/dist/ReactToastify.css?url';
-import  '@xterm/xterm/css/xterm.css';
-import  '@unocss/reset/tailwind-compat.css';
-import  'react-toastify/dist/ReactToastify.css';
+import '@xterm/xterm/css/xterm.css';
+import '@unocss/reset/tailwind-compat.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.midday.ai"),
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       "Automate financial tasks, stay organized, and make informed decisions effortlessly.",
     url: "https://app.midday.ai",
-    siteName: "Midday",
+    siteName: "Updated",
     images: [
       {
         url: "https://cdn.midday.ai/opengraph-image.jpg",

@@ -22,7 +22,7 @@ import Link from "next/link";
 import { userAgent } from "next/server";
 
 export const metadata: Metadata = {
-  title: "Login | Midday",
+  title: "Login | Updated",
 };
 
 export default async function Page(params) {
@@ -40,15 +40,15 @@ export default async function Page(params) {
   let preferredSignInOption =
     device?.vendor === "Apple" ? (
       <div className="flex flex-col space-y-2">
-       <OTPSignIn className=" pt-8" />
+        <OTPSignIn className=" pt-8" />
         {/* <GoogleSignIn />
         <AppleSignIn /> */}
 
       </div>
     ) : (
       <div className="flex flex-col space-y-2">
-      <OTPSignIn className="border-t-[1px] border-border pt-8" />
-      {/* <GoogleSignIn /> */}
+        <OTPSignIn className="border-t-[1px] border-border pt-8" />
+        {/* <GoogleSignIn /> */}
       </div>
     );
 
@@ -117,23 +117,23 @@ export default async function Page(params) {
       if (device?.vendor === "Apple") {
         moreSignInOptions = (
           <>
-          <GoogleSignIn />
-          <AppleSignIn />
-          {/* <GithubSignIn />
+            <GoogleSignIn />
+            <AppleSignIn />
+            {/* <GithubSignIn />
           <SlackSignIn /> */}
-          {/* <Hedrea/> */}
-          <Privy/>
+            {/* <Hedrea/> */}
+            <Privy />
           </>
         );
       } else {
         moreSignInOptions = (
           <>
-          <GoogleSignIn />
-          <AppleSignIn />
-          {/* <GithubSignIn />
+            <GoogleSignIn />
+            <AppleSignIn />
+            {/* <GithubSignIn />
           <SlackSignIn /> */}
-          <Hedrea/>
-          <Privy/>
+            <Hedrea />
+            <Privy />
           </>
         );
       }

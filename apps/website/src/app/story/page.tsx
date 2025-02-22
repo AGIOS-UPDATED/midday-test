@@ -7,7 +7,7 @@ import founders from "public/founders.png";
 
 export const metadata: Metadata = {
   title: "Story",
-  description: "This is why we’re building Midday.",
+  description: "This is why we’re building Updated.",
 };
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
     <div className="container max-w-[750px]">
       <h1 className="mt-24 font-medium text-center text-5xl mb-16 leading-snug">
         This is why we’re building <br />
-        Midday.
+        Updated.
       </h1>
 
       <h3 className="font-medium text-xl mb-2">Problem</h3>

@@ -14,7 +14,7 @@ import { Suspense } from "react";
 import { searchParamsCache } from "./search-params";
 
 export const metadata: Metadata = {
-  title: "Tracker | Midday",
+  title: "Tracker | Updated",
 };
 
 type Props = {

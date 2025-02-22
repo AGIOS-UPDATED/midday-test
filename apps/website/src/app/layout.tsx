@@ -18,18 +18,18 @@ export const preferredRegion = ["fra1", "sfo1", "iad1"];
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Midday | Run your business smarter",
-    template: "%s | Midday",
+    default: "Updated | Run your business smarter",
+    template: "%s | Updated",
   },
   description:
-    "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+    "Updated provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
   openGraph: {
-    title: "Midday | Run your business smarter",
+    title: "Updated | Run your business smarter",
     description:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Updated provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     url: baseUrl,
     siteName:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Updated provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     locale: "en_US",
     type: "website",
     images: [
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Midday | Run your business smarter",
+    title: "Updated | Run your business smarter",
     description:
-      "Midday provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
+      "Updated provides you with greater insight into your business and automates the boring tasks, allowing you to focus on what you love to do instead.",
     images: [
       {
         url: "https://cdn.midday.ai/opengraph-image.jpg",

@@ -3,7 +3,7 @@ import Image from "next/image";
 import ogInvoice from "../invoice-og.png";
 
 export const metadata: Metadata = {
-  title: "Open Graph Template | Midday",
+  title: "Open Graph Template | Updated",
   description: "A Next.js Open Graph template for invoices.",
 };
 

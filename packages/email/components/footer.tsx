@@ -224,7 +224,7 @@ export function Footer() {
               src={`${baseUrl}/email/x.png`}
               width="22"
               height="22"
-              alt="Midday on X"
+              alt="Updated on X"
             />
           </Link>
         </Column>
@@ -234,7 +234,7 @@ export function Footer() {
               src={`${baseUrl}/email/producthunt.png`}
               width="22"
               height="22"
-              alt="Midday on Producthunt"
+              alt="Updated on Producthunt"
             />
           </Link>
         </Column>
@@ -245,7 +245,7 @@ export function Footer() {
               src={`${baseUrl}/email/discord.png`}
               width="22"
               height="22"
-              alt="Midday on Discord"
+              alt="Updated on Discord"
             />
           </Link>
         </Column>
@@ -256,7 +256,7 @@ export function Footer() {
               src={`${baseUrl}/email/linkedin.png`}
               width="22"
               height="22"
-              alt="Midday on LinkedIn"
+              alt="Updated on LinkedIn"
             />
           </Link>
         </Column>
@@ -267,7 +267,7 @@ export function Footer() {
 
       <Row>
         <Text className="text-[#B8B8B8] text-xs">
-          Midday Labs AB - Torsgatan 59 113 37, Stockholm, Sweden.
+          Updated Labs AB - Torsgatan 59 113 37, Stockholm, Sweden.
         </Text>
       </Row>
 
@@ -289,7 +289,7 @@ export function Footer() {
           <Img
             src={`${baseUrl}/email/logo-footer.png`}
             width="100"
-            alt="Midday"
+            alt="Updated"
             className="block"
           />
         </Link>

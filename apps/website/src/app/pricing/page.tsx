@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Midday's pricing",
+  description: "Updated's pricing",
 };
 
 export default function Page() {
@@ -67,7 +67,7 @@ export default function Page() {
             <Accordion type="single" collapsible className="w-full mt-10 mb-48">
               <AccordionItem value="item-1">
                 <AccordionTrigger>
-                  <span className="truncate">Can I self-host Midday.ai?</span>
+                  <span className="truncate">Can I self-host Updated.ai?</span>
                 </AccordionTrigger>
                 <AccordionContent>
                   Absolutely. We are currently writing the documentation for
@@ -85,7 +85,7 @@ export default function Page() {
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger>
-                  Can I run Midday.ai locally?
+                  Can I run Updated.ai locally?
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes. We are currently writing documentation for this. You can
@@ -102,7 +102,7 @@ export default function Page() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>Is Midday.ai open source?</AccordionTrigger>
+                <AccordionTrigger>Is Updated.ai open source?</AccordionTrigger>
                 <AccordionContent>
                   Yes. You can find the repository{" "}
                   <a
@@ -140,7 +140,7 @@ export default function Page() {
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes, you can cancel your subscription at any time. If you
-                  cancel your subscription, you will still be able to use Midday
+                  cancel your subscription, you will still be able to use Updated
                   until the end of your billing period.
                 </AccordionContent>
               </AccordionItem>
@@ -148,7 +148,7 @@ export default function Page() {
               <AccordionItem value="item-6">
                 <AccordionTrigger>
                   <span className="truncate max-w-[300px] md:max-w-full">
-                    I have more questions about Midday.ai. How can I get in
+                    I have more questions about Updated.ai. How can I get in
                     touch?
                   </span>
                 </AccordionTrigger>

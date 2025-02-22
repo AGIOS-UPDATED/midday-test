@@ -67,7 +67,7 @@ export function ReconnectProvider({
     token: plaidToken,
     publicKey: "",
     env: process.env.NEXT_PUBLIC_PLAID_ENVIRONMENT!,
-    clientName: "Midday",
+    clientName: "Updated",
     product: ["transactions"],
     onSuccess: () => {
       setPlaidToken(undefined);
@@ -87,7 +87,7 @@ export function ReconnectProvider({
       onSuccess: () => {
         onManualSync();
       },
-      onFailure: () => {},
+      onFailure: () => { },
     });
 
     if (teller) {

@@ -1,7 +1,7 @@
 ![hero](github.png)
 
 <p align="center">
-	<h1 align="center"><b>Midday</b></h1>
+	<h1 align="center"><b>Updated</b></h1>
 <p align="center">
     Run your business smarter
     <br />
@@ -14,9 +14,9 @@
   </p>
 </p>
 
-## About Midday
+## About Updated
 
-Midday is an all-in-one tool designed to help freelancers, contractors, consultants, and solo entrepreneurs manage their business operations more efficiently. It integrates various functions typically scattered across multiple platforms into a single, cohesive system.
+Updated is an all-in-one tool designed to help freelancers, contractors, consultants, and solo entrepreneurs manage their business operations more efficiently. It integrates various functions typically scattered across multiple platforms into a single, cohesive system.
 
 ## Features
 
@@ -38,13 +38,13 @@ Midday is an all-in-one tool designed to help freelancers, contractors, consulta
   />
 </a>
 
-<a href="https://www.producthunt.com/posts/midday-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-midday&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=460784&theme=light" alt="Midday - Run&#0032;your&#0032;business&#0032;smarter | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://www.producthunt.com/posts/midday-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-midday&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=460784&theme=light" alt="Updated - Run&#0032;your&#0032;business&#0032;smarter | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 <br/>
 
 ## Get started
 
-We are working on the documentation to get started with Midday for local development: https://docs.midday.ai
+We are working on the documentation to get started with Updated for local development: https://docs.midday.ai
 
 ## App Architecture
 

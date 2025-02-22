@@ -2,12 +2,12 @@ import { Editor } from "@midday/ui/editor";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Editor | Midday",
+  title: "Editor | Updated",
   description: "A rich text editor with AI tools powered by Vercel AI SDK.",
 };
 
 const defaultContent = `
-<h2>Introducing Midday Editor</h2>
+<h2>Introducing Updated Editor</h2>
 
 <p>We have developed a text editor based on Tiptap, which is a core component of our Invoicing feature. This editor has been enhanced with AI capabilities using the Vercel AI SDK, allowing for intelligent text processing and generation. After extensive internal use and refinement, we have now released this editor as an open-source tool for the wider developer community.</p>
 
@@ -15,17 +15,17 @@ const defaultContent = `
 
 <strong>Easy Integration</strong>
 
-<p>To ensure seamless integration and consistency within your codebase, we've made it easy to add the Midday Editor to your project. You can simply copy and paste the necessary code from our dedicated documentation. This method allows you to quickly incorporate all required dependencies and components directly into your project repository.</p>
+<p>To ensure seamless integration and consistency within your codebase, we've made it easy to add the Updated Editor to your project. You can simply copy and paste the necessary code from our dedicated documentation. This method allows you to quickly incorporate all required dependencies and components directly into your project repository.</p>
 
 <br />
 
-<p>We're actively working on adding the Midday Editor to the shadcn/cli, which will soon allow you to install it with just one command. Stay tuned for this upcoming feature!</p>
+<p>We're actively working on adding the Updated Editor to the shadcn/cli, which will soon allow you to install it with just one command. Stay tuned for this upcoming feature!</p>
 
 <br />
 
 <strong>Ongoing Development</strong>
 
-<p>As we continue to develop and expand Midday's features, we're constantly adding new functionality to the editor. Our team is committed to enhancing its capabilities, improving performance, and introducing innovative AI-powered tools to make your editing experience even more powerful and efficient.</p>
+<p>As we continue to develop and expand Updated's features, we're constantly adding new functionality to the editor. Our team is committed to enhancing its capabilities, improving performance, and introducing innovative AI-powered tools to make your editing experience even more powerful and efficient.</p>
 
 <br />
 `;
@@ -38,7 +38,7 @@ export default function Page() {
       <div className="mt-8">
         <div className="border bg-card text-card-foreground shadow-sm">
           <div className="flex flex-col space-y-1.5 p-6">
-            <h3 className="text-xl font-medium">Install Midday Editor</h3>
+            <h3 className="text-xl font-medium">Install Updated Editor</h3>
             <p className="text-sm text-[#878787]">
               Get started with our powerful AI-enhanced text editor
             </p>

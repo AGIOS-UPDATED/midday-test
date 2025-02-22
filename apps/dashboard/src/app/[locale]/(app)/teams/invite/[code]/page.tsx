@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Join team | Midday",
+  title: "Join team | Updated",
 };
 
 export default async function InviteCode({

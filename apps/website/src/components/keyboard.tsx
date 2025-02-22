@@ -25,7 +25,7 @@ export function Keyboard() {
       <DynamicImage
         darkSrc={keyboardDark}
         lightSrc={keyboardLight}
-        alt="Download Midday"
+        alt="Download Updated"
         width={1092}
         height={448}
         className="z-10 relative"

@@ -23,7 +23,7 @@ const baseUrl = getEmailUrl();
 
 export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
   const firstName = fullName.split(" ").at(0);
-  const text = `Hi ${firstName}, Welcome to Midday! I'm Pontus, one of the founders. It's really important to us that you have a great experience ramping up.`;
+  const text = `Hi ${firstName}, Welcome to Updated! I'm Pontus, one of the founders. It's really important to us that you have a great experience ramping up.`;
 
   return (
     <Html>
@@ -60,17 +60,17 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
           >
             <Logo />
             <Heading className="text-[#121212] text-[21px] font-normal text-center p-0 my-[30px] mx-0">
-              Welcome to Midday
+              Welcome to Updated
             </Heading>
 
             <br />
 
             <span className="font-medium">Hi {firstName},</span>
             <Text className="text-[#121212]">
-              Welcome to Midday! I'm Pontus, one of the founders.
+              Welcome to Updated! I'm Pontus, one of the founders.
               <br />
               <br />
-              We've been working on Midday for the past months, and during this
+              We've been working on Updated for the past months, and during this
               time, we've implemented the basic functionality to get started.
               However, with your feedback, we can make the right decisions to
               help run your business smarter.

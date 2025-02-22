@@ -30,7 +30,7 @@ export default function Page() {
         <div className="flex items-center flex-col text-center relative">
           <p className="text-lg mt-4 max-w-[600px]">
             Use your personalized email for invoices and receipts, with
-            transaction suggestions from Midday. Easily search, reconcile and
+            transaction suggestions from Updated. Easily search, reconcile and
             export documents to keep your business organized.
           </p>
 
@@ -48,7 +48,7 @@ export default function Page() {
           <p className="text-[#878787] text-sm">
             1. Use your personalized email address for your invoices and
             receipts.
-            <br /> 2. The invoice arrives in the inbox, Midday gives you a
+            <br /> 2. The invoice arrives in the inbox, Updated gives you a
             transaction suggestion to match it with. <br />
             3. Your transactions now have the correct attachments, making it
             easy for you to export them.

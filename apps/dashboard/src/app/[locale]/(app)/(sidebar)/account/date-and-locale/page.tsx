@@ -8,7 +8,7 @@ import { getUser } from "@midday/supabase/cached-queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Date & Locale | Midday",
+  title: "Date & Locale | Updated",
 };
 
 export default async function Page() {

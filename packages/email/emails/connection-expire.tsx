@@ -25,7 +25,7 @@ export const ConnectionExpireEmail = ({
   fullName = "Viktor Hofte",
   expiresAt = addDays(new Date(), 4).toISOString(),
   bankName = "Revolut",
-  teamName = "Midday",
+  teamName = "Updated",
 }: Props) => {
   const firstName = fullName.split(" ").at(0);
   const text = `Hi ${firstName}, We wanted to inform you that our connection to your bank ${bankName} for your team ${teamName} will expire in ${formatDistance(new Date(expiresAt), new Date())}.`;
@@ -79,7 +79,7 @@ export const ConnectionExpireEmail = ({
               <strong>{bankName}</strong> for your team{" "}
               <strong>{teamName}</strong> will expire in{" "}
               {formatDistance(new Date(expiresAt), new Date())}. To ensure that
-              Midday continues to run smoothly, please reconnect your bank.
+              Updated continues to run smoothly, please reconnect your bank.
               <br />
               <br />
               The good news? It only takes 60 seconds to get everything back on

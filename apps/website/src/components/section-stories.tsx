@@ -38,7 +38,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using Updated?",
       },
       {
         type: "paragraph",
@@ -48,7 +48,7 @@ const stories = [
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has Updated impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -58,7 +58,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of Updated AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -70,7 +70,7 @@ const stories = [
   {
     id: 2,
     title:
-      "“Without Midday I would’ve sold my company and lost loads of money”",
+      "“Without Updated I would’ve sold my company and lost loads of money”",
     name: "Guy Solan",
     company: "Thetis Medical",
     country: "United Kingdom",
@@ -81,7 +81,7 @@ const stories = [
       {
         type: "paragraph",
         content:
-          "”Without Midday I would’ve sold my company and lost loads of money. I never had the time to learn Quickbooks or Xero so had no idea what the company cash was doing without ringing up my accountant.”",
+          "”Without Updated I would’ve sold my company and lost loads of money. I never had the time to learn Quickbooks or Xero so had no idea what the company cash was doing without ringing up my accountant.”",
       },
     ],
   },
@@ -108,7 +108,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using Updated?",
       },
       {
         type: "paragraph",
@@ -118,7 +118,7 @@ const stories = [
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has Updated impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -128,12 +128,12 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of Updated AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
         content:
-          "Invoices, Proposals, and Track—these three features have been game-changers for me. They’ve significantly improved my daily operations. I’m looking forward to seeing some of the features I suggested implemented, like adding collaborators, but having Midday integrated into my workflow as one of my go-to apps has already been a great experience.",
+          "Invoices, Proposals, and Track—these three features have been game-changers for me. They’ve significantly improved my daily operations. I’m looking forward to seeing some of the features I suggested implemented, like adding collaborators, but having Updated integrated into my workflow as one of my go-to apps has already been a great experience.",
       },
     ],
   },
@@ -142,7 +142,7 @@ const stories = [
     title:
       "“I prefer to have one tool for finances, similar to what Deel is for HR”",
     description:
-      "Midday helped me find a compromise with my tax advisor: I'm not using one of his supported clunky tools but an actually UX-friendly tool and can provide him with acceptable .csv. That's a big one!",
+      "Updated helped me find a compromise with my tax advisor: I'm not using one of his supported clunky tools but an actually UX-friendly tool and can provide him with acceptable .csv. That's a big one!",
     name: "Richard Poelderl",
     company: "Conduct.bln",
     country: "Germany",
@@ -156,7 +156,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What specific challenges were you facing in managing your business operations before using Midday?",
+          "What specific challenges were you facing in managing your business operations before using Updated?",
       },
       {
         type: "paragraph",
@@ -166,12 +166,12 @@ const stories = [
       {
         type: "paragraph",
         content:
-          "Moreover, I moved from the invoicing feature of my business bank to Midday. Not really a big challenge, but Midday makes that just a bit easier (and I prefer to have one tool for finances, similar to what Deel is for HR).",
+          "Moreover, I moved from the invoicing feature of my business bank to Updated. Not really a big challenge, but Updated makes that just a bit easier (and I prefer to have one tool for finances, similar to what Deel is for HR).",
       },
       {
         type: "question",
         content:
-          "How has Midday impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
+          "How has Updated impacted your workflow or productivity since you started using it? Can you share specific examples or metrics?",
       },
       {
         type: "paragraph",
@@ -186,7 +186,7 @@ const stories = [
       {
         type: "question",
         content:
-          "What features or aspects of Midday AI do you find most valuable, and why?",
+          "What features or aspects of Updated AI do you find most valuable, and why?",
       },
       {
         type: "paragraph",
@@ -261,11 +261,9 @@ export default function SectionStories() {
             {stories.map((story, index) => (
               <div
                 key={story.id}
-                className={`transform ${
-                  index % 2 === 0 ? "rotate-3" : "-rotate-3"
-                } ${
-                  index % 2 === 0 ? "translate-y-3" : "-translate-y-3"
-                } hover:z-10 hover:-translate-y-5 transition-all duration-300`}
+                className={`transform ${index % 2 === 0 ? "rotate-3" : "-rotate-3"
+                  } ${index % 2 === 0 ? "translate-y-3" : "-translate-y-3"
+                  } hover:z-10 hover:-translate-y-5 transition-all duration-300`}
               >
                 <DialogTrigger asChild>
                   <div onClick={() => setSelectedStory(story)}>

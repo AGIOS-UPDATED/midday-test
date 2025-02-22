@@ -22,7 +22,7 @@ interface Props {
 export const ConnectionIssueEmail = ({
   fullName = "Viktor Hofte",
   bankName = "Revolut",
-  teamName = "Midday",
+  teamName = "Updated",
 }: Props) => {
   const firstName = fullName.split(" ").at(0);
   const text = `Hi ${firstName}, We wanted to inform you that our connection to your bank ${bankName} for your team ${teamName} is currently disconnected.`;
@@ -74,7 +74,7 @@ export const ConnectionIssueEmail = ({
               <br />
               We wanted to let you know that your bank{" "}
               <strong>{bankName}</strong> for team <strong>{teamName}</strong>{" "}
-              is currently disconnected. To keep Midday running smoothly, we'll
+              is currently disconnected. To keep Updated running smoothly, we'll
               need you to reconnect your bank.
               <br />
               <br />

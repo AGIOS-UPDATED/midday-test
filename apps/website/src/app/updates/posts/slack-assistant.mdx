@@ -1,15 +1,15 @@
 ---
-title: "Building the Midday Slack Assistant"
+title: "Building the Updated Slack Assistant"
 publishedAt: "2024-09-29"
-summary: "This is a technical deep dive into how we built the Midday Slack Assistant using Vercel AI SDK, Trigger.dev and Supabase."
+summary: "This is a technical deep dive into how we built the Updated Slack Assistant using Vercel AI SDK, Trigger.dev and Supabase."
 image: "/images/update/apps/slack.png"
 tag: "Updates"
 ---
 
-In this technical deep dive, we’ll explore how we built the Midday Slack Assistant by leveraging the Vercel AI SDK, Trigger.dev, and Supabase. Our goal was to create an AI-powered assistant that helps users gain financial insights, upload receipts, and manage invoices—all seamlessly from within their Slack workspace.
+In this technical deep dive, we’ll explore how we built the Updated Slack Assistant by leveraging the Vercel AI SDK, Trigger.dev, and Supabase. Our goal was to create an AI-powered assistant that helps users gain financial insights, upload receipts, and manage invoices—all seamlessly from within their Slack workspace.
 
 ## Background
-Midday already has an assistant available on both web and desktop via Electron, but we haven’t yet built a dedicated mobile app. As we continue iterating on our web app, we plan to eventually create a mobile version using Expo. In the meantime, we wanted to give our users a way to interact with Midday on the go. With that in mind, we turned to Slack, where users can quickly upload receipts and invoices without leaving the app they’re already using for work.
+Updated already has an assistant available on both web and desktop via Electron, but we haven’t yet built a dedicated mobile app. As we continue iterating on our web app, we plan to eventually create a mobile version using Expo. In the meantime, we wanted to give our users a way to interact with Updated on the go. With that in mind, we turned to Slack, where users can quickly upload receipts and invoices without leaving the app they’re already using for work.
 
 <br />
 ## Goals
@@ -24,7 +24,7 @@ We aimed to enable our users to:
 Slack recently introduced a new messaging experience for app agents and assistants, making them more discoverable and accessible in user workflows. This update allows developers to build AI assistants based on their own APIs, seamlessly integrated into the Slack interface.
 <br />
 
-When users install our Slack app from the <a href="https://midday.ai/updates/apps">Apps section within Midday</a>, we obtain the necessary permissions to interact with the Slack API, send messages, and listen to events.
+When users install our Slack app from the <a href="https://midday.ai/updates/apps">Apps section within Updated</a>, we obtain the necessary permissions to interact with the Slack API, send messages, and listen to events.
 <br />
 
 
@@ -204,6 +204,6 @@ export async function assistantThreadMessage(
 
 <br />
 
-Midday is fully open-source, and you can find the pull request for the Slack Assistant and Apps <a href="https://github.com/midday-ai/midday/pull/262">here</a>.
+Updated is fully open-source, and you can find the pull request for the Slack Assistant and Apps <a href="https://github.com/midday-ai/midday/pull/262">here</a>.
 <br/>
-You can aslo try Midday for your own business by <a href="https://app.midday.ai">signing up here</a>.
+You can aslo try Updated for your own business by <a href="https://app.midday.ai">signing up here</a>.

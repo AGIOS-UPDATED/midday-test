@@ -223,7 +223,7 @@ export default async function Report({ params }) {
               href="https://midday.ai?utm_source=report"
               className="text-black dark:text-white"
             >
-              Midday
+              Updated
             </a>
           </p>
         </div>

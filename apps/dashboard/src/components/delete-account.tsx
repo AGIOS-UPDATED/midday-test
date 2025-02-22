@@ -35,7 +35,7 @@ export function DeleteAccount() {
         <CardTitle>Delete account</CardTitle>
         <CardDescription>
           Permanently remove your Personal Account and all of its contents from
-          the Midday platform. This action is not reversible, so please continue
+          the Updated platform. This action is not reversible, so please continue
           with caution.
         </CardDescription>
       </CardHeader>

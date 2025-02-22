@@ -3,7 +3,7 @@ import Image from "next/image";
 import invoice from "public/images/update/invoice-pdf/pdf-invoice.jpg";
 
 export const metadata: Metadata = {
-  title: "React PDF Invoice Template | Midday",
+  title: "React PDF Invoice Template | Updated",
   description: "A React PDF invoice template with Tiptap JSON support.",
 };
 
@@ -14,7 +14,7 @@ export default function Page() {
       <div className="mt-8">
         <div className="border bg-card text-card-foreground shadow-sm">
           <div className="flex flex-col space-y-1.5 p-6">
-            <h3 className="text-xl font-medium">Use Midday Invoice Template</h3>
+            <h3 className="text-xl font-medium">Use Updated Invoice Template</h3>
             <p className="text-sm text-[#878787]">
               Get started with our powerful React PDF invoice template
             </p>

@@ -48,7 +48,7 @@ app.doc("/openapi", {
   openapi: "3.1.0",
   info: {
     version: "1.0.0",
-    title: "Midday Engine API",
+    title: "Updated Engine API",
   },
 });
 

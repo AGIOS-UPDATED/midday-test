@@ -11,14 +11,14 @@ And thats why we have implemented LogSnag to track a lot of events so we can tak
 
 <br />
 There are planty of ways how you can implement analytics, in this blog post we will
-share how we solved it in Midday using NextJS and server-actions.
+share how we solved it in Updated using NextJS and server-actions.
 
 <br />
 Because we have a monorepo we started with creating a new package called `@midday/events`
 where we install `@logsnag/next`.
 
 <br />
-The package includes all the events we want to track in Midday for example:
+The package includes all the events we want to track in Updated for example:
 
 ```typescript
 {
@@ -45,7 +45,7 @@ Chart and Funnel Charts.
 <br />
 ### How we implemented LogSnag
 
-When you sign in to Midday we first ask you about tracking, we want you to keep your privacy. This is done by showing a `Toast` component with the option to Accept or Decline, we save this decision
+When you sign in to Updated we first ask you about tracking, we want you to keep your privacy. This is done by showing a `Toast` component with the option to Accept or Decline, we save this decision
 in a cookie so we now if we should add a identifier for the events or not.
 
 <br />

@@ -43,7 +43,7 @@ export default function Page() {
             All your files in one place
           </h4>
           <p className="text-[#878787] text-sm">
-            Store all your important files securely in Midday, including
+            Store all your important files securely in Updated, including
             contracts and agreements, keeping everything in one place for easy
             access. Simplify your document management and stay organized with a
             central repository for all your business needs.

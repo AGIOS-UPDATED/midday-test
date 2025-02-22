@@ -12,7 +12,7 @@ import invoice from "./invoice.png";
 import pdf from "./pdf.png";
 
 export const metadata: Metadata = {
-  title: "Components | Midday",
+  title: "Components | Updated",
   description:
     "A list of open source components that can be used in your project.",
 };
@@ -76,7 +76,7 @@ export default function Page() {
 
         <div className="flex items-center flex-col text-center relative">
           <p className="text-lg mt-4 max-w-[600px]">
-            A collection of open-source components based on Midday features.
+            A collection of open-source components based on Updated features.
           </p>
         </div>
 

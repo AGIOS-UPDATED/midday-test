@@ -21,7 +21,7 @@ interface Props {
 
 export const InvoiceEmail = ({
   customerName = "Customer",
-  teamName = "Midday",
+  teamName = "Updated",
   link = "https://app.midday.ai/i/1234567890",
 }: Props) => {
   const text = `You’ve Received an Invoice from ${teamName}`;

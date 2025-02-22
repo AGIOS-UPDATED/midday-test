@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Apps | Midday",
+  title: "Apps | Updated",
 };
 
 export default async function Page() {
@@ -14,7 +14,7 @@ export default async function Page() {
 
   return (
     <div className="mt-4">
-      <AppsHeader  />
+      <AppsHeader />
 
       <Suspense fallback={<AppsSkeleton />}>
         <AppsServer user={data} />

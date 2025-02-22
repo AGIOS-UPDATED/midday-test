@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { searchParamsCache } from "./search-params";
 
 export const metadata: Metadata = {
-  title: "Customers | Midday",
+  title: "Customers | Updated",
 };
 
 export default async function Page({

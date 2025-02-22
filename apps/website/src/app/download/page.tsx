@@ -8,7 +8,7 @@ import appIcon from "public/app-icon.png";
 export const metadata: Metadata = {
   title: "Download",
   description:
-    "With Midday on Mac you have everything accessible just one click away.",
+    "With Updated on Mac you have everything accessible just one click away.",
 };
 
 export default function Page() {
@@ -22,15 +22,15 @@ export default function Page() {
 
       <Image
         src={appIcon}
-        alt="Midday App"
+        alt="Updated App"
         width={120}
         height={120}
         quality={90}
         className="w-[80px] h-[80px] mt-12 md:mt-0 md:h-auto md:w-auto"
       />
-      <p className="mb-4 text-2xl	font-medium mt-8">Midday for Mac</p>
+      <p className="mb-4 text-2xl	font-medium mt-8">Updated for Mac</p>
       <p className="text-[#878787] font-sm max-w-[500px]">
-        With Midday on Mac you have everything <br />
+        With Updated on Mac you have everything <br />
         accessible just one click away.
       </p>
 

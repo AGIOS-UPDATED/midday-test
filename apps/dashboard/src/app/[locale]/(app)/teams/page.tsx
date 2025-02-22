@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Teams | Midday",
+  title: "Teams | Updated",
 };
 
 export default async function Teams() {

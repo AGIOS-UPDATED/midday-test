@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Team | Midday",
+  title: "Team | Updated",
 };
 
 export default async function Team() {

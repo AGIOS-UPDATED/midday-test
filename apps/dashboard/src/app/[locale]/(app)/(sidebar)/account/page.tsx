@@ -7,7 +7,7 @@ import { getUser } from "@midday/supabase/cached-queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Account Settings | Midday",
+  title: "Account Settings | Updated",
 };
 
 export default async function Account() {
