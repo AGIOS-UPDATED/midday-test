@@ -14,6 +14,7 @@ import { ChatExamples } from "./chat-examples";
 import { ChatFooter } from "./chat-footer";
 import { ChatList } from "./chat-list";
 import { UserMessage } from "./messages";
+import { ImageIcon, PaperclipIcon, SearchIcon } from "lucide-react";
 
 export function Chat({
   messages,
@@ -28,6 +29,8 @@ export function Chat({
   const { formRef, onKeyDown } = useEnterSubmit();
   const ref = useRef(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const { message } = useAssistantStore();
 
@@ -77,6 +80,81 @@ export function Chat({
 
   const showExamples = messages.length === 0 && !input;
 
+  const handleFileClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageClick = () => {
+    imageInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      // Handle file upload logic here
+      console.log("File selected:", files[0]);
+    }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      // Handle image upload logic here
+      console.log("Image selected:", files[0]);
+    }
+  };
+
+  const handleWebSearch = async () => {
+    if (!input.trim()) return;
+    
+    setInput("");
+    scrollToBottom();
+
+    submitMessage((message: ClientMessage[]) => [
+      ...message,
+      {
+        id: nanoid(),
+        role: "user",
+        display: <UserMessage>🔍 Searching web for: {input}</UserMessage>,
+      },
+    ]);
+
+    try {
+      // Here you would integrate with your web search API
+      const searchResponse = await fetch('/api/web-search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: input }),
+      });
+
+      if (!searchResponse.ok) {
+        throw new Error('Search failed');
+      }
+
+      const results = await searchResponse.json();
+
+      submitMessage((messages: ClientMessage[]) => [
+        ...messages,
+        {
+          id: nanoid(),
+          role: "assistant",
+          display: <UserMessage>Here are the search results: {JSON.stringify(results)}</UserMessage>,
+        },
+      ]);
+    } catch (error) {
+      submitMessage((messages: ClientMessage[]) => [
+        ...messages,
+        {
+          id: nanoid(),
+          role: "assistant",
+          display: <UserMessage>Sorry, I couldn't perform the web search. Please try again.</UserMessage>,
+        },
+      ]);
+    }
+  };
+
   return (
     <div className="relative">
       <ScrollArea className="todesktop:h-[335px] md:h-[335px]" ref={scrollRef}>
@@ -100,22 +178,58 @@ export function Chat({
             evt.preventDefault();
             onSubmit(input);
           }}
+          className="relative px-4 pb-4"
         >
-          <Textarea
-            ref={inputRef}
-            tabIndex={0}
-            rows={1}
-            spellCheck={false}
-            autoComplete="off"
-            autoCorrect="off"
-            value={input}
-            className="h-12 min-h-12 pt-3 resize-none border-none"
-            placeholder="Ask Updated a question..."
-            onKeyDown={onKeyDown}
-            onChange={(evt) => {
-              setInput(evt.target.value);
-            }}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="hidden"
+            accept=".pdf,.doc,.docx,.txt"
           />
+          <input
+            type="file"
+            ref={imageInputRef}
+            onChange={handleImageChange}
+            className="hidden"
+            accept="image/*"
+          />
+          <div className="relative flex items-center">
+            <div className="absolute left-3 flex gap-2">
+              <button
+                type="button"
+                onClick={handleImageClick}
+                className="p-1 hover:bg-accent rounded-sm"
+              >
+                <ImageIcon className="h-5 w-5 text-muted-foreground" />
+              </button>
+              <button
+                type="button"
+                onClick={handleFileClick}
+                className="p-1 hover:bg-accent rounded-sm"
+              >
+                <PaperclipIcon className="h-5 w-5 text-muted-foreground" />
+              </button>
+              <button
+                type="button"
+                onClick={handleWebSearch}
+                className="p-1 hover:bg-accent rounded-sm"
+              >
+                <SearchIcon className="h-5 w-5 text-muted-foreground" />
+              </button>
+            </div>
+            <Textarea
+              ref={inputRef}
+              tabIndex={0}
+              onKeyDown={onKeyDown}
+              rows={1}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Message Midday..."
+              spellCheck={false}
+              className="resize-none pr-14 pl-20 py-3 max-h-48"
+            />
+          </div>
         </form>
 
         <ChatFooter
