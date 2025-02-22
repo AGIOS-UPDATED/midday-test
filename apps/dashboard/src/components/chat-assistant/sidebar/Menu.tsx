@@ -131,7 +131,7 @@ export const Menu = () => {
       variants={menuVariants}
       initial="closed"
       animate={open ? 'open' : 'closed'}
-      className="fixed inset-y-0 left-0 z-50 w-80 bg-bolt-elements-background-depth-2 border-r border-bolt-elements-borderColor"
+      className="fixed inset-y-0 left-0 z-50 w-80 dark:bg-[#121212] bg-[#F1F1F1] border-r border-bolt-elements-borderColor"
     >
       <CurrentDateTime />
       <div className="flex flex-col h-[calc(100vh-48px)]">

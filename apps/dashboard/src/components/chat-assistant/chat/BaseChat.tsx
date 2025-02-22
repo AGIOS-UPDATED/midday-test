@@ -69,7 +69,7 @@ interface BaseChatProps {
   data?: JSONValue[] | undefined;
 }
 
- const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
+const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
   (
     {
       textareaRef,
@@ -303,17 +303,17 @@ interface BaseChatProps {
         data-chat-visible={showChat}
       >
         {/* <ClientOnly>{() =>  */}
-          <Menu />
-          
+        <Menu />
+
         {/* </ClientOnly> */}
         <div ref={scrollRef} className="flex flex-col lg:flex-row overflow-y-auto w-full h-full">
           <div className={classNames(styles.Chat, 'flex flex-col flex-grow lg:min-w-[var(--chat-min-width)] h-full')}>
             {!chatStarted && (
               <div id="intro" className="mt-[16vh] max-w-chat mx-auto text-center px-4 lg:px-0">
-                <h1 className="text-3xl lg:text-6xl font-bold text-bolt-elements-textPrimary mb-4 animate-fade-in">
+                <h1 className="text-3xl text-[#121212] dark:text-[#F1F1F1] lg:text-6xl font-bold  mb-4 animate-fade-in">
                   Where ideas begin
                 </h1>
-                <p className="text-md lg:text-xl mb-8 text-bolt-elements-textSecondary animate-fade-in animation-delay-200">
+                <p className="text-md lg:text-xl mb-8 text-[#121212] dark:text-[#F1F1F1]  text-bolt-elements-textSecondary animate-fade-in animation-delay-200">
                   Bring ideas to life in seconds or get help on existing projects.
                 </p>
               </div>
@@ -325,17 +325,17 @@ interface BaseChatProps {
               ref={scrollRef}
             >
               {/* <ClientOnly> */}
-                {/* {() => { */}
-               
-               { chatStarted ? (
-                    <Messages
-                      ref={messageRef}
-                      className="flex flex-col w-full flex-1 max-w-chat pb-6 mx-auto z-1"
-                      messages={messages}
-                      isStreaming={isStreaming}
-                    />
-                  ) : null }
-                {/* }} */}
+              {/* {() => { */}
+
+              {chatStarted ? (
+                <Messages
+                  ref={messageRef}
+                  className="flex flex-col w-full flex-1 max-w-chat pb-6 mx-auto z-1"
+                  messages={messages}
+                  isStreaming={isStreaming}
+                />
+              ) : null}
+              {/* }} */}
               {/* </ClientOnly>  */}
               <div
                 className={classNames('flex flex-col gap-4 w-full max-w-chat mx-auto z-prompt mb-6', {
@@ -357,7 +357,7 @@ interface BaseChatProps {
                 {progressAnnotations && <ProgressCompilation data={progressAnnotations} />}
                 <div
                   className={classNames(
-                    'bg-bolt-elements-background-depth-2 p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
+                    'dark:bg-[#121212] bg-[#F1F1F1]  p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
 
                     /*
                      * {
@@ -395,29 +395,29 @@ interface BaseChatProps {
                   <div>
                     {/* <ClientOnly>
                       {() => ( */}
-                        <div className={isModelSettingsCollapsed ? 'hidden' : ''}>
-                          <ModelSelector
-                            key={provider?.name + ':' + modelList.length}
-                            model={model}
-                            setModel={setModel}
-                            modelList={modelList}
-                            provider={provider}
-                            setProvider={setProvider}
-                            providerList={providerList || (PROVIDER_LIST as ProviderInfo[])}
-                            apiKeys={apiKeys}
-                            modelLoading={isModelLoading}
-                          />
-                          {(providerList || []).length > 0 && provider && (
-                            <APIKeyManager
-                              provider={provider}
-                              apiKey={apiKeys[provider.name] || ''}
-                              setApiKey={(key) => {
-                                onApiKeysChange(provider.name, key);
-                              }}
-                            />
-                          )}
-                        </div>
-                      {/* )}
+                    <div className={isModelSettingsCollapsed ? 'hidden' : ''}>
+                      <ModelSelector
+                        key={provider?.name + ':' + modelList.length}
+                        model={model}
+                        setModel={setModel}
+                        modelList={modelList}
+                        provider={provider}
+                        setProvider={setProvider}
+                        providerList={providerList || (PROVIDER_LIST as ProviderInfo[])}
+                        apiKeys={apiKeys}
+                        modelLoading={isModelLoading}
+                      />
+                      {(providerList || []).length > 0 && provider && (
+                        <APIKeyManager
+                          provider={provider}
+                          apiKey={apiKeys[provider.name] || ''}
+                          setApiKey={(key) => {
+                            onApiKeysChange(provider.name, key);
+                          }}
+                        />
+                      )}
+                    </div>
+                    {/* )}
                     </ClientOnly> */}
                   </div>
                   <FilePreview
@@ -430,13 +430,13 @@ interface BaseChatProps {
                   />
                   {/* <ClientOnly>
                     {() => ( */}
-                      <ScreenshotStateManager
-                        setUploadedFiles={setUploadedFiles}
-                        setImageDataList={setImageDataList}
-                        uploadedFiles={uploadedFiles}
-                        imageDataList={imageDataList}
-                      />
-                    {/* )}
+                  <ScreenshotStateManager
+                    setUploadedFiles={setUploadedFiles}
+                    setImageDataList={setImageDataList}
+                    uploadedFiles={uploadedFiles}
+                    imageDataList={imageDataList}
+                  />
+                  {/* )}
                   </ClientOnly> */}
                   <div
                     className={classNames(
@@ -514,23 +514,23 @@ interface BaseChatProps {
                       translate="no"
                     />
                     {/* <ClientOnly> */}
-                      {/* {() => ( */}
-                        <SendButton
-                          show={input.length > 0 || isStreaming || uploadedFiles.length > 0}
-                          isStreaming={isStreaming}
-                          disabled={!providerList || providerList.length === 0}
-                          onClick={(event) => {
-                            if (isStreaming) {
-                              handleStop?.();
-                              return;
-                            }
+                    {/* {() => ( */}
+                    <SendButton
+                      show={input.length > 0 || isStreaming || uploadedFiles.length > 0}
+                      isStreaming={isStreaming}
+                      disabled={!providerList || providerList.length === 0}
+                      onClick={(event) => {
+                        if (isStreaming) {
+                          handleStop?.();
+                          return;
+                        }
 
-                            if (input.length > 0 || uploadedFiles.length > 0) {
-                              handleSendMessage?.(event);
-                            }
-                          }}
-                        />
-                      {/* )} */}
+                        if (input.length > 0 || uploadedFiles.length > 0) {
+                          handleSendMessage?.(event);
+                        }
+                      }}
+                    />
+                    {/* )} */}
                     {/* </ClientOnly> */}
                     <div className="flex justify-between items-center text-sm p-4 pt-2">
                       <div className="flex gap-1 items-center">
@@ -559,7 +559,7 @@ interface BaseChatProps {
                           onStop={stopListening}
                           disabled={isStreaming}
                         />
-                        {chatStarted &&  <ExportChatButton exportChat={exportChat} />}
+                        {chatStarted && <ExportChatButton exportChat={exportChat} />}
                         <IconButton
                           title="Model Settings"
                           className={classNames('transition-all flex items-center gap-1', {
@@ -606,7 +606,7 @@ interface BaseChatProps {
               {!chatStarted && <StarterTemplates />}
             </div>
           </div>
-      <Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
+          <Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
         </div>
       </div>
     );
@@ -615,6 +615,6 @@ interface BaseChatProps {
   },
 );
 
-BaseChat.displayName='BaseChat'
+BaseChat.displayName = 'BaseChat'
 
 export default BaseChat
