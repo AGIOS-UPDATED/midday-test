@@ -2,6 +2,7 @@ import { ArchiveIcon } from "@radix-ui/react-icons";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from "react-icons/fi";
 import Image from "next/image";
+import Logo from "./logo.png";
 import {
   MdAdd,
   MdAddLink,
@@ -168,7 +169,7 @@ export const Icons = {
     </svg>
   ),
   Logo: (props: any) => (
-    <Image src="/logo.png" alt="Logo" width={32} height={32} />
+    <Image src={Logo} alt="Logo" width={32} height={32} />
 
   ),
   Overview: (props: any) => (
