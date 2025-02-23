@@ -18,12 +18,14 @@ const LLMAccuracyChart: React.FC = () => {
           height: 250,
           toolbar: {
             show: false
-          }
+          },
+          background: 'transparent'
         },
         plotOptions: {
           bar: {
             borderRadius: 4,
-            horizontal: true,
+            horizontal: false,
+            columnWidth: '45%',
           }
         },
         dataLabels: {
@@ -33,37 +35,49 @@ const LLMAccuracyChart: React.FC = () => {
           },
           style: {
             fontSize: '12px',
+            colors: ['#F1F1F1']
           }
         },
         xaxis: {
           categories: ['GPT-4', 'Claude 2', 'PaLM 2', 'GPT-3.5', 'LLAMA 2'],
           labels: {
-            show: true,
             style: {
-              colors: '#6B7280',
+              colors: '#F1F1F1',
               fontSize: '12px',
             }
+          },
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false
           }
         },
         yaxis: {
           labels: {
             style: {
-              colors: '#6B7280',
+              colors: '#F1F1F1',
               fontSize: '12px',
             }
           }
         },
-        colors: ['#3B82F6'],
+        grid: {
+          show: true,
+          borderColor: 'rgba(241, 241, 241, 0.1)',
+          strokeDashArray: 4,
+        },
+        colors: ['#FFFFFF'],
         title: {
           text: 'LLM Model Accuracy',
           align: 'center',
           style: {
             fontSize: '16px',
             fontWeight: 600,
+            color: '#F1F1F1'
           }
         },
         theme: {
-          mode: 'light'
+          mode: 'dark'
         }
       };
 
@@ -77,7 +91,7 @@ const LLMAccuracyChart: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[500px] mx-auto mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+    <div className="w-full max-w-[500px] mx-auto mb-8 p-4 rounded-lg">
       <div ref={chartRef} />
     </div>
   );
