@@ -303,7 +303,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const handleVoiceRecording = (audioBlob: Blob) => {
       // Create a temporary URL for the audio
       const audioUrl = URL.createObjectURL(audioBlob);
-      
+
       // Create a new message with the audio
       if (sendMessage) {
         const audioMessage = `[Audio Message](${audioUrl})`;
@@ -331,7 +331,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                 <p className="text-md lg:text-xl mb-8 text-[#121212] dark:text-[#F1F1F1]  text-bolt-elements-textSecondary animate-fade-in animation-delay-200">
                   Bring ideas to life in seconds or get help on existing projects.
                 </p>
-                <LLMAccuracyChart />
+                {/* <LLMAccuracyChart /> */}
               </div>
             )}
             <div
