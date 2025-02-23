@@ -15,6 +15,7 @@ import { APIKeyManager, getApiKeysFromCookies } from './APIKeyManager';
 import Cookies from 'js-cookie';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { VoiceRecorderModal } from '@/components/voice-recorder/voice-recorder-modal';
+import LLMAccuracyChart from './LLMAccuracyChart';
 
 import styles from './BaseChat.module.scss';
 import { ExportChatButton } from '@/components/chat-assistant/chat/chatExportAndImport/ExportChatButton';
@@ -330,6 +331,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                 <p className="text-md lg:text-xl mb-8 text-[#121212] dark:text-[#F1F1F1]  text-bolt-elements-textSecondary animate-fade-in animation-delay-200">
                   Bring ideas to life in seconds or get help on existing projects.
                 </p>
+                <LLMAccuracyChart />
               </div>
             )}
             <div
@@ -338,8 +340,8 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
               })}
               ref={scrollRef}
             >
-              {/* <ClientOnly> */}
-              {/* {() => { */}
+              {/* <ClientOnly>
+                {() => { */}
 
               {chatStarted ? (
                 <Messages
