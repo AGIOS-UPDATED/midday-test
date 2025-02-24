@@ -20,6 +20,7 @@ const LLMAccuracyChart: React.FC = () => {
         chart: {
           type: 'bar',
           height: 350,
+          width: '100%',
           toolbar: {
             show: false
           },
@@ -37,12 +38,12 @@ const LLMAccuracyChart: React.FC = () => {
         plotOptions: {
           bar: {
             borderRadius: 0,
-            horizontal: true,
+            horizontal: false,
             distributed: true,
             dataLabels: {
-              position: 'bottom'
+              position: 'top'
             },
-            barHeight: '70%',
+            columnWidth: '50%',
           }
         },
         dataLabels: {
@@ -55,7 +56,7 @@ const LLMAccuracyChart: React.FC = () => {
             fontWeight: 600,
             colors: [isDark ? '#F1F1F1' : '#333333']
           },
-          offsetX: 16
+          offsetY: -20
         },
         xaxis: {
           categories: [
@@ -73,7 +74,9 @@ const LLMAccuracyChart: React.FC = () => {
               colors: isDark ? '#F1F1F1' : '#333333',
               fontSize: '13px',
               fontWeight: 500
-            }
+            },
+            rotate: -45,
+            offsetY: 5
           },
           axisBorder: {
             show: false
@@ -83,11 +86,16 @@ const LLMAccuracyChart: React.FC = () => {
           }
         },
         yaxis: {
+          min: 85,
+          max: 100,
           labels: {
             style: {
               colors: isDark ? '#F1F1F1' : '#333333',
               fontSize: '13px',
               fontWeight: 500
+            },
+            formatter: function (val: number) {
+              return val.toFixed(1) + '%';
             }
           }
         },
@@ -97,16 +105,16 @@ const LLMAccuracyChart: React.FC = () => {
           strokeDashArray: 4,
           xaxis: {
             lines: {
-              show: true
+              show: false
             }
           },
           yaxis: {
             lines: {
-              show: false
+              show: true
             }
           },
           padding: {
-            top: 0,
+            top: 20,
             right: 0,
             bottom: 0,
             left: 0
