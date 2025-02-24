@@ -373,7 +373,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                 {progressAnnotations && <ProgressCompilation data={progressAnnotations} />}
                 <div
                   className={classNames(
-                    'dark:bg-[#121212] bg-[#F1F1F1]  p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
+                    'dark:bg-[#121212] bg-[#F1F1F1]  p-3 rounded-lg border dark:border-bolt-elements-borderColor border-[#121212]  relative w-full max-w-chat mx-auto z-prompt',
 
                     /*
                      * {
@@ -456,7 +456,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                   </ClientOnly> */}
                   <div
                     className={classNames(
-                      'relative shadow-xs border border-bolt-elements-borderColor backdrop-blur rounded-lg',
+                      'relative shadow-xs border  dark:border-bolt-elements-borderColor border-[#121212] backdrop-blur rounded-lg',
                     )}
                   >
                     <textarea
