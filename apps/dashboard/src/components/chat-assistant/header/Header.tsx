@@ -26,7 +26,7 @@ const Header = () => {
           className="p-2 hover:bg-bolt-elements-sidebar-buttonBackgroundHover rounded-md transition-theme"
           aria-label="Toggle Menu"
         >
-          <div className="i-ph:sidebar-simple-duotone text-xl" />
+          <div className="i-ph:sidebar-simple-duotone text-xl dark:text-white text-black" />
         </button>
         <a href="/" className="text-2xl font-semibold text-accent flex items-center cursor-pointer">
           {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
