@@ -324,7 +324,7 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
         <div ref={scrollRef} className="flex flex-col lg:flex-row overflow-y-auto w-full h-full">
           <div className={classNames(styles.Chat, 'flex flex-col flex-grow lg:min-w-[var(--chat-min-width)] h-full')}>
             {!chatStarted && (
-              <div id="intro" className="mt-[16vh] max-w-chat mx-auto text-center px-4 lg:px-0">
+              <div id="intro" className="mt-[8vh] w-full  mx-auto text-center px-4 lg:px-0">
                 {/* <h1 className="text-3xl text-[#121212] dark:text-[#F1F1F1] lg:text-6xl font-bold  mb-4 animate-fade-in">
                   Where ideas begin
                 </h1>

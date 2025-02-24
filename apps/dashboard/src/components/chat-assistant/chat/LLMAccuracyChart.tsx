@@ -172,7 +172,7 @@ const LLMAccuracyChart: React.FC = () => {
 
   return (
     <div className="w-full max-w-[1800px] mx-auto mb-8 p-8 rounded-xl bg-card">
-      <div ref={chartRef} className="chart-container w-full h-full min-h-[600px] min-w-[1800px] transition-all duration-300 ease-in-out overflow-hidden" />
+      <div ref={chartRef} className="chart-container w-full h-full min-h-[600px] min-w-[1500px] transition-all duration-300 ease-in-out overflow-hidden" />
     </div>
   );
 };
