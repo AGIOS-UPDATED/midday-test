@@ -19,7 +19,7 @@ const LLMAccuracyChart: React.FC = () => {
         }],
         chart: {
           type: 'bar',
-          height: 350,
+          height: 600,
           width: '100%',
           toolbar: {
             show: false
@@ -43,7 +43,7 @@ const LLMAccuracyChart: React.FC = () => {
             dataLabels: {
               position: 'top'
             },
-            columnWidth: '50%',
+            columnWidth: '35%',
           }
         },
         dataLabels: {
@@ -52,7 +52,7 @@ const LLMAccuracyChart: React.FC = () => {
             return val.toFixed(1) + '%';
           },
           style: {
-            fontSize: '13px',
+            fontSize: '16px',
             fontWeight: 600,
             colors: [isDark ? '#F1F1F1' : '#333333']
           },
@@ -72,11 +72,11 @@ const LLMAccuracyChart: React.FC = () => {
           labels: {
             style: {
               colors: isDark ? '#F1F1F1' : '#333333',
-              fontSize: '13px',
+              fontSize: '15px',
               fontWeight: 500
             },
             rotate: -45,
-            offsetY: 5
+            offsetY: 10
           },
           axisBorder: {
             show: false
@@ -88,10 +88,11 @@ const LLMAccuracyChart: React.FC = () => {
         yaxis: {
           min: 85,
           max: 100,
+          tickAmount: 6,
           labels: {
             style: {
               colors: isDark ? '#F1F1F1' : '#333333',
-              fontSize: '13px',
+              fontSize: '14px',
               fontWeight: 500
             },
             formatter: function (val: number) {
@@ -114,21 +115,21 @@ const LLMAccuracyChart: React.FC = () => {
             }
           },
           padding: {
-            top: 20,
-            right: 0,
+            top: 30,
+            right: 25,
             bottom: 0,
-            left: 0
+            left: 25
           }
         },
         colors: [
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF',
-          '#00A3FF'
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9',
+          '#0EA5E9'
         ],
         states: {
           hover: {
@@ -146,6 +147,9 @@ const LLMAccuracyChart: React.FC = () => {
         },
         tooltip: {
           theme: isDark ? 'dark' : 'light',
+          style: {
+            fontSize: '14px'
+          },
           y: {
             formatter: function (val: number) {
               return val.toFixed(1) + '% Accuracy';
@@ -167,7 +171,7 @@ const LLMAccuracyChart: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className="w-full max-w-[1800px] mx-auto mb-8 p-6 rounded-xl bg-card">
+    <div className="w-full max-w-[1800px] mx-auto mb-8 p-8 rounded-xl bg-card">
       <div ref={chartRef} className="chart-container" />
     </div>
   );
