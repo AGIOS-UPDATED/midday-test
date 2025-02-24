@@ -253,18 +253,19 @@ export function Chat({
               >
                 <Mic className="h-5 w-5 text-muted-foreground" />
               </button>
+              <Textarea
+                ref={inputRef}
+                tabIndex={0}
+                onKeyDown={onKeyDown}
+                rows={1}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Message Midday..."
+                spellCheck={false}
+                className="resize-none pr-14 pl-20 py-3 max-h-48"
+              />
             </div>
-            <Textarea
-              ref={inputRef}
-              tabIndex={0}
-              onKeyDown={onKeyDown}
-              rows={1}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Message Midday..."
-              spellCheck={false}
-              className="resize-none pr-14 pl-20 py-3 max-h-48"
-            />
+
           </div>
         </form>
 
