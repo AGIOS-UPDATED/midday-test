@@ -36,7 +36,7 @@ const LLMAccuracyChart: React.FC = () => {
         },
         plotOptions: {
           bar: {
-            borderRadius: 8,
+            borderRadius: 0,
             horizontal: true,
             distributed: true,
             dataLabels: {
@@ -139,7 +139,7 @@ const LLMAccuracyChart: React.FC = () => {
         tooltip: {
           theme: isDark ? 'dark' : 'light',
           y: {
-            formatter: function(val: number) {
+            formatter: function (val: number) {
               return val.toFixed(1) + '% Accuracy';
             }
           }
@@ -159,7 +159,7 @@ const LLMAccuracyChart: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className="w-full max-w-[800px] mx-auto mb-8 p-6 rounded-xl bg-card">
+    <div className="w-full max-w-[1800px] mx-auto mb-8 p-6 rounded-xl bg-card">
       <div ref={chartRef} className="chart-container" />
     </div>
   );
