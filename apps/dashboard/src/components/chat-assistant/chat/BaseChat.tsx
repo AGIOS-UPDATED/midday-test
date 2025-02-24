@@ -551,19 +551,19 @@ const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                     <div className="flex justify-between items-center text-sm p-4 pt-2">
                       <div className="flex gap-1 items-center">
                         <IconButton title="Upload file" className="transition-all" onClick={() => handleFileUpload()}>
-                          <div className="i-ph:paperclip text-xl"></div>
+                          <div className="i-ph:paperclip dark:text-white/50 text-black/20 text-xl"></div>
                         </IconButton>
                         <IconButton
                           title="Voice Message"
                           className="transition-all"
                           onClick={() => setIsVoiceRecorderOpen(true)}
                         >
-                          <div className="i-ph:microphone text-xl"></div>
+                          <div className="i-ph:microphone dark:text-white/50 text-black/20 text-xl"></div>
                         </IconButton>
                         <IconButton
                           title="Enhance prompt"
                           disabled={input.length === 0 || enhancingPrompt}
-                          className={classNames('transition-all', enhancingPrompt ? 'opacity-100' : '')}
+                          className={classNames('transition-all  ', enhancingPrompt ? 'opacity-100' : '')}
                           onClick={() => {
                             enhancePrompt?.();
                             toast.success('Prompt enhanced!');
