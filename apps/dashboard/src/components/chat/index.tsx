@@ -107,7 +107,7 @@ export function Chat({
 
   const handleWebSearch = async () => {
     if (!input.trim()) return;
-    
+
     setInput("");
     scrollToBottom();
 
@@ -162,10 +162,10 @@ export function Chat({
     // Here you can handle the recorded audio blob
     // For example, upload it to your server or process it
     console.log('Recorded audio blob:', audioBlob);
-    
+
     // Create a temporary URL for the audio
     const audioUrl = URL.createObjectURL(audioBlob);
-    
+
     // Add the voice message to the chat
     submitMessage((message: ClientMessage[]) => [
       ...message,
@@ -185,8 +185,8 @@ export function Chat({
   };
 
   return (
-    <div className="relative">
-      <ScrollArea className="todesktop:h-[335px] md:h-[335px]" ref={scrollRef}>
+    <div className="relative h-full">
+      <ScrollArea className="todesktop:h-[calc(335px-88px)] md:h-[calc(335px-88px)]" ref={scrollRef}>
         <div ref={messagesRef}>
           {messages.length ? (
             <ChatList messages={messages} className="p-4 pb-8" />
@@ -198,7 +198,7 @@ export function Chat({
         </div>
       </ScrollArea>
 
-      <div className="fixed bottom-[1px] left-[1px] right-[1px] todesktop:h-[88px] md:h-[88px] bg-background border-border border-t-[1px]">
+      <div className="absolute bottom-0 left-0 right-0 todesktop:h-[88px] md:h-[88px] bg-background border-border border-t-[1px]">
         {showExamples && <ChatExamples onSubmit={onSubmit} />}
 
         <form
