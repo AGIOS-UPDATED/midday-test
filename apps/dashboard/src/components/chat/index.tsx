@@ -223,8 +223,8 @@ export function Chat({
             className="hidden"
             accept="image/*"
           />
-          <div className="relative flex items-center">
-            <div className="absolute left-3 flex gap-2">
+          <div className=" flex items-center">
+            <div className="flex gap-2">
               <button
                 type="button"
                 onClick={handleImageClick}
