@@ -60,7 +60,7 @@ const LLMAccuracyChart: React.FC = () => {
         },
         xaxis: {
           categories: [
-            'Claude 3.5 Sonnet v2',
+            'Grok-3',
             'GPT-4 Turbo',
             'Claude 3',
             'Deepseek Reasoner',
